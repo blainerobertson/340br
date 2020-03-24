@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>Select Inventory | Web Backend Development I</title>
+	<meta name="description"
+		content="Selecting Inventory for facilitating an update or delete process using AJAX and PHP-generated JSON for the PHP Motors site of CSE 340">
+	<meta name="viewport" content="width=device-width">
+	<link rel="stylesheet" href="/340br/css/340course.css" type="text/css" media="screen">
+	<link rel="stylesheet" href="/340br/css/prism-coy-dev.min.css" type="text/css" media="screen">
+	<style>
+		ol,
+		ul {
+			padding-left: inherit;
+			margin-left: 0;
+		}
+
+		li {
+			list-style-type: none;
+		}
+
+		#showlist li {
+			list-style-type: lower-alpha !important;
+			padding-left: .5rem;
+			list-style-position: inside;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="wrapper">
+		<header id="header"><img src="/340br/images/bs_small_banner.jpg" alt="CSE 340 Banner Image"></header>
+		<main>
+				<h1>Select Vehicles</h1>
+				<h2>Overview</h2>
+				<p>When a site administrator needs to update or delete a vehicle from the database it is helpful if a list of potential vehicles is provided. This allows for quick identification of the car prior to beginning the actual update or delete process. This activity will do just that, it will select a list of vehicles from the database <mark>based on the car classification, using an AJAX request</mark> and then display a mechanism to begin the update and/or delete process <mark>from the content stored in the returned JSON object</mark>.</p>
+				<h2>Video Demonstration</h2>
+				<iframe src="https://www.youtube.com/embed/z4dwqSE9-dY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+				<h2>Vehicle Controller</h2>
+				<p>Earlier you built into the vehicles controller the ability to deliver a Vehicle Management view by default. It is in this view that we will display the list of vehicles <mark>based on the classification to which those vehicles belong. By doing this we limit the number of items displayed, keeping the list somewhat manageable. In addition, it provides a means of introducing the ability of PHP to generate JSON data and allows a review of AJAX interactions which you should have been introduced to in your earlier frontend development course.</mark></p>
+				<h3>The Default Case</h3>
+				<ol>
+					<li>Locate and open the "<b>vehicles</b>" controller.</li>
+					<li>Within the controller find the "default" case statement that is responsible for delivering the "<b>vehicle management</b>" view.</li>
+					<li>Create some space between the <i>default case</i> line and the line that actually "includes" the view. In my code the created space looks like this (your names may be different): 
+						<pre class="line-numbers"><code	class="language-php">default:
+       
+       
+  include '../view/vehicle-man.php'; 
+break; </code></pre>
+					</li>
+					<li>Within the empty space we will call a function and store the results that will create a select list to be displayed in the vehicle management view. The function to create the select list
+						uses the same <code>$classifications</code> array that was used to build the navigation bar.
+						<ol>
+							<li>
+								<pre><code class="language-php">$classificationList = buildClassificationList($classifications);</code></pre>
+							</li>
+						</ol>
+					</li>
+				</ol>
+				<h3>A New Case Statement</h3>
+				<p>Even though we're not ready to use it quite yet, let's write a case statement that will handle requests to get a list of vehicles from the inventory table based on car classification that will
+					be selected in the vehicle management view.</p>
+				<p>In the space immediately above the default case, create some empty lines. Within this empty space create the new case as shown below:</p>
+				<pre class="line-numbers"><code class="language-php">/* * ********************************** 
+* Get vehicles by classificationId 
+* Used for starting Update & Delete process 
+* ********************************** */ 
+case 'getInventoryItems': 
+ // Get the classificationId 
+ $classificationId = filter_input(INPUT_GET, 'classificationId', FILTER_SANITIZE_NUMBER_INT); 
+ // Fetch the vehicles by classificationId from the DB 
+ $inventoryArray = getInventoryByClassification($classificationId); 
+ // Convert the array to a JSON object and send it back 
+ echo json_encode($inventoryArray); 
+ break;</code></pre>
+				<h4>An Explanation</h4>
+				<ul>
+					<li><b>Lines 1 - 4:</b> Comments about the new case statement</li>
+					<li><b>Line 5:</b> The case statement</li>
+					<li><b>Line 6:</b> A comment about line 7</li>
+					<li><b>Line 7:</b> Collects and filters the input of classificationId from the view</li>
+					<li><b>Line 8:</b> A comment about line 9</li>
+					<li><b>Line 9:</b> Uses the classificationId to request an array of vehicles in inventory that belong to that	classification</li>
+					<li><b>Line 10:</b> A comment about line 11</li>
+					<li><b>Line 11:</b> Converts the inventory array to a JSON object and returns it to the view. <mark>Note the use of <code>echo</code>, not <code>return</code> to send back the JSON object.</mark></li>
+					<li><b>Line 12:</b> Ends the case statement</li>
+				</ul>
+				<ol>
+					<p>That's it for the controller. Make sure you've saved your work. Now, let's write the custom function to build our select list as called in our <code>default</code> case.</p>
+
+					<h2>buildClassificationList() Function</h2>
+					<p>We may want to reuse this function so we'll write it in our <b>functions.php</b> page.</p>
+					<ol>
+						<li>Find and open the <b>functions.php</b> page in the <b>library</b> folder.</li>
+						<li>Move to the bottom of the file and, if needed, create a few empty lines to separate the new function from any existing functions.</li>
+						<li>Add the new function as shown below:
+							<pre class="line-numbers"><code class="language-php">// Build the classifications select list 
+function buildClassificationList($classifications){ 
+ $classificationList = '&lt;select name="classificationId" id="classificationList"&gt;'; 
+ $classificationList .= "&lt;option&gt;Choose a Classification&lt;/option&gt;"; 
+ foreach ($classifications as $classification) { 
+  $classificationList .= "&lt;option value='$classification[classificationId]'&gt;$classification[classificationName]&lt;/option&gt;"; 
+ } 
+ $classificationList .= '&lt;/select&gt;'; 
+ return $classificationList; 
+}</code></pre>
+						</li>
+					</ol>
+					<h3>An Explanation</h3>
+					<ol>
+						<li><b>Line 1:</b> A comment about the function</li>
+						<li><b>Line 2:</b> Declares the function and specifies the parameter - an array of classifications </li>
+						<li><b>Line 3:</b> Begins the <code>select</code> element.</li>
+						<li><b>Line 4:</b> Creates a default option with no value.</li>
+						<li><b>Lines 5-7:</b> A foreach loop to create a new option for each element within the array.</li>
+						<li><b>Line 8:</b> Ends the <code>select</code> element.</li>
+						<li><b>Line 9:</b> Returns the finished select element that has been stored into the variable.</li>
+						<li><b>Line 10:</b> Ends the function.</li>
+					</ol>
+					<p>The Vehicles model is our next stop. We need to build the <b>getInventoryByClassification()</b> function as shown in the <b>getInventoryItems</b> case on line 9 above.</p>
+					<h2>getInventoryByClassification() Function</h2>
+					<p>When the request from the view is received, and the classificationId is collected we will use it to obtain a list of vehicles in inventory that belong to that classificationId. If you refer back to the database you'll see that the classificationId
+						is the primary key of the classifications table, and is a foreign key in the inventory table. Thus, it is what links a particular vehicle in inventory to it's classification.</p>
+					<ol>
+						<li>Locate and open the <b>Vehicles</b> model in the <b>model</b> folder.</li>
+						<li>Move to the bottom and create a line or two to separate the new function from any existing functions.</li>
+						<li>Create the new function as shown below:
+							<pre class="line-numbers"><code class="language-php">// Get vehicles by classificationId 
+function getInventoryByClassification($classificationId){ 
+ $db = phpmotorsConnect(); 
+ $sql = ' SELECT * FROM inventory WHERE classificationId = :classificationId'; 
+ $stmt = $db->prepare($sql); 
+ $stmt->bindValue(':classificationId', $classificationId, PDO::PARAM_INT); 
+ $stmt->execute(); 
+ $inventory = $stmt->fetchAll(PDO::FETCH_ASSOC); 
+ $stmt->closeCursor(); 
+ return $inventory; 
+}</code></pre>
+						</li>
+					</ol>
+					<h3>An Explanation</h3>
+					<ol>
+						<li><b>Line 1:</b> A comment about the function</li>
+						<li><b>Line 2:</b> Declares the function and the required parameter which is a classificationId</li>
+						<li><b>Line 3:</b> Calls the database connection</li>
+						<li><b>Line 4:</b> The Sql statement to query all inventory from the inventory table with a classificationId that matches the value passed in through the parameter.</li>
+						<li><b>Line 5:</b> Creates the PDO prepared statement.</li>
+						<li><b>Line 6:</b> Replaces the named placeholder with the actual value as an integer.</li>
+						<li><b>Line 7:</b> Runs the prepared statement with the actual value.</li>
+						<li><b>Line 8:</b> Requests a multi-dimensional array of the vehicles as an associative array, stores the array in a variable.</li>
+						<li><b>Line 9:</b> Closes the database connection.</li>
+						<li><b>Line 10:</b> Returns the array.</li>
+						<li><b>Line 11:</b> Ends the function.</li>
+					</ol>
+					<p>With the controller and model ready, and the custom function added we're ready to turn our attention to the view. The view itself will only do four things:</p>
+					<ol>
+						<li>Echo the classification list that will be built in the default case statement.</li>
+						<li>Contain an empty table that we will use to display the inventory of vehicles returned from the controller.</li>
+						<li>Contain a <code>&lt;noscript&gt; element that will display a message if JavaScript is disabled.</code>
+						</li>
+						<li>Hook up to a JavaScript file that will watch for changes in the select list and request data from the controller. When the data is returned, it will wrap it up in html and inject it into the table mentioned in #2 above.</li>
+					</ol>
+					<h2>The Vehicle Management View</h2>
+					<p>Find and open the <b>vehicle management view</b> in the <b>view</b> folder.</p>
+					<h3>Protect the Inventory views</h3>
+					<ol>
+						<li>If you did not complete the Enhancement 6 Bonus activity (to add protection to the vehicle management views), we will do it now.</li>
+						<li>Scroll to the top of the <b>vehicle management</b> view.</li>
+						<li>Add the following PHP code block above the HTML doctype declaration but make sure there are no empty lines or empty spaces between the code block and the declaration:
+							<pre class="line-numbers"><code class="language-php">&lt;?php
+if ($_SESSION['clientData']['clientLevel'] &lt; 2) {
+ header('location: /phpmotors/');
+ exit;
+}
+?&gt;</code></pre>
+							<strong>Note: Your names may not be identical to those shown. Check your login process for session names.</strong>
+							<h4>An Explanation</h4>
+							<ul>
+								<li>When a client logs in, their client level is stored into the session as part of the client data.</li>
+								<li>This tests if their "clientLevel" is less than 2.</li>
+								<li>If so, they are redirected to the phpmotors root where the main controller will receive it and display the home view.</li>
+								<li>The only way the client data is stored to the session is if the client is "logged in".</li>
+							</ul>
+						</li>
+						<li>Add the same code block to the other two vehicle management views - <b>Add vehicle</b> and <b>Add	Classification</b>. This ensures that only a logged in user who is an adminstrator can access the inventory management area.</li>
+					</ol>
+					<h3>Display the Classification List</h3>
+					<ol>
+						<li>Scroll down into the <code>&lt;main&gt;</code> section of the page. Create about 5 or 6 empty lines beneath the existing links to add a new classification or new vehicle.</li>
+						<li>You'll create a PHP code block that will: 1) display a message if there is one, 2) display a heading and directions and the classification list if there is one.</li>
+						<li>In the empty space that you created, add the following code block:
+							<pre class="line-numbers"><code class="language-php">&lt;?php
+if (isset($message)) { 
+ echo $message; 
+} 
+if (isset($classificationList)) { 
+ echo '&lt;h2&gt;Vehicles By Classification&lt;/h2&gt;'; 
+ echo '&lt;p&gt;Choose a classification to see those vehicles&lt;/p&gt;'; 
+ echo $classificationList; 
+}
+?&gt;</code></pre>
+						</li>
+					</ol>
+					<h4>An Explanation</h4>
+					<ol>
+						<li><b>Line 1:</b> Begins the PHP code block.</li>
+						<li><b>Line 2:</b> An "if" test to see if the message variable exists.</li>
+						<li><b>Line 3:</b> If the test is true, the message is displayed.</li>
+						<li><b>Line 4:</b> Ends the "if" test.</li>
+						<li><b>Line 5:</b> An "if" test to see if the classificationList variable exists.</li>
+						<li><b>Lines 6-7:</b> If the test is true it builds a level 2 heading and paragraph for this section of content.</li>
+						<li><b>Line 8:</b> Displays the classification list which has been encoded into an HTML select element.</li>
+						<li><b>Line 9:</b> Ends the "if" test.</li>
+						<li><b>Line 10:</b> Ends the PHP code block.</li>
+					</ol>
+					<h3>No Script Element</h3>
+					<p>Because we will use JavaScript to build and display the list of inventory we need a means of telling the client that JavaScript is required. That's the purpose of the no script element.</p>
+					<p>Immediately beneath the PHP code block, add the following HTML code:</p>
+					<pre class="line-numbers"><code class="language-markup">&lt;noscript&gt;
+&lt;p&gt;&lt;strong&gt;JavaScript Must Be Enabled to Use this Page.&lt;/strong&gt;&lt;/p&gt;
+&lt;/noscript&gt;</code></pre>
+					<p>If the browser detects that JavaScript is disabled, it will show the &lt;noscript&gt; element and its contents. If JavaScript is enabled the &lt;noscript&gt; element is hidden.</p>
+					<h3>The Table</h3>
+					<p>Typically when an HTML table is built it consists of the &lt;table&gt; element, then inside you may find a &lt;thead&gt;, &lt;tfoot&gt; and &lt;tbody&gt; elements. In our case, we only want
+						the outer &lt;table&gt; element. All of the
+						interior elements and content will be created by JavaScript, then "injected" into the table element &mdash; this is known as <abbr title="Document Object Model">DOM</abbr> manipulation.
+					</p>
+					<p>On the next line, directly beneath the &lt;/noscript&gt; closing tag, add the following HTML code:</p>
+					<pre><code class="language-markup">&lt;table id="inventoryDisplay"&gt;&lt;/table&gt;</code></pre>
+					<p><mark>Note the id attribute and its value.</mark> They will be used as a JavaScript hook to know where to inject the inventory list.</p>
+					<h3>Connect to the JavaScript File</h3>
+					<p>Hopefully you'll remember from the Frontend development class that best practice is to write HTML, CSS and JavaScript in separate files, then connect them together. You already have an HTML
+						file and a CSS file and they are separate from one another but connected using a &lt;link&gt; element. We want to create a JavaScript file and connect it to the HTML file too.</p>
+					<ol>
+						<li>Scroll down in the vehicle management page until you find the closing body tag &mdash;	&lt;/body&gt;.</li>
+						<li>Create an empty line <strong>above</strong> the closing &lt;/body&gt; tag.</li>
+						<li>In this new empty line add the following HTML code:
+							<pre><code class="language-markup">&lt;script src="../js/inventory.js"&gt;&lt;/script&gt;</code></pre>
+							Don't worry that the folder and file don't exist. We'll create them next. </li>
+					</ol>
+					<h2>The JavaScript File</h2>
+					<p>Our JavaScript file will do two things for us: 1) listen to the classifications select element to detect when a new classification is selected. When a change occurs it will ask the vehicles controller to fetch the vehicles from inventory for the classification and send them back, and 2) when the inventory data is returned, it will send the data, as a JavaScript object, to a new JavaScript function to build the table structure around it, then inject it into the table that we just added to the inventory management view.</p>
+					<h3>Build the JavaScript folder</h3>
+					<p>In the phpmotors folder, create a new folder. In the path shown above you'll see that I named mine <b>js</b>, short for JavaScript. Whatever you name your folder, make sure you alter the path in the script element to match.</p>
+					<h3>Create inventory.js</h3>
+					<p>Inside the new JavaScript folder, create a new file named "<b>inventory.js</b>". As always, we want our files to represent what they do. In this case, the file will work with inventory.</p>
+					<h3>The eventListener</h3>
+					<p>Modern JavaScript has what is called an "eventListener" method. It does what it sounds like, it listens for an event to occur. In our case, the event will be when the select element "changes".
+					</p>
+					<p>At the top of the new JavaScript file, add the following code:</p>
+					<pre class="line-numbers"><code class="language-javascript">'use strict' 
+ 
+ // Get a list of vehicles in inventory based on the classificationId 
+ let classificationList = document.querySelector("#classificationList"); 
+ classificationList.addEventListener("change", function () { 
+  let classificationId = classificationList.value; 
+  console.log(`classificationId is: ${classificationId}`); 
+  let classIdURL = "/phpmotors/vehicles/index.php?action=getInventoryItems&classificationId=" + classificationId; 
+  fetch(classIdURL) 
+  .then(function (response) { 
+   if (response.ok) { 
+    return response.json(); 
+   } 
+   throw Error("Network response was not OK"); 
+  }) 
+  .then(function (data) { 
+   console.log(data); 
+   buildInventoryList(data); 
+  }) 
+  .catch(function (error) { 
+   console.log('There was a problem: ', error.message) 
+  }) 
+ })</code></pre>
+					<h4>An Explanation</h4>
+					<ul>
+						<li><b>Line 1:</b> the 'use strict' directive tells the JavaScript parser to follow all rules strictly.</li>
+						<li><b>Line 3:</b> A comment about the code.</li>
+						<li><b>Line 4:</b> Finds the classification select element in the vehicle management page based on its ID and stores its reference into a local JavaScript variable.</li>
+						<li><b>Line 5:</b> Attaches the eventListener to the variable representing the classification select element and listens for any "change". When a change occurs an anonymous function is
+							executed.</li>
+						<li><b>Line 6:</b> Captures the new value from the classification select element and stores it into a JavaScript variable.</li>
+						<li><b>Line 7:</b> Writes the value as part of a string to the console log for testing purposes. <mark>Note that the text is surrounded by "ticks", not single quotes. The "tick" key is to the left of the 1 on your keyboard. Text that is surrounded by ticks is known as a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals" title="Open in a new tab" target="_blank"> JavaScript template literal</a>.</mark> A JavaScript template literal is equivalent to using double-quotes in PHP, it allows the value of a variable to be rendered within a string without the use of concatenation.</li>
+						<li><b>Line 8:</b> The URL that will be used to request inventory data from the vehicles controller. Notice the two parameter name-value pairs at the end.</li>
+						<li><b>Line 9:</b> The JavaScript "Fetch" which is a modern method of initiating an AJAX request.</li>
+						<li><b>Line 10:</b> A "then" method that waits for data to be returned from the fetch. The response object is passed into an anonymous function for processing.</li>
+						<li><b>Line 11:</b> An "if" test to see if the response was retuned successfully. If not, the error on line 14 occurs.</li>
+						<li><b>Line 12:</b> If the response was successful, then the JSON object that was returned is converted to a JavaScript object and passed on to the next "then" statement on line 16.</li>
+						<li><b>Line 13:</b> Ends the "if" test begun on line 11.</li>
+						<li><b>Line 14:</b> The error that occurs if it if test (line 11) fails.</li>
+						<li><b>Line 15:</b> Ends the "then" process begun on line 10.</li>
+						<li><b>Line 16:</b> Accepts the JavaScript object from line 12, and passes it as a parameter into an anonymous function.</li>
+						<li><b>Line 17:</b> Sends the JavaScript object to the console log for testing purposes. </li>
+						<li><b>Line 18:</b> Sends the JavaScript object to a new function that will parse the data into HTML table elements and inject them into the vehicle management view.</li>
+						<li><b>Line 19:</b> Ends the "then" process which began on line 16.</li>
+						<li><b>Line 20:</b> A "catch" which captures any errors and sends them into an anonymous function.</li>
+						<li><b>Line 21:</b> Writes the caught error to the console log for us to see for troubleshooting.</li>
+						<li><b>Line 22:</b> Ends the "catch" begun on line 20.</li>
+						<li><b>Line 23:</b> Ends the eventListener.</li>
+					</ul>
+					<p>In short, the function shown above requests the data, based on the classificationId and catches any errors if they exist, and sends the retrieved data to the <b>buildInventoryList</b> function for building it into HTML and then displays it into the vehicle management web page.</p>
+					<h3>The buildInventoryList Function</h3>
+					<p>Finally, let's build the function that will parse the JavaScript object and wrap it up into HTML, then inject it into the vehicle management view.</p>
+					<pre class="line-numbers"><code class="language-javascript">// Build inventory items into HTML table components and inject into DOM 
+function buildInventoryList(data) { 
+ let inventoryDisplay = document.getElementById("inventoryDisplay"); 
+ // Set up the table labels 
+ let dataTable = '&lt;thead&gt;'; 
+ dataTable += '&lt;tr&gt;&lt;th&gt;Vehicle Name&lt;/th&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;'; 
+ dataTable += '&lt;/thead&gt;'; 
+ // Set up the table body 
+ dataTable += '&lt;tbody&gt;'; 
+ // Iterate over all vehicles in the array and put each in a row 
+ data.forEach(function (element) { 
+  console.log(element.invId + ", " + element.invModel); 
+  dataTable += `&lt;tr&gt;&lt;td&gt;${element.invMake} ${element.invModel}&lt;/td&gt;`; 
+  dataTable += `&lt;td&gt;&lt;a href='/phpmotors/vehicles?action=mod&id=${element.invId}' title='Click to modify'&gt;Modify&lt;/a&gt;&lt;/td&gt;`; 
+  dataTable += `&lt;td&gt;&lt;a href='/phpmotors/vehicles?action=del&id=${element.invId}' title='Click to delete'&gt;Delete&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;`; 
+ }) 
+ dataTable += '&lt;/tbody&gt;'; 
+ // Display the contents in the Vehicle Management view 
+ inventoryDisplay.innerHTML = dataTable; 
+}</code></pre>
+					<h4>An Explanation</h4>
+					<ul>
+						<li><b>Line 1:</b> A comment about the function's operation</li>
+						<li><b>Line 2:</b> Declares the function and indicates the JavaScript object is a required parmater.</li>
+						<li><b>Line 3:</b> Reaches into the HTML document, uses the ID to capture the element and assigns it to a JavaScript variable for use later.</li>
+						<li><b>Line 4:</b> A comment concerning lines 5 through 7.</li>
+						<li><b>Line 5:</b> Creates a JavaScript variable and stores the beginning HTML element into it as a string.</li>
+						<li><b>Line 6:</b> Creates the table row and three table cells as a string and appends it to the variable created on line 5.</li>
+						<li><b>Line 7:</b> Adds the closing <b>thead</b> element to the variable using the append operator.</li>
+						<li><b>Line 8:</b> A comment concerning lines 9 through 17.</li>
+						<li><b>Line 9:</b> Appends the opening <b>tbody</b> tag to the string stored in the variable. </li>
+						<li><b>Line 10:</b> A comment about lines 11 through 16.</li>
+						<li><b>Line 11:</b> Implements the foreach method on the data object. Each element in the object is sent into an anonymous function as a parameter.</li>
+						<li><b>Line 12:</b> Sends the name and id of each element to the console log for testing purposes.</li>
+						<li><b>Line 13:</b> Creates a table cell with the vehicle name and appends it to the variable. </li>
+						<li><b>Line 14:</b> Creates a table cell with a link to begin the update process for this item (note the inclusion of the action and id name-value pairs in the URL) and appends it to the variable.</li>
+						<li><b>Line 15:</b> Creates a table cell with a link to begin the delete process for this item (note the inclusion of the action and id name-value pairs in the URL) and appends it to the
+							variable.</li>
+						<li><b>Line 16:</b> Ends the forEach loop and its embeded anonymous function.</li>
+						<li><b>Line 17:</b> Appends the closing <b>tbody</b> element to the variable.</li>
+						<li><b>Line 18:</b> A comment about line 19.</li>
+						<li><b>Line 19:</b> Injects the finished table components into the vehicle management view DOM element that was identified on line 3.</li>
+						<li><b>Line 20:</b> Ends the function.</li>
+					</ul>
+					<h2>Time to Test</h2>
+					<ol id="showlist">
+						<li>Save all files if you haven't already done so.</li>
+						<li>Run the <b>Vehicles Controller</b>.</li>
+						<li>If you are not logged in as an adminstrative user you should be redirected to the PHP Motors	home view.</li>
+						<li>Click the "My Account" link and you should now be viewing the login view.</li>
+						<li>Login using the administrative account that you created earlier - username: admin@cit340.net, password: Sup3rU$er</li>
+						<li>In the browser address bar, alter the URL to point to the vehicles folder (e.g. http://localhost/phpmotors/vehicles/) and press the "Enter" key.</li>
+						<li>If things worked correctly, you should be looking at the view and a heading and paragraph should appear indicating that your should choose a classification item from the select list.
+						</li>
+						<li>The select list should appear below the heading and paragraph.</li>
+						<li>When you change the list to select a classification, there should be a very short pause and then the table of inventory should appear immediately below the select list.</li>
+						<li>Every time you change the list to a different classification, the table of items should change too.</li>
+						<li>If you open the browser inspect tools, and then click the "Console" tab you should see the log items that were part of the JavaScript eventListener and funtion.</li>
+						<li>You will need to add some CSS to your external style sheet to dress up the table and make things easier to view.</li>
+						<li>If things worked as planned you are ready to move on. If they didn't work, get help from a member of your learning team, using the discussion board, from one of the TA's or your professor. But it has to work before moving to the next activity.</li>
+					</ol>
+		</main>
+		<footer>
+			<a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US" target="_blank"><img alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by-sa/3.0/88x31.png"></a> All materials (except as noted) are by
+			Blaine Robertson and licensed under a <a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US" title="Read the license" target="_blank">Creative Commons Attribution-ShareAlike 3.0 License</a>.</footer>
+	</div>
+	<script src="/340br/js/prism-coy-dev.min.js"></script>
+</body>
+
+</html>

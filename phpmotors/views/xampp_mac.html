@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+ <meta charset="utf-8">
+ <meta http-equiv="x-ua-compatible" content="ie=edge">
+ <title>Installing XAMPP for Mac | Web Backend Development I</title>
+ <meta name="description" content="Directions for installing XAMPP for Mac for CSE 340">
+ <meta name="viewport" content="width=device-width">
+ <link rel="stylesheet" href="../css/340course.min.css" media="screen">
+</head>
+
+<body>
+ <div id="main">
+  <header id="header"><img src="../images/bs_small_banner.jpg" alt="CSE 340 Banner Image"></header>
+  <main>
+   <article id="article">
+    <h1>Installing XAMPP for Mac</h1>
+
+    <h2>Introduction</h2>
+    <p>An ideal situation for web development is to have a local environment for development and testing and a remote production environment for distributing your work to the rest of the world. To create a local environment requires the installation of server software on your own machine. For web development using PHP, this is known as an "<abbr title="Apache, MySQL and PHP">AMP</abbr>" (Apache, MySQL and PHP) stack. This software bundle gives your machine many of the same capabilities as a dedicated server. On a Mac, the bundle discussed in this tutorial is XAMPP (Apache, MariaDB, PHP and PERL) for Macintosh.</p>
+
+    <h2>Download</h2>
+    <p>Using your web browser go to <a href="//www.apachefriends.org/" target="_blank" title="Go to apachefriends.org in a new tab">apachefriends.org</a>. Once there, click the "Download" link in the navigation bar, then scroll down to the list of downloads for OS X. Find and download the latest NON VM version of PHP 7 version of XAMPP (the third item in the list with a size of ~148Mb) for Mac. Save the installation file to your machine.</p>
+
+    <h2>Installation</h2>
+    <ol>
+     <li>Locate and launch the downloaded installation file on your computer.</li>
+     <li>If presented with the security warning about opening a file downloaded from the Internet, proceed by clicking "Open".</li>
+     <li>You will need to enter your computer's password for the install to continue.</li>
+     <li>When the install begins, accept the default settings for the first three screens. Make sure both checkboxes in the components are selected<br>
+     <img src="../images/xamppmac/components.jpg" alt="Picture of components screen"></li>
+     <li>On the fourth screen, turn off the checkbox asking if you want to learn more about XAMPP on Bitnami, then click "Next".</li>
+     <li>Continue clicking "Next" until the installation finishes, then click "Finish".</li>
+    </ol>
+
+    <p><img src="../images/xamppmac/macxamppfinish.jpg" alt="xampp for mac install finished image" title="xampp for mac install finished image"></p>
+
+    <ol>
+     <li value="7">If the installation finished successfully XAMPP will start automatically and launch a browser window with a splash screen.</li>
+    </ol>
+
+    <p><img src="../images/xamppmac/xamppbrowsersplash.jpg" alt="XAMPP for mac spash page image" title="XAMPP for mac spash page"></p>
+
+
+    <h2>Configuration</h2>
+    <ol>
+     <li>The installer has created a new <b>XAMPP</b> folder in the Applications folder.</li>
+     <li>It is within this folder that the local environment runs.</li>
+     <li>When the installer finished the XAMPP application manager was launched (it may not be visible).</li>
+     <li>Find and go to it in your running applications. Click the center tab to view the Server Manager.</li>
+     <li>In the control panel click the "MySQL Database" option in the list, then click the "Start" button on the right. The Apache server should already be running.</li>
+    </ol>
+
+    <p><img src="../images/xamppmac/xamppmaccontrol.jpg" alt="XAMPP for mac control panel" title="XAMPP for mac control panel"></p>
+
+    <ol>
+     <li value="5">Make sure that both server indicators turn green to indicate they are running.</li>
+     <li>If all of these things have happened as explained, XAMPP is installed and running correctly.</li>
+     <li>If you encounter an error, consult the "<a href="#troubleshooting" title="Click to jump to the Troubleshooting section">Troubleshooting</a>" section below.</li>
+    </ol>
+
+    <h2>The Site Root</h2>
+    <p>Every web server has a "root" or a folder that holds all of the assets of the web site. In XAMPP that folder is found in <b>Applications &gt; XAMPP &gt; htdocs</b>. Please locate it now.</p>
+    <p>By default, it already has files and folders in it, do not delete anything until you know what they do. You will add your own folders and files to this folder as you do work in this class.</p>
+
+    <h2>Running and Stopping XAMPP</h2>
+    <p>Running servers on your local machine is a useful tool, but one that can potentially use much of your computer's resources. Therefore, it is important to start XAMPP only when you are developing and shut it down when finished.</p>
+
+    <h3>Starting XAMPP</h3>
+    <p>Launch XAMPP and go to the Manage Servers tab of the Application Manager. Then click the Apache and MySQL servers and "Start" each.</p>
+
+    <h3>Stopping XAMPP</h3>
+    <p>When shutting down, be sure to first "Stop All Servers". Then quit XAMPP. If you quit XAMPP before stopping the servers they will continue to run in the background.</p>
+
+    <h2 id="troubleshooting">Troubleshooting</h2>
+    <p>Use the following troubleshooting items if the Apache or Database Servers will not start.</p>
+    <h3>Turn Off Conflicting Programs</h3>
+    <p>If the Apache server will not start it may be due to other programs running that are using the web port. Check if any of the following are running:</p>
+    <ul>
+     <li>Skype &mdash; Quit it (don't just close the window).</li>
+<!--     <li>VMWare &mdash; Use this <a href="../downloads/xampp-error-fixes.pdf" title="Open the PDF in a new tab" target="_blank">Error Correction PDF</a> to turn if off or change settings.</li>-->
+    </ul>
+    <h3>Check the Web Port</h3>
+    <ol>
+     <li>Normally it is desirable to have Apache running on port 80 for web pages. This is the default web port across the Internet. Check to make sure that is the Apache server port for XAMPP.</li>
+     <li>In the XAMPP manager, click the Apache Web Server item in the list, then click the "Configure" button on the right.</li>
+    </ol>
+
+    <p><img src="../images/xamppmac/macxamppapacheconfig.jpg" alt="XAMPP for Mac config image" title="XAMPP for Mac config image"></p>
+
+    <ol>
+     <li value="3">If it is already 80, click "Cancel".</li>
+     <li>If the port is <b>NOT</b> showing "80", change it to 80. Click "OK", then click the Apache server "Restart" button. You may be asked to enter your computer password to allow this to happen.</li>
+    </ol>
+    <h3>Changing the SSL Port</h3>
+    <ol>
+     <li>If you receive an error that Apache cannot start because Port 443 is in use by another program, click the "Config" button next to Apache. In the configuration window, click the "Open Config File" button. Click "Yes" to the warning window that will open.</li>
+     <li>Search in the file for "httpd-ssl.conf". When found, make sure there is no hashtag (#) at the beginning of the line (on the left). If there is, remove it.</li>
+     <li>Save and close the httpd.conf file.</li>
+     <li>Find and open the httpd-ssl.conf file. It should be at /Applications/XAMPP/xamppfiles/etc/extra/httpd-ssl.conf.</li>
+     <li>Find the line that reads ;<q>Listen 443</q>. Change the Port to 442 or 444, save and close the file. Then try starting Apache again.</li>
+     <li>Once Apache has started, launch a browser and in the address bar type "localhost" and press enter.</li>
+     <li>Either the XAMPP language splash screen or the XAMPP success screen will appear. If the splash screen, choose your language. In either case, it means XAMPP is now configured.</li>
+    </ol>
+
+    <h2>Video Version</h2>
+    <p>The video demonstrated downloading version 7.1.x - Non VM version - in Sept. 2017.</p>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/ZknM6ud1va0" allowfullscreen></iframe>
+
+   </article>
+  </main>
+  <footer>
+   <a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US"><img alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by-sa/3.0/88x31.png" /></a> All materials (except as noted) are by Blaine Robertson and licensed under a <a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US">Creative Commons Attribution-ShareAlike 3.0 License</a>.</footer>
+ </div>
+ <script src="../js/course.min.js"></script>
+</body>
+
+</html>

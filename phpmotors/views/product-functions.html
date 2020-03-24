@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>Inventory Item Functions | Web Backend Development I</title>
+	<meta name="description" content="The Inventory Functions activity of the PHP Motors site project for CSE 340">
+	<meta name="viewport" content="width=device-width">
+	<link rel="stylesheet" href="/340br/css/340course.css" media="screen">
+	<link rel="stylesheet" href="/340br/css/prism-coy-dev.min.css" media="screen">
+</head>
+
+<body>
+	<div id="main">
+		<header id="header">
+			<img src="/340br/images/bs_small_banner.jpg" alt="CSE 340 Banner Image">
+		</header>
+		<main>
+			<article id="article">
+				<h1>Vehicles Functions</h1>
+				<p>Be sure that the previous activity is complete. In this activity you will build two functions. One in the <b>vehicles</b> model to query the database for vehicles based on the car classification. The second will be a custom function in the <b>functions.php</b> file to use the array of vehicles and build
+					the HTML around it for display in the view.</p>
+
+				<h2>Video Overview</h2>
+				<p>This video overviews the two functions to be built for this activity.</p>
+				<iframe src="https://www.youtube.com/embed/psmaYLaznyY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+				<h2>Vehicles Model</h2>
+				<p>When we built the navigation bar we displayed the name of the car classification to be "human friendly". However, in the inventory table the vehicles are associated with the classificationId, not the classificationName. We will use a SQL subquery to solve this issue for us.</p>
+				<ol>
+					<li>Find and open the "vehicles" model in the <b>model</b> folder.</li>
+					<li>Scroll to the bottom of the list of existing functions and add a new comment indicating that the new function will get a list of vehicles based on the classification.</li>
+					<li>Add the key word "function" and then refer back to the controller for the function name and parameter you said would be used. Copy and paste the function name and parameter from the controller and paste them after the key word "function" and add the opening and closing curly braces, for example:
+<pre class="line-numbers"><code class="language-php">function getVehiclesByClassification($classificationName){
+
+}</code></pre></li>
+					<li>Add the rest of the function as shown:
+<pre class="line-numbers"><code class="language-php">function getVehiclesByClassification($classificationName){
+ $db = phpmotorsConnect();
+ $sql = 'SELECT * FROM inventory WHERE classificationId IN (SELECT classificationId FROM carclassification WHERE classificationName = :classificationName)';
+ $stmt = $db->prepare($sql);
+ $stmt->bindValue(':classificationName', $classificationName, PDO::PARAM_STR);
+ $stmt->execute();
+ $vehicles = $stmt->fetchAll(PDO::FETCH_ASSOC);
+ $stmt->closeCursor();
+ return $vehicles;
+}</code></pre>
+					</li>
+					<li>Everything should look familiar with the possible exception of the SQL statement. Let's look at it now:
+						<ul>
+							<li>The first part is pretty basic:
+								<i>
+									<code>SELECT * FROM inventory WHERE classificationId</code>
+								</i> - Get everything from the inventory table where the classificationId is...</li>
+							<li>The second part, the subquery, is where we get the value to match with the classificationId:
+								<i>
+									<code>IN (SELECT classificationId FROM carclassification WHERE classificationName = :classificationName)</code>
+								</i>
+							</li>
+							<li>The keyword "IN" refers to the value to be returned from the subquery.</li>
+							<li>The subquery asks for the classificationId based on a match of the classificationName in the database table that will match the classificationName (e.g. :classificationName)
+								that we will send into the query as a named parameter.</li>
+						</ul>
+					</li>
+					<li>If the function works as planned, we will send a  "classificationName" (e.g. Truck) into the function based on the navigation link that was clicked. It will query the database and the subquery will find that the "Truck" classification has a classificationId of "1". It will then get a list of all the vehicles and all of the vehicle information where the vehicle has a classificationId of "1".</li>
+					<li>The array of vehicles is then returned to the controller.</li>
+					<li>Save the "vehicles model".</li>
+				</ol>
+
+				<h2>Vehicles HTML Function</h2>
+				<p>You will recall that when we needed to take dynamic data returned from the database and wrap HTML structures around it, we used custom functons to do so. We will follow the same pattern here.</p>
+				<ol>
+					<li>Find and open the <b>functions.php</b> file in the <b>library</b> folder.</li>
+					<li>Scroll to the bottom of the list of existing functions and add a new comment indicating that the new function will build a display of vehicles within an unordered list.</li>
+					<li>Build the balance of the function as shown:
+<pre class="line-numbers"><code class="language-php">function buildVehiclesDisplay($vehicles){
+ $dv = '&lt;ul id="inv-display"&gt;';
+ foreach ($vehicles as $vehicle) {
+  $dv .= '&lt;li&gt;';
+  $dv .= "&lt;img src='$vehicle[invThumbnail]' alt='Image of $vehicle[invMake] $vehicle[invModel] on phpmotors.com'&gt;";
+  $dv .= '&lt;hr&gt;';
+  $dv .= "&lt;h2&gt;$vehicle[invMake] $vehicle[invModel]&lt;/h2&gt;";
+  $dv .= "&lt;span&gt;$vehicle[invPrice]&lt;/span&gt;";
+  $dv .= '&lt;/li&gt;';
+ }
+ $dv .= '&lt;/ul&gt;';
+ return $dv;
+}</code></pre>
+					</li>
+					<li>When done, the function returns the variable <b>$dv</b> (e.g. display vehicles) to the controller where it is stored as
+						<code>$vehicleDisplay</code>. It is then ready to be used in the view.</li>
+					<li>Save the <b>functions.php</b> file.</li>
+					<li>We will test before moving on to the next activity where the view is actually built and styled.
+					</li>
+				</ol>
+
+				<h2>Test Time</h2>
+				<p>While we don't yet have a view, we can still test to make sure the process is working to this point.
+				</p>
+				<ol>
+					<li>Start the Apache and Database servers if they are not already running.</li>
+					<li>Open the "vehicles controller" and scroll down to the case statement built in the previous activity (e.g. <code>case 'classification':</code>)</li>
+					<li>Find the line where the view should be included and add two new lines <b>before</b> that line.</li>
+					<li>Add this code to the new lines you just created:<br>
+						<pre class="line-numbers"><code class="language-php">echo $vehicleDisplay;
+exit;</code></pre>
+					</li>
+					<li>Save the controller file.</li>
+					<li>Run the "main controller". The home view should be delivered.</li>
+					<li>Click one of the main navigation links.</li>
+					<li>If things worked, you should be viewing an unordered list of vehicles that belong to the car classification that you clicked. The images probably won't work, we'll fix that in the next activity.</li>
+					<li>If things did not work, double check your code, get help, do whatever it takes to get things working.</li>
+					<li>If things worked, "Well done" and you are ready to continue.</li>
+					<li>Return to the "vehicles controller" and comment out or delete the echo and exit lines that you added to do the testing.</li>
+					<li>Save the "vehicles controller".</li>
+
+				</ol>
+			</article>
+		</main>
+		<footer>
+			<a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US" target="_blank"> <img alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by-sa/3.0/88x31.png"></a> All materials (except as noted) are by Blaine Robertson and licensed under a <a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US" title="Read the license" target="_blank">Creative Commons Attribution-ShareAlike 3.0 License</a>.</footer>
+	</div>
+	<script src="/340br/js/prism-coy-dev.min.js"></script>
+</body>
+
+</html>

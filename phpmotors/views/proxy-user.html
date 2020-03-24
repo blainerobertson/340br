@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+ <meta charset="utf-8">
+ <meta http-equiv="x-ua-compatible" content="ie=edge">
+ <title>Creating a Proxy User | Web Backend Development I</title>
+ <meta name="description"
+  content="Creating a Proxy user in the local development environment using PHPMyAdmin for CSE 340">
+ <meta name="viewport" content="width=device-width">
+ <link rel="stylesheet" href="/340br/css/340course.css" media="screen">
+</head>
+
+<body>
+ <div id="wrapper">
+  <header id="header"><img src="/340br/images/bs_small_banner.jpg" alt="CSE 340 Banner Image"></header>
+  <main>
+   <article id="article">
+    <h1>Creating a Proxy User</h1>
+    <h2>What is a proxy user?</h2>
+    <p>When visitors come to your dynamic web site they want to see your content. Being a dynamic web site, that content is stored in a database. A proxy user represents (is a proxy for) a site visitor and interacts with the database in their behalf.</p>
+
+    <h2>Limited Capabilities</h2>
+    <p>The proxy user is generally only given "data manipulation" privileges. This means the proxy can read (SELECT) data, add (INSERT) new data, change (UPDATE) data, sometimes upload files (FILES), and perhaps remove (DELETE) data from the database. However, the proxy is <strong>never</strong> given the ability to change the actual database in any way! </p>
+
+    <h2>Creating a Proxy Database User</h2>
+    <p>In order to work with the phpmotors database for our class using PHP you will need to create a proxy user. Follow the steps shown in this video to do so.</p>
+    <iframe src="https://www.youtube.com/embed/9UxdVpgibWM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+   </article>
+  </main>
+  <footer>
+   <a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US"><img alt="Creative Commons License"
+     style="border-width:0" src="//i.creativecommons.org/l/by-sa/3.0/88x31.png" /></a> All materials (except as noted) are by Blaine Robertson and licensed under a <a rel="license"
+    href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US">Creative
+    Commons Attribution-ShareAlike 3.0 License</a>.</footer>
+ </div>
+</body>
+
+</html>

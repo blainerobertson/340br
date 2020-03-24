@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+ <meta charset="utf-8">
+ <meta http-equiv="x-ua-compatible" content="ie=edge">
+ <title>Registration Name - Value Pair | Web Backend Development I</title>
+ <meta name="description"
+  content="This activity adds the action name - value pair to the registration view for the PHP Motors project of CSE 340">
+ <meta name="viewport" content="width=device-width">
+ <link rel="stylesheet" href="/340br/css/340course.css" media="screen">
+ <link rel="stylesheet" href="/340br/css/prism-coy-dev.min.css" media="screen">
+</head>
+
+<body>
+ <div id="wrapper">
+  <header id="header">
+   <img src="/340br/images/bs_small_banner.jpg" alt="CSE 340 Banner Image">
+  </header>
+  <main>
+   <h1>Registration Name - Value Pair</h1>
+   <p>As you have already worked with the phpmotors and accounts  controllers you know that we are using a name - value pair, where "<b>action</b>" is the name, to trigger processes in the switch control structure.</p>
+
+   <p>In this activity we will add the action name - value pair (remember that sometimes these are referred to as key - value pairs) to the  registration form to trigger the correct process in the accounts  controller and make sure the form is set to send its data to the accounts controller.</p>
+
+   <h2>Video Demonstration</h2>
+   <iframe src="https://www.youtube.com/embed/EcMetS2kxQE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+   <h2>Set the Name - Value Pair</h2>
+   <ol>
+    <li>Find your
+     <b>view</b> folder in the PHP Motors web site.</li>
+    <li>Expand it and locate the <b>registration.php</b> view and open it.</li>
+    <li>Move to the bottom of the form and find the input of type "submit" code. It should look similar to, but probably not exactly like, what you see below:
+     <pre><code class="language-markup">&lt;input type="submit" name="submit" id="regbtn" value="Register"&gt;</code></pre>
+    </li>
+    <li>Create a new empty line below it.</li>
+    <li>Add the following code to the new empty line
+     <pre><code class="language-markup">&lt;!-- Add the action name - value pair --&gt;
+ &lt;input type="hidden" name="action" value="register"&gt;</code></pre>
+    </li>
+    <li>Save the file.</li>
+   </ol>
+   <h2>Form attributes</h2>
+   <p>HTML form elements have two required attributes (method and action) that must be present for the form to work. We will add both and provide the correct values to these attributes.</p>
+   <h3>The method attribute</h3>
+   <p>The method attribute tells the HTTP protocol "How" to send the data. We have two options: <i>post</i> or <i>get</i>. An easy way to remember these is <i>Post</i> means "write", <i>Get</i> means "read". Since we want the registration data to be "written" to the database, we will use <b>post</b>.</p>
+   <ol>
+    <li>Find the opening form tag in the <b>registration.php</b> view.</li>
+    <li>If the method attribute does not exist, add it.</li>
+    <li>Make sure method is followed by an equal sign and double quotes.</li>
+    <li>Add
+     <i>post</i> between the double quotes.</li>
+    <li>When done the opening form tag should look like this:
+     <code class="language-markup">&lt;form method="post"&gt;</code>
+    </li>
+   </ol>
+
+   <h3>The action attribute</h3>
+   <p>The action attribute tells the HTTP protocol "Where" to send the data. In this instance we want to send it to the <b>accounts</b> controller.</p>
+
+   <ol>
+    <li>In the opening form tag add a space behind the method attribute and value.</li>
+    <li>Add the <b>action</b> attribute with an equal sign and double quotes.</li>
+    <li>We will add the path to the <b>accounts</b> controller between the quotes.</li>
+    <li>The registration view is in the <b>view</b> folder and the accounts controller is in the <b>accounts</b> folder. However, to avoid potential problems later, we will use an <b>absolute</b> path from the root of our htdocs folder leading to the <b>accounts</b> folder, drop inside of it, and find the controller. The path should look like this:
+     <br>
+     <code>/phpmotors/accounts/index.php</code>.</li>
+    <li>When you're done, the opening form tag should look like this:
+     <p> <code class="language-markup">&lt;form method="post" action="/phpmotors/accounts/index.php"&gt;</code></p>
+     <strong>If your phpmotors folder is named something else, make sure your phpmotors folder name is used in the path.</strong>
+    </li>
+    <li>Double check the opening form tag for accuracy.</li>
+    <li>Save the file.</li>
+   </ol>
+
+   <h3>An Explanation</h3>
+   <p>If you were watching carefully, you may have asked yourself, "Wait a second, the registration view is in the <b>view</b> folder. So why doesn't the action path include a "../" to go up one level?"</p>
+   <p>The answer is "scope". The registration view will be "included" into the account controller's (<b>index.php</b>) scope. That means that PHP considers it to be at the account folder root level already. So, when
+    the "Register" button is clicked it just has to find the <b>accounts</b> folder and then dive inside of it to find the controller. To make our path more robust (read unbreakable) we are using a full path from the root of our site all the way to the controller we want. When writing
+    HTML pathes this is recommended.</p>
+
+   <h2>Prepare for Errors</h2>
+   <p>The last thing we will do is add a PHP code block just before the opening <code>&lt;form&gt;</code> tag to show any messages that may need to be displayed. Do the following:</p>
+   <ol>
+    <li>Move to the line just above the opening form tag.</li>
+    <li>Create a few empty lines so you can add some code.</li>
+    <li>You will create an opening PHP code block. Then, create a new empty line.</li>
+    <li>Then you will write an if test to see if a "$message" variable exists, and if so, to echo it.</li>
+    <li>Then, you will close the PHP code block. When done, the code should look like this:
+     <pre class="line-numbers"><code class="language-php">&lt;?php
+if (isset($message)) {
+&nbsp;echo $message;
+}
+?&gt;</code><code class="language-markup">&lt;form method="post" action="/phpmotors/accounts/index.php"&gt;
+</code></pre>
+    </li>
+    <li>Be sure to save the file.</li>
+   </ol>
+
+   <h3>What is isset()?</h3>
+   <p>The isset() function tests the variable that is included as a parameter and "Returns TRUE if the variable exists and has a value other than NULL. Returns FALSE otherwise." (<a href="http://php.net/manual/en/function.isset.php" target="_blank" title="Read the official documentation for the isset function">PHP.net</a>)</p>
+
+   <h2>What's Left?</h2>
+   <p>The last thing is to get the accounts controller finished to write the data to the database.</p>
+  </main>
+  <footer>
+   <a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US" target="_blank"> <img alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by-sa/3.0/88x31.png"> </a> All materials (except as noted) are by Blaine Robertson and licensed under a <a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US" title="Read the license" target="_blank">Creative Commons Attribution-ShareAlike 3.0 License</a>.</footer>
+ </div>
+ <script src="/340br/js/prism-coy-dev.min.js"></script>
+</body>
+</html>

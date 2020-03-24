@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+ <meta charset="utf-8">
+ <meta http-equiv="x-ua-compatible" content="ie=edge">
+ <title>Uploads Model | Web Backend Development I</title>
+ <meta name="description" content="Building the uploads model for the php motors project for CSE 340">
+ <meta name="viewport" content="width=device-width">
+ <link rel="stylesheet" href="/340br/css/340course.css" media="screen">
+ <link rel="stylesheet" href="/340br/css/prism-coy-dev.min.css" media="screen">
+</head>
+
+<body>
+ <div id="wrapper">
+  <header id="header">
+   <img src="/340br/images/bs_small_banner.jpg" alt="CSE 340 Banner Image">
+  </header>
+  <main>
+    <h1>Uploads Model</h1>
+    <p>As you already know, the model is for database interactions. In this model, the functionality is centered around the image information to be stored, retrieved and removed from the database.</p>
+    <ol>
+     <li>Create a new PHP file named "<b>uploads-model.php</b>" and save it to the "<b>model</b>" folder with the other model files used in the PHP Motors web site.</li>
+     <li>On line 1 create the opening PHP code block code (e.g. <b>&lt;?php</b> ).</li>
+     <li>Add a comment to indicate that this model is for vehicle inventory image uploads.</li>
+    </ol>
+
+    <h2>The storeImages() Function</h2>
+    <p>
+     <strong>Your database connection function name may be different than what is shown in these functions. Use your connection function name.</strong>
+    </p>
+    <p>The first function will write the image information to the
+     <b>images</b> table. This function is different than other functions that you have written. Each file that is uploaded
+     has two versions: A "full size" and a "thumbnail". When we write the data to the database we have to store both, so
+     this function will take care to make sure that occurs:
+     <pre class="line-numbers"><code class="language-php">// Add image information to the database table
+function storeImages($imgPath, $invId, $imgName, $imgPrimary) {
+ $db = phpmotorsConnect();
+ $sql = 'INSERT INTO images (invId, imgPath, imgName, imgPrimary) VALUES (:invId, :imgPath, :imgName, :imgPrimary)';
+ $stmt = $db->prepare($sql);
+ // Store the full size image information
+ $stmt->bindValue(':invId', $invId, PDO::PARAM_INT);
+ $stmt->bindValue(':imgPath', $imgPath, PDO::PARAM_STR);
+ $stmt->bindValue(':imgName', $imgName, PDO::PARAM_STR);
+ $stmt->bindValue(':imgPrimary', $imgPrimary, PDO::PARAM_INT);
+ $stmt->execute();
+     
+ // Make and store the thumbnail image information
+ // Change name in path
+ $imgPath = makeThumbnailName($imgPath);
+ // Change name in file name
+ $imgName = makeThumbnailName($imgName);
+ $stmt->bindValue(':invId', $invId, PDO::PARAM_INT);
+ $stmt->bindValue(':imgPath', $imgPath, PDO::PARAM_STR);
+ $stmt->bindValue(':imgName', $imgName, PDO::PARAM_STR);
+ $stmt->bindValue(':imgPrimary', $imgPrimary, PDO::PARAM_INT);
+ $stmt->execute();
+ 
+ $rowsChanged = $stmt->rowCount();
+ $stmt->closeCursor();
+ return $rowsChanged;
+}</code></pre>
+    </p>
+    <h3>An Explanation</h3>
+    <ul>
+     <li>By now most of this code should be quite familiar, so not much explanation will be provided.</li>
+     <li>The <b>images</b> table expects four pieces of information for each image: the path, the name, the inventory id and an indication if the image is the primary image. So these four variables are sent as variables into the function.</li>
+     <li>The same sql statement is used for all image inserts.</li>
+     <li>The "fullsize" image data is stored to the database first.</li>
+     <li>A helper function is then used to "tear apart" the image name and image path and a <code><strong>"-tn"</strong></code> string is added that indicates the "thumbnail" version of the image.</li>
+     <li>The "thumbnail" data is then stored to the database (notice there are two  <code><strong>$stmt->execute();</strong></code> lines).</li>
+     <li>Finally, the database server is asked to indicate how many rows changed in the table as a result of the query. We expect
+      the answer to be "1".</li>
+     <li>The number of rows changed is returned as an indication of success or failure.</li>
+    </ul>
+    <h2>The getImages() Function</h2>
+    <p>As the name implies this function gets an array of all image information from the database. It should be placed below the previous function:
+<pre class="line-numbers"><code class="language-php">// Get Image Information from images table
+function getImages() {
+ $db = phpmotorsConnect();
+ $sql = 'SELECT imgId, imgPath, imgName, imgDate, inventory.invId, invMake, invModel FROM images JOIN inventory ON images.invId = inventory.invId';
+ $stmt = $db->prepare($sql);
+ $stmt->execute();
+ $imageArray = $stmt->fetchAll(PDO::FETCH_ASSOC);
+ $stmt->closeCursor();
+ return $imageArray;
+}</code></pre>
+    </p>
+    <h3>An Explanation</h3>
+    <p>Hopefully, the only thing here that may look slightly unfamiliar is the SQL query. We are using a "<code>JOIN</code>" because we want to get the name and id from the "<code>inventory</code>" table along with the image information because each image is "tied" to an inventory item (Remember, we used a join way back in Enhancement 2). The join will allow us to do that based on the "invId" that is found in both tables.</p>
+
+    <h2>The deleteImage() Function</h2>
+    <p>As you have already guessed this function will remove the image information from the database. As with any delete, there is no "undo". Add the following function beneath the previous two:
+<pre class="line-numbers"><code class="language-php">// Delete image information from the images table
+function deleteImage($imgId) {
+ $db = phpmotorsConnect();
+ $sql = 'DELETE FROM images WHERE imgId = :imgId';
+ $stmt = $db->prepare($sql);
+ $stmt->bindValue(':imgId', $imgId, PDO::PARAM_INT);
+ $stmt->execute();
+ $result = $stmt->rowCount();
+ $stmt->closeCursor();
+ return $result;
+}</code></pre>
+    </p>
+    <h3>An Explanation</h3>
+    <p>Each image is uniquely identified in the <b>images</b> database table by an imgId. That value is retrieved with the image information which is obtained using the  <code><strong>getImages()</strong></code> function. The same value is returned as a parameter to this function to delete the file.</p>
+
+    <h2>The checkExistingImage() Function</h2>
+    <p>This function checks to make sure an image of the same name does not already exist in the database table. If so, it returns TRUE so the image is not added again:
+<pre class="line-numbers"><code class="language-php">// Check for an existing image
+function checkExistingImage($imgName){
+ $db = phpmotorsConnect();
+ $sql = "SELECT imgName FROM images WHERE imgName = :name";
+ $stmt = $db->prepare($sql);
+ $stmt->bindValue(':name', $imgName, PDO::PARAM_STR);
+ $stmt->execute();
+ $imageMatch = $stmt->fetch();
+ $stmt->closeCursor();
+ return $imageMatch;
+}</code></pre>
+    </p>
+    <h3>An Explanation</h3>
+    <ul>
+     <li>The query uses a simple select query to find a matching name in the <b>imgName</b> field based on the variable passed into the function.</li>
+     <li>The number of matches (if any) is returned to the controller.</li>
+    </ul>
+
+    <h2>Conclusion</h2>
+    <p>At this point I hope that you have not really encountered anything too unfamiliar in the controller or model code. But, I hope you also noticed that "helper" functions are being used frequently to perform needed tasks. Our next activity will dive into these helper functions.</p>
+  </main>
+  <footer>
+   <a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US" target="_blank"> <img alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by-sa/3.0/88x31.png"></a> All materials (except as noted) are by Blaine Robertson and licensed under a <a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US" title="Read the license" target="_blank">Creative Commons Attribution-ShareAlike 3.0 License</a>.</footer>
+ </div>
+ <script src="/340br/js/prism-coy-dev.min.js"></script>
+</body>
+
+</html>

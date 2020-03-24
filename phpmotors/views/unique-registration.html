@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>Unique Registration | Web Backend Development I</title>
+	<meta name="description" content="Ensuring a unique registration for the phpmotors project of CSE 340">
+	<meta name="viewport" content="width=device-width">
+	<link rel="stylesheet" href="/340br/css/340course.css" media="screen">
+	<link rel="stylesheet" href="/340br/css/prism-coy-dev.min.css">
+</head>
+
+<body>
+	<div id="wrapper">
+		<header id="header">
+			<img src="/340br/images/bs_small_banner.jpg" alt="CSE 340 Banner Image">
+		</header>
+		<main>
+			<h1>Unique Registration</h1>
+			<h2>Rationale</h2>
+			<p>When a visitor register's with a web site it is expected that they will do so only once. This removes errors in data when logging in or when data must be tied to a specific individual. This activity will take you through the process of preventing a visitor from registering with the same user name (email address) more than once.</p>
+
+			<h2>Video Demonstration</h2>
+			<p>As always, keep in mind that the function and variable names in the activity and video may be different than yours. </p>
+			<iframe src="https://www.youtube.com/embed/Z2E56rfXPWw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+			<h2>Clean up the Clients Table</h2>
+			<p>Up to this point nothing has prevented the registration process from storing the same data into the phpmotors database's clients table more than once. Before we proceed with this activity we want to manually do some clean up with the clients table data.
+			</p>
+			<ol>
+				<li>If the local servers (Apache and MySQL) are not running, start them.</li>
+				<li>In a browser, open the PHPMyAdmin tool for the local server.</li>
+				<li>Navigate to the <b>clients</b> table of the <b>phpmotors</b> database.</li>
+				<li>Carefully review the records shown in the table.</li>
+				<li>If there are duplicate records using the same email address, delete them so that only a single record exists with any given email address.</li>
+				<li>If there are records where the password has not been hashed, delete those records as well.</li>
+				<li>When you are done, each record should have a unique email address from all other records and each record's password must be a hash instead of plain text.</li>
+			</ol>
+
+			<h2>A New Function</h2>
+			<p>You will now write a new function that will check if an email address exists in the clients table. If so, it will return a positive indicator, if not, it will return a negative indicator. This process will be part of the "accounts" process.
+			</p>
+			<ol>
+				<li>Find and open the "<b>accounts-model.php</b>" file.</li>
+				<li>Below the existing function add some space and then a new comment indicating that the new function will check for an existing email address.</li>
+				<li>As with all database interactions you will use a PDO Prepared Statement.</li>
+				<li>Create a new function, using a name that indicates what this function is doing.</li>
+				<li>The new function will need the email address that is being submitted as part of the registration process, so make sure it is a parameter within the new function.</li>
+				<li>The function will use a SELECT query to see if a matching email address can be found in the database table.</li>
+				<li>We only want to get a single row from the database if a match is found, so use a "fetch()" not a "fetchAll()". In addition, we can indicate that we only want a simple numeric array by adding a parameter to the fetch of "<code>PDO::FETCH_NUM</code>".</li>
+				<li>You can then check if you got back and empty array or not.</li>
+				<li>If the array is empty, return a zero "0". If the array is not empty, return a "1".</li>
+				<li>Do your best to write the function on your own, then compare what you wrote with the code below:
+					<pre class="line-numbers"><code class="language-php">// Check for an existing email address
+function checkExistingEmail($clientEmail) {
+ $db =  phpmotorsConnect();
+ $sql = 'SELECT clientEmail FROM clients WHERE clientEmail = :email';
+ $stmt = $db->prepare($sql);
+ $stmt->bindValue(':email', $clientEmail, PDO::PARAM_STR);
+ $stmt->execute();
+ $matchEmail = $stmt->fetch(PDO::FETCH_NUM);
+ $stmt->closeCursor();
+ if(empty($matchEmail)){
+  return 0;
+ } else {
+  return 1;
+ }
+}</code></pre>
+				</li>
+			</ol>
+
+			<h2>Apply the Function</h2>
+			<p>During the registration process we want to check if the email address that is being submitted already exists in the database. If so, we will abort the registration process and suggest that the visitor may want to login instead. If the email does not exist, we then proceed with the registration normally.</p>
+
+			<ol>
+				<li>Find and open the controller for the accounts folder (e.g index.php in the accounts folder).</li>
+				<li>Scroll down until you are in the registration process code block.</li>
+				<li>Find where the collection of the data and storage of that data to the variables ends and before the check for missing data begins.</li>
+				<li>Create a few empty lines to work with if needed.</li>
+				<li>Create a new comment indicating that you are checking for an existing email address</li>
+				<li>On the line below the comment create a new variable and call your new function, sending the $clientEmail variable into the function as a parameter.</li>
+				<li>On the next line write a simple <code>if()</code> control structure to check if the new variable is "true" (remember that "1" is the equivalent of TRUE and "0" is equivalent of FALSE).</li>
+				<li>If it is true, set a $message telling the visitor that the email address already exists and that they may want to login instead. Then include the "login" view and follow the include with an exit.</li>
+				<li>When done your code could look something like this:
+					<pre class="line-numbers"><code class="language-php">$existingEmail = checkExistingEmail($clientEmail);
+
+// Check for existing email address in the table
+if($existingEmail){
+ $message = '&lt;p class="notice"&gt;That email address already exists. Do you want to login instead?&lt;/p&gt;';
+ include '../view/login.php';
+ exit;
+}</code></pre>
+				</li>
+			</ol>
+			<h3>An Explanation</h3>
+			<p>The check for the email occurs before the other data checks because if the email already exists, there is no need to continue with the registration process. Thus, we do this check first.</p>
+			<p>The <code>if()</code> control structure always results in being "TRUE" or "FALSE". By checking to see if the value of the new variable is TRUE (again, remember that the number "1" is equivalent of TRUE) then the email exists and we set the message and bring in the login view.</p>
+			<p>If the <code>if()</code> is FALSE, then we go ahead and conduct the other data checks as part of the regular registration process.</p>
+
+			<h2>Test the Function</h2>
+			<p>It is always a good idea to test before going on too far. Let's do that test now.</p>
+
+			<ol>
+				<li>For the moment, comment out the return statements in the function and replace them with simple echo statements followed by an exit. For example:
+					<pre><code class="language-php">if(empty($matchEmail)){
+ // return 0;
+ echo 'Nothing found';
+ exit;
+} else {
+ //return 1;
+ echo 'Match found';
+ exit;
+}</code></pre>
+				</li>
+				<li>Save the file.</li>
+				<li>Launch the PHP Motors web site.</li>
+				<li>Navigate to the registration view and fill in the form using an email that already exists in the clients table.</li>
+				<li>Submit the form.</li>
+				<li>If your function works you should see the echo statement displayed on the screen that says "Match found".</li>
+				<li> If that worked, click the browser's back button and change the email address to one that doesn't exist in the clients table. Submit the form.</li>
+				<li>If your function works you should see the echo statement displayed on the screen that says "Nothing found". </li>
+				<li><b>When you're sure that things are working as they should, delete the echo and exit statement in the function and restore the "return" statements so they are active again.</b></li>
+				<li>You could repeat the test by entering in an existing email address. This time you should be redirected to the login view and see your message.</li>
+				<li>If you entered a new email, the registration process should complete and a new record be stored into the database table.</li>
+			</ol>
+		</main>
+		<footer>
+			<a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US" target="_blank"><img	alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by-sa/3.0/88x31.png"></a> All materials (except as noted) are by
+			Blaine Robertson and licensed under a <a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US" title="Read the license" target="_blank">Creative Commons Attribution-ShareAlike 3.0 License</a>.</footer>
+	</div>
+	<script src="/340br/js/prism-coy-dev.min.js"></script>
+</body>
+
+</html>

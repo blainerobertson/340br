@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>Vehicle Classification Navigation Links | Web Backend Development I</title>
+	<meta name="description"
+		content="The Vehicle Classification Navigation Links activity for the PHP Motors site of CSE 340">
+	<meta name="viewport" content="width=device-width">
+	<link rel="stylesheet" href="/340br/css/340course.css" media="screen">
+	<link rel="stylesheet" href="/340br/css/prism-coy-dev.min.css" media="screen">
+</head>
+
+<body>
+	<div id="main">
+		<header id="header"><img src="/340br/images/bs_small_banner.jpg" alt="CSE 340 Banner Image"></header>
+		<main>
+			<article id="article">
+				<h1>Vehicle Navigation Links</h1>
+				<p>Up to this point we have spent most of our time worrying about functionality for site administrators and clients. What we have not done is delivered content. We will remedy that this week.</p>
+
+				<h2>Video Overview</h2>
+				<p>This video provides an overview of this activity.</p>
+				<iframe src="https://www.youtube.com/embed/g4lR5RyXVAU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+				<h2>Link Paths</h2>
+				<p>We started the class by building static navigation links. Later we built navigation links dynamically from the car classifications in the phpmotors database. Now we will refine the actual links so they can pass necessary information to the vehicles controller to deliver vehicle information from the database.</p>
+				<ol>
+					<li>Find and open the <b>functions.php</b> file in the <b>library</b> folder.</li>
+					<li>Locate the custom function that builds the navigation list using the classification information.
+					</li>
+					<li>The first link (outside of the loop) is to the PHP Motors home page. Make sure that it points to
+						the main phpmotors controller (e.g. /phpmotors/). Remember that since the controller is named "index.php" if we simply drop into the "phpmotors" folder, the controller is what will receive the request. It, in turn, will deliver the home
+						view.</li>
+					<li>Closely examine the link path within the anchor element within the loop.</li>
+					<li>Revise the path so that it:
+						<ol>
+							<li>Points to <b>your</b> actual folder name (e.g. /phpmotors/)</li>
+							<li>Points to the "vehicles" folder (e.g. /phpmotors/vehicles/</li>
+							<li>Passes a name-value pair for the "action" name that indicates we want to see items from a certain car classification (e.g. /phpmotors/vehicles/?action=classification)</li>
+							<li>Passes a second name-value pair that indicates the type of the classification. When done the &lt;a&gt; finished code should look something like this:
+								<pre	class="line-numbers"><code class="language-markup">&lt;a href='/phpmotors/vehicles/?action=classification&classificationName="
+ .urlencode($classification['classificationName']).
+ "' title='View our $classification[classificationName] lineup of vehicles'&gt;$classification[classificationName]&lt;/a&gt;</code></pre>
+								<p>The code above has been separated into three lines to help with readability. In reality, the code would be a single line.</p>
+							</li>
+						</ol>
+					</li>
+					<li>Be sure to use the name of YOUR phpmotors folder.</li>
+					<li>Once you are sure things are right and there are no errors, save the file.</li>
+				</ol>
+
+				<h2>The ? and the &amp;</h2>
+				<p>The <code><b>?</b></code> in the path represents an indicator to the server that a name-value pair is being sent as a parameter through the URL. In our case, the name is "action" and the value is "classification". Which we want to use as a keyword in the control structure of the vehicles controller to hold a process to deliver a list of vehicles by classification.</p>
+				<p>The <code><b>&amp;</b></code> in the path represents that another name-value pair is being sent (yes, these can be repeated for as many name-value pairs as you want to send). In our code, the second "name" is <b>classificationName</b> and its value is "$classification[classificationName]" meaning the actual name of that classification (e.g. Truck, SUV, etc...).</p>
+
+				<h2>The Vehicles Controller</h2>
+				<ol>
+					<li>Find and open the "vehicles" controller - <b>index.php</b> in the <b>vehicles</b> folder.</li>
+					<li>Scroll to the bottom of the list of existing case statements (but before the default case at the very bottom) and add a new one to be triggered by the new name-value pair being sent from the navigation links:
+						<pre class="line-numbers"><code class="language-php">case 'classification':
+
+break;</code></pre>
+					</li>
+					<li>Within the case statement, write code to filter, sanitize and store the second value being sent through the URL (remember URL's are automatically sent using "GET"):
+						<pre class="line-numbers"><code class="language-php">case 'classification':
+  $classificationName = filter_input(INPUT_GET, 'classificationName', FILTER_SANITIZE_STRING);
+break;</code></pre>
+					</li>
+					<li>Now, create a variable to store the array of vehicles we hope will be returned from the vehicles model:
+						<pre class="line-numbers"><code class="language-php">case 'classification':<br>
+ $classificationName = filter_input(INPUT_GET, 'classificationName', FILTER_SANITIZE_STRING);<br>
+ $vehicles = getVehiclesByClassification($classificationName);<br>
+break;</code></pre>
+					</li>
+					<li>Next, an <code>if - else</code> control structure will be built to see if any vehicles were actually returned or not. If "No" then an error message will be built. If "Yes" then the array of vehicles will be sent to custom function to build the HTML around the vehicles information and return it to us for display:
+						<pre class="line-numbers"><code class="language-php">case 'classification':
+  $classificationName = filter_input(INPUT_GET, 'classificationName', FILTER_SANITIZE_STRING);
+  $vehicles = getVehiclesByClassification($classificationName);
+  if(!count($vehicles)){
+    $message = "&lt;p class='notice'&gt;Sorry, no $classificationName vehicles could be found.&lt;/p&gt;";
+  } else {
+    $vehicleDisplay = buildVehiclesDisplay($vehicles);
+  }
+  break;</code></pre>
+					</li>
+					<li>Finally, a view will be called to display either the message or the vehicles belonging to the car classification clicked on in the navigation bar:
+						<pre class="line-numbers"><code class="language-php">case 'classification':
+ $classificationName = filter_input(INPUT_GET, 'classificationName', FILTER_SANITIZE_STRING);
+ $vehicles = getVehiclesByClassification($classificationName);
+ if(!count($vehicles)){
+  $message = "&lt;p class='notice'&gt;Sorry, no $classificationName could be found.&lt;/p&gt;";
+ } else {
+  $vehicleDisplay = buildVehiclesDisplay($vehicles);
+ }
+ include '../view/classification.php';
+ break;</code></pre>
+					</li>
+				</ol>
+
+				<h2>Vehicles Functions</h2>
+				<p>With the links pointing to the vehicles controller and passing the necessary name-value pairs, and the control structure in place to work with those name-value pairs, we are ready for the next activity. To build the functions to get the data and build the HTML structures around the vehicle information.</p>
+			</article>
+		</main>
+		<footer>
+			<a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US" target="_blank"><img alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by-sa/3.0/88x31.png"></a> All materials (except as noted) are by Blaine Robertson and licensed under a <a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US" title="Read the license" target="_blank">Creative Commons  Attribution-ShareAlike 3.0 License</a>.</footer>
+	</div>
+	<script src="/340br/js/prism-coy-dev.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+ <meta charset="utf-8">
+ <meta http-equiv="x-ua-compatible" content="ie=edge">
+ <title>The Accounts Controller | Web Backend Development I</title>
+ <meta name="description"
+  content="This activity completes the registration process in the accounts controller for the PHP Motors project of CSE 340">
+ <meta name="viewport" content="width=device-width">
+ <link rel="stylesheet" href="/340br/css/340course.css" media="screen">
+ <link rel="stylesheet" href="/340br/css/prism-coy-dev.min.css" media="screen">
+</head>
+
+<body>
+ <div id="wrapper">
+  <header id="header">
+   <img src="/340br/images/bs_small_banner.jpg" alt="CSE 340 Banner Image">
+  </header>
+  <main>
+    <h1>The Accounts Controller</h1>
+    <p>In the Alter the Registration Form activity we told the form to send the data to the accounts controller. Now we need to add the code to make the controller do its job.</p>
+
+    <h2>Video Demonstration</h2>
+    <iframe src="https://www.youtube.com/embed/C9R7pS2R1IQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+    <h2>Get the Accounts Model</h2>
+    <p>As with the previous require_once statements, the purpose is to include the resources of these other documents into the scope of the controller so they can be used. We need to do the same with the accounts-model.php page.</p>
+    <ol>
+     <li>Find and open the accounts controller (<b>accounts</b> folder >
+      <b>index.php</b>).</li>
+     <li>Add the <b>accounts-model.php</b> file to the require_once list:
+      <ul>
+       <li>Locate the last require_once code at the top of the controller.</li>
+       <li>Click at the end of the line and hit "Enter" to create a new line.</li>
+       <li>Add a comment that you are getting the accounts model.</li>
+       <li>Hit "Enter" again to move to the next line.</li>
+       <li>Add a new require_once function to bring in the model. Your code should look similar to this:
+        <pre class="line-numbers"><code class="language-php">// Get the accounts model
+ require_once '../model/accounts-model.php';</code></pre>
+       </li>
+       <li>Save the file.</li>
+      </ul>
+     </li>
+    </ol>
+
+    <h2>Modify the Switch Control Structure</h2>
+    <p>The "switch" statement at the bottom of the controller represents the logic of what needs to happen when various name - value pairs are sent to the controller.</p>
+    <p>We are going to modify the "switch" to handle the request to register a new site visitor.</p>
+    <ol>
+     <li>Scroll down to the "switch" control structure.</li>
+     <li>There should be two case statements &mdash; one to deliver the login view and one to deliver the registration view.</li>
+     <li>You will add a new case statement to actually process data that is submitted to register a new client.</li>
+     <li>We want to make sure the new case matches the name - value pair in the registration view that is sent to the controller to trigger the new registration attempt. So, to double check:
+      <ul>
+       <li>Find and open the <b>registration.php</b> view in the <b>view</b> folder.</li>
+       <li>Scroll to the bottom of the form and find the hidden input.</li>
+       <li>We are checking that the name equals "action" and the value equals "register" (all lower case), such as:
+        <p>
+         <code class="language-markup">&lt;input type="hidden" name="action" value="register"&gt;</code></p>
+       </li>
+       <li>If your code looks like the example, then things are good. If not, modify your code to match the example.
+       </li>
+       <li>As long as you're here, check each of the inputs for the four data items. Ensure that each has a "name" attribute and that the value matches the data being requested. For example:
+
+        <pre class="line-numbers"><code class="language-markup">&lt;input type="text" name="clientFirstname" id="fname"&gt;
+&lt;input type="text" name="clientLastname" id="lname"&gt;
+&lt;input type="email" name="clientEmail" id="email"&gt;
+&lt;input type="password" name="clientPassword" id="password"&gt;</code></pre>
+       </li>
+      </ul>
+     </li>
+     <li>
+      <mark>Case statements are <i>case-sensitive</i>. That's why we checked to make sure that the value in the registration form and the value in the case statement are both lowercase, so they will match!</mark>
+     </li>
+    </ol>
+
+    <h3>Time to Test</h3>
+    <p>We want to make sure that everything is working to this point. So, please do the following:</p>
+    <ol>
+     <li>In the case statement add an echo that indicates that this case has worked. When done the case should look similar to this (keep in mind there will be other code within the switch):
+      <pre class="line-numbers"><code class="language-php">case 'register':
+ echo 'You are in the register case statement.';
+ break;</code></pre>
+     </li>
+     <li>Save the controller file.</li>
+     <li>Make sure your Apache and Database servers are running.</li>
+     <li>Open a browser and navigate to the phpmotors site (e.g. localhost/phpmotors/).</li>
+     <li>The PHP Motors home page should appear in the browser.</li>
+     <li>Click the "My account" link at the top of the page.</li>
+     <li>The PHP Motors login page should appear in the browser.</li>
+     <li>Click the link to request the registration view from the controller.</li>
+     <li>The PHP Motors "registration" view should appear in the browser.</li>
+     <li>You don't have to fill out the form, just click the "Register" button at the bottom of the form.</li>
+     <li>If things work, you should be looking at your echo statement on the screen. This means that everything is correct and pointing to the correct location.</li>
+     <li>Return to the code for the accounts controller and delete the echo statement.</li>
+     <li>If things didn't work, then go back and double check your code, ask your learning team for help, ask a question on the discussion board or make an appointment with one of the TA's or lab assistants. But get some help to get your code operational.
+     </li>
+    </ol>
+    <h2>A Common Pattern</h2>
+    <p>I hope by now you have seen that there are some patterns that we follow when working with code. When we are receiving data from a browser request and want to process it and let the browser know the result, there is a pattern that we follow:</p>
+    <ol style="list-style-position: inside;" class="callout no-left">
+     <li>Collect and filter the incoming data to prevent or lessen the chances of being "hacked".</li>
+     <li>Store the incoming, filtered data into local variables.</li>
+     <li>Check that the data we expected to get is present.</li>
+     <li>If expected data is missing, send it back to the browser to be fixed.</li>
+     <li>If the data is okay, send it to the model's function to be stored in the database.</li>
+     <li>Check what the model sends back telling us the outcome of the database interaction.</li>
+     <li>Create a message to send to a view informing the site visitor what happened.</li>
+     <li>Include a view to be sent to the browser.</li>
+    </ol>
+
+    <h3>Follow the Pattern</h3>
+    <p>We will follow the pattern (with a few minor alterations for now) to finish the register case statement.</p>
+
+    <h2>Filter and Store the Data</h2>
+    <p>We will collect our four expected inputs, while filtering them, and store each into its own variable. Write the following, beginning in the blank line where the echo statement was:
+     <pre class="line-numbers"><code class="language-php">// Filter and store the data
+$clientFirstname = filter_input(INPUT_POST, 'clientFirstname');
+$clientLastname = filter_input(INPUT_POST, 'clientLastname');
+$clientEmail = filter_input(INPUT_POST, 'clientEmail');
+$clientPassword = filter_input(INPUT_POST, 'clientPassword');</code></pre> You've seen the filter_input before. It "filters" or attempts to remove code that could do us harm. We will add to this code in the future. <i>To be clear, the filter_input does the filtering, by looking into the POST object (remember that we told our form to use "post" to send the data), and it is looking for a name - value pair where the name is "name" and it has a value of "clientFirstname" or "clinetLastname" etc.... When found, it stores the value (what the site visitor typed into the input field) into the variable.</i></p>
+
+    <h2>Naming Variables</h2>
+    <p>In an earlier document, it was mentioned that variables should have meaninful names. But, what determines meaning? There are at least two ways of determining "meaning" when it comes to variables in dynamic web sites:</p>
+    <ol>
+     <li>The variable matches the "name" of the name - value pair (e.g. in a form input the name is "clientFirstname" and so we create a variable of $clientFirstname to hold the value from the name - value pair).</li>
+     <li>The variable matches or reflects the database field name where the data is stored (e.g. the <b>clients</b> table stores first names in a field named "clientFirstname", therefore we could create a variable
+      named $clientFirstname or $clientFirst or $firstname - again, it can be a match or a reflection).</li>
+    </ol>
+    <p>In any case, variable names should be <b>consistent across all uses</b> and should definitely <b>reflect the actual values stored in them</b>.</p>
+
+    <h2>Check for Missing Data</h2>
+    <p>We will use some simple PHP "empty" functions to see if any of our variables are missing data. Write the following code after creating two empty lines:
+     <pre class="line-numbers"><code class="language-php">// Check for missing data
+if(empty($clientFirstname) || empty($clientLastname) || empty($clientEmail) || empty($clientPassword)){
+ $message = '&lt;p&gt;Please provide information for all empty form fields.&lt;/p&gt;';
+ include '../view/registration.php';
+ exit; 
+}</code></pre>
+    </p>
+    <h3>An Explanation</h3>
+    <p>In this code we look inside each variable to see it's "empty".  Notice that each check is separated by <code>||</code>, this is an "or" symbol, so that if any of the variables are empty, the if becomes  "TRUE".</p>
+    <p>If the if is "TRUE", then the <code>$message</code> variable is created ("set") and the error string is stored in it. The registration view is then included and the PHP on this page stops.</p>
+    <p>Remember that when we finalized the registration view we added code to watch for a <code>$message</code> variable? If found, it will display the message in the form.</p>
+
+    <h3>Test Again</h3>
+    <p>We want to check that our data collection and check for missing data is working.</p>
+    <ol>
+     <li>Make sure that all of your files have been saved.</li>
+     <li>If your browser window is still open and displaying the previous echo statement, just reach up and click the "reload" icon in the browser.</li>
+     <li>Depending on the browser, you may be asked to confirm the resubmission of the form. If this happens, click "Yes".</li>
+     <li>Assuming that at least one of the registration fields was blank you should be looking at the registration view again, but this time with your error message displayed.</li>
+     <li>If it worked, "Great Job!"</li>
+     <li>If it didn't work, double check your code until it does.</li>
+    </ol>
+
+    <h2>Attempt the Insert</h2>
+    <p>If the data is present, we are ready to call the function to insert the data to the database. This is the process:</p>
+    <ol>
+     <li>Make sure that you have moved outside of the "if" code block and created a new empty line.</li>
+     <li>Create a variable to capture what will be sent back from the function in the model (e.g. $regOutcome). Remember that when you built the function you found out how many rows in the table were changed? That number will be sent back, or "returned", by the function.</li>
+     <li>Then, we type the assignment operator (e.g. =) followed by our call to the function <code>function regClient($clientFirstname, $clientLastname, $clientEmail, $clientPassword)</code> and add a
+      semi-colon to the end. The resulting line should look like this:
+      <pre class="line-numbers"><code class="language-php">// Send the data to the model
+$regOutcome = regClient($clientFirstname, $clientLastname, $clientEmail, $clientPassword);</code></pre>
+     </li>
+     <li>Remember that we are trying to insert a single record into the database table. If one row in the table is changed, then the database server will report back "1" and that same number will be sent to the controller and stored in our <code>$regOutcome</code> variable.</li>
+     <li>If we get a <b>1</b> back, it means that the registration was a success!</li>
+     <li>If we get a zero "0" back, it means the insert failed.</li>
+    </ol>
+
+    <h2>Find Out the Result</h2>
+    <p>We can now check to see what we got back, create the appropriate message and call a view to report the result to the browser.
+    </p>
+
+    <ol>
+     <li>Create an empty line or two below the call to the function that you just wrote.</li>
+     <li>We will write an "if - else" test to see if we got back a "1" or not. If yes, we will create a success message and call a view to display it. If not, we will write a failure message and call a view to display it.
+      <pre class="line-numbers"><code class="language-php">// Check and report the result
+if($regOutcome === 1){
+&nbsp;$message = "&lt;p&gt;Thanks for registering $clientFirstname. Please use your email and password to login.&lt;/p&gt;";
+&nbsp;include '../view/login.php';
+&nbsp;exit;
+} else {
+&nbsp;$message = "&lt;p&gt;Sorry $clientFirstname, but the registration failed. Please try again.&lt;/p&gt;";
+&nbsp;include '../view/registration.php';
+&nbsp;exit;
+}</code></pre>
+     </li>
+     <li>Before we test you'll notice that we intend to display a <code>$message</code> variable in the <b>login.php</b>
+      page if the registration worked. So, we need to add that capability to the view.
+      <ul>
+       <li>Open the <b>registration.php</b> view.</li>
+       <li>Locate the PHP code block to display the <code>$message</code> if it is set.</li>
+       <li>Copy the entire code block.</li>
+       <li>Open the <b>login.php</b> view.</li>
+       <li>Find the opening form element in the login view.</li>
+       <li>Create an empty line above the opening form element.</li>
+       <li>Paste the PHP code block into the empty line.</li>
+       <li>When you are done, it should look similar to this:
+        <pre
+         class="line-numbers"><code class="language-markup">&lt;h1&gt;PHP Motors Login&lt;/h1&gt;</code><code class="language-php">&lt;?php
+if (isset($message)) {
+&nbsp;echo $message;
+}
+?&gt;</code><code class="language-markup">&lt;form action="/phpmotors/accounts/index.php" method="post"&gt;</code></pre>
+       </li>
+       <li>Make sure there are no error icons or underlines after doing the paste.</li>
+       <li>Save and close the <b>login.php</b> view.</li>
+      </ul>
+     </li>
+    </ol>
+    <h2>Let's Do This</h2>
+    <p>With the controller done (we hope) we are ready to try to register our first site visitor.</p>
+    <ol>
+     <li>Make sure all files are saved.</li>
+     <li>Make sure the Apache and Database servers are running.</li>
+     <li>Return to the PHP Motors home view by going to browser and editing the URL to be <code>http://localhost/phpmotors</code>.</li>
+     <li>Press your "Enter" key. It should take you to the phpmotors controller, then include the <b>home</b> view.</li>
+     <li>Click the "My Accounts" link at the top of the view. You should now be at the <b>login.php</b> view.</li>
+     <li>There should be a link that will request the Registration view, click it.</li>
+     <li>Fill your own information into the registration form.</li>
+     <li>Click the "Register" button.</li>
+     <li>If things worked you should be looking at the <b>login.php</b> view and see a message telling you to login.</li>
+     <li>If things failed you should be looking at the <b>registration.php</b> view and see a message telling you that things failed and to try again.</li>
+     <li>In either case, open the PHPMyAdmin tool and check your clients table to see if your information appears. We do this because there are such things as "False Positives" - it says it worked when it didn't and "False Negatives" - it said it failed when it worked. The only way to be sure is to check.</li>
+     <li>If things worked, "Well Done" and listen to the crowd roar its approval.</li>
+     <li>If things failed, check your code against the finished code shown below and ask for help until it is working.
+     </li>
+    </ol>
+    <h2>The Accounts Controller</h2>
+    <p>Please keep in mind that the file and folder names shown in this code may not match your names. <b>In addition, note that the code here is only for this activity, it does not include code written previously to deliver the login or registration views.</b>
+    </p>
+    <pre class="line-numbers"><code class="language-php">&lt;?php
+/*
+* Accounts Controller
+*/
+
+// Get the database connection file
+&nbsp;&nbsp;&nbsp;require_once '../library/connections.php';
+// Get the phpmotors model for use as needed
+&nbsp;&nbsp;&nbsp;require_once '../model/phpmotors-model.php';
+// Get the accounts model
+&nbsp;&nbsp;&nbsp;require_once '../model/accounts-model.php';
+
+// Get the array of classifications
+$classifications = getClassifications();
+
+// Build a navigation bar using the $classifications array
+$navList = '&lt;ul&gt;';
+$navList .= "&lt;li&gt;&lt;a href='/phpmotors/index.php' title='View the PHP Motors home page'&gt;Home&lt;/a&gt;&lt;/li&gt;";
+foreach ($classifications as $classification) {
+ $navList .= "&lt;li&gt;&lt;a href='/phpmotors/index.php?action=urlencode($classification[classificationName])' title='View our $classification[classificationName] product line'&gt;$classification[classificationName]&lt;/a&gt;&lt;/li&gt;";
+}
+$navList .= '&lt;/ul&gt;';
+
+// Get the value from the action name - value pair
+$action = filter_input(INPUT_POST, 'action');
+if ($action == NULL) {
+&nbsp;$action = filter_input(INPUT_GET, 'action');
+}
+
+switch ($action) {
+<mark>// Code to deliver the views will be here</mark>
+
+case 'register':
+// Filter and store the data
+&nbsp;&nbsp;$clientFirstname = filter_input(INPUT_POST, 'clientFirstname');
+&nbsp;&nbsp;$clientLastname = filter_input(INPUT_POST, 'clientLastname');
+&nbsp;&nbsp;$clientEmail = filter_input(INPUT_POST, 'clientEmail');
+&nbsp;&nbsp;$clientPassword = filter_input(INPUT_POST, 'clientPassword');
+
+// Check for missing data
+if(empty($clientFirstname) || empty($clientLastname) || empty($clientEmail) || empty($clientPassword)){
+&nbsp;&nbsp;$message = '&lt;p&gt;Please provide information for all empty form fields.&lt;/p&gt;';
+&nbsp;&nbsp;include '../view/registration.php';
+&nbsp;&nbsp;exit;
+}
+
+// Send the data to the model
+$regOutcome = regClient($clientFirstname, $clientLastname, $clientEmail, $clientPassword);
+
+// Check and report the result
+if($regOutcome === 1){
+&nbsp;&nbsp;$message = "&lt;p&gt;Thanks for registering $clientFirstname. Please use your email and password to login.&lt;/p&gt;";
+&nbsp;&nbsp;include '../view/login.php';
+&nbsp;&nbsp;exit;
+} else {
+&nbsp;&nbsp;$message = "&lt;p&gt;Sorry $clientFirstname, but the registration failed. Please try again.&lt;/p&gt;";
+&nbsp;&nbsp;include '../view/registration.php';
+&nbsp;&nbsp;exit;
+}
+break;
+... previous code here ...
+}</code></pre>
+  </main>
+  <footer>
+   <a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US" target="_blank"> <img alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by-sa/3.0/88x31.png"></a> All materials (except as noted) are by Blaine Robertson and licensed under a <a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US" title="Read the license"
+    target="_blank">Creative Commons Attribution-ShareAlike 3.0 License</a>.</footer>
+ </div>
+ <script src="/340br/js/prism-coy-dev.min.js"></script>
+</body>
+
+</html>

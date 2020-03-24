@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+ <meta charset="utf-8">
+ <meta http-equiv="x-ua-compatible" content="ie=edge">
+ <title>Variables | Web Backend Development I</title>
+ <meta name="description" content="An overview of PHP Variables for CSE 340">
+ <meta name="viewport" content="width=device-width">
+ <link rel="stylesheet" href="/340br/css/340course.css" media="screen">
+ <link rel="stylesheet" href="/340br/css/prism-coy-dev.min.css">
+</head>
+
+<body>
+ <div id="wrapper">
+  <header id="header">
+   <img src="/340br/images/bs_small_banner.jpg" alt="CSE 340 Banner Image">
+  </header>
+  <main>
+    <h1 class='remove-bottom'>PHP Variables</h1>
+    <h2>What is a variable?</h2>
+    <p>A
+     <i>variable</i>, in PHP, is a container to hold a value. As the name implies, the value stored in the variable can change (or vary) from one line of code to the next.</p>
+
+    <p>Variables allow you to store data or values and then use them whenever needed without having to specifically write the exact value. Consider a login form, where the client is asked to provide a username and password. </p>
+
+    <p>Every time the form is filled in by a different client, the data will be different. I may use a username and password of "BarneyOne" and "Purple1sK1nG" while you may use "HeMan" and "Mast3rUn1vers3". We need a simple way of working with whatever values the client enters. The way to do this is by using variables.</p>
+
+    <p>Most of the time variables are
+     <i>declared</i> by the programmer. Using the previous example, two variables called
+     <code class="language-php">$username</code> and <code class="language-php">$password</code>, could be created and used to store any input values from the login form.</p>
+
+    <p>Using variables and displaying their values will be shown later, but the important point now is to understand how the use of variables can make handling data easier.</p>
+
+
+    <h2>Creating Variables</h2>
+
+    <p>In PHP, simply writing the name of a variable for the first time in a script creates it. However, there are a few rules to remember:</p>
+
+    <ol>
+     <li>The name starts with a <code>$</code> sign</li>
+     <li>The first character after the <code>$</code> must be a letter or underscore</li>
+     <li>The following characters can be a combination of letters, numbers and/or underscores</li>
+     <li>Variable names are case sensitive</li>
+    </ol>
+    <p>
+     <code>$username</code> is a valid name because it meets all three rules, while
+     <code>$55skidoo</code> is not valid because it starts with a number — remember, the first character after the <code>$</code> sign must be a letter or underscore.</p>
+
+    <p>Also, variable names should be meaningful. If the data you will be storing is a user name, a sensible name might be <code>$username</code>. You could also call it <code>$zelda</code>, but that doesn't really describe what value it is holding.</p>
+
+    <p>When writing variable names it is important to be consistent in all of your code. For example, you can use camelCase to combine compound names (e.g. <code>$userName</code>, or use an underscore (e.g. <code>$user_name</code>), or a run-on name (e.g. <code>$username</code>). All three are fine, just choose one and use it consistently. It is important to remember that PHP treats <code>$username</code> and <code>$userName</code> as completely different!</p>
+
+    <h2>Assigning Variables</h2>
+
+    <p>Now that you can create a variable, let's assign a value to one.</p>
+    <pre class="line-numbers"><code class="language-php">$userName = "HeMan";
+$password = 'Mast3rUn1vers3';
+$age = 21;</code></pre>
+
+
+    <p>First, the variable
+     <code class="language-php">$userName</code> is given the value 'HeMan'. This is referred to as
+     <i>assigning</i> a value. And because this is the first time <code class="language-php">$userName</code> is used, the variable is created automatically. Anytime you write <code class="language-php">$userName</code> after that, PHP will know to use the value 'HeMan' instead.</p>
+
+    <p>Then,
+     <code class="language-php">$password</code> is written and assigned the value 'Mast3rUn1vers3'. A variable can be created without assigning a value to it, though this is generally not considered to be good practice. It is better to assign a default value just so you know it has a value. Remember, variables are variable, so you can always change the value later.</p>
+
+    <p>Notice how the types of data referenced by a variable have different <i>types</i>. This property is called the data's <i>data type</i>. 'HeMan' and 'Mast3rUn1vers3' are wrapped in quotation marks, so they are both <i>strings</i> (string is just another name for text). 21 is obviously a number (more specifically, an <i>integer</i>).</p>
+
+    <p>Here are some variables with different data types:</p>
+    <pre class="line-numbers"><code class="language-php">$net = 0; // Integer
+$title = "PHP Variables"; // String
+$flag = TRUE; // Boolean
+$amount = 99.99; // Double
+$pets = array(Dog, Cat, Fish, Mouse); // Array</code></pre>
+
+    <p>Now that you understand the basics of naming variables and assigning values lets restate what has already been demonstrated. The examples above show that values to the right of the
+     <code>=</code> sign are assigned to the variable name on the left of the
+     <code>=</code> sign. This is always the case: values on the right are assigned (or stored in) the variables on the left.</p>
+
+    <h2>Displaying the Value of Variables</h2>
+
+    <p>As you saw at the beginning, you can display the value represented by a variable using
+     <code>echo</code>. Another option is to use
+     <code>print</code>. For all intents and purposes they are equivalent, so pick one and use it.</p>
+
+    <code class="language-php">
+     echo $userName;
+    </code>
+
+    <p>Perhaps you would like to add additional text prior to displaying the value of the variable (this is commonly done, particularly when troubleshooting). For example:</p>
+
+    <code class="language-php">
+     echo "The user name is: " . $userName;
+    </code>
+
+    <p>The dot between the text in quotation marks and the variable name is the
+     <b>concatenation operator</b>. It joins the string on the left and the value of the variable on the right together.</p>
+
+    <h2>Double vs. Single Quotes</h2>
+
+    <p>You could avoid using concatenation and make use of
+     <em>interpolation</em> instead. Interpolation is when the variable name appears in a string and is replaced by its value instead. However interpolation only happens when variables are within double-quotation marks! If you enclose a variable in single-quotation mark you get exactly what is in the quotes - the name of the variable, not its value. This is because any string in single quotes is called a
+     <em>string literal</em>, which as the name implies is literally what is in the string.</p>
+
+    <pre class="line-numbers"><code class="language-php">echo "User name: $userName";
+// Result: User name: HeMan</code></pre>
+
+    <h2>PHP Variables Video</h2>
+    <iframe width="560" height="315" src="//www.youtube.com/embed/U6MKOmg9rLo" allowfullscreen></iframe>
+
+    <h2>PHP.net</h2>
+    <p>For official information about variables, visit
+     <a href="//www.php.net/language.variables.php" title="View the PHP.net site in a new tab" target="_blank">PHP.net</a>.</p>
+  </main>
+  <footer>
+   <a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US" target="_blank">
+    <img alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by-sa/3.0/88x31.png">
+   </a> All materials (except as noted) are by Blaine Robertson and licensed under a
+   <a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US" title="Read the license" target="_blank">Creative Commons Attribution-ShareAlike 3.0 License</a>.
+  </footer>
+ </div>
+ <script src="/340br/js/prism-coy-dev.min.js"></script>
+</body>
+
+</html>

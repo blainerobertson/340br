@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+ <meta charset="utf-8">
+ <meta http-equiv="x-ua-compatible" content="ie=edge">
+ <title>Novalidate Tool | Web Backend Development I</title>
+ <meta name="description" content="Installing and using the novalidate bookmarklet for validation checking for CSE 340">
+ <meta name="viewport" content="width=device-width">
+ <link rel="stylesheet" href="../css/340course.min.css" media="screen">
+</head>
+
+<body>
+ <div id="main">
+  <header id="header"><img src="../images/bs_small_banner.jpg" alt="CSE 340 Banner Image"></header>
+  <main>
+   <article id="article">
+    <h1>Novalidate</h1>
+    <p>When implementing client-side and server-side validation within a web site, the protection for the data is great! However, when testing to make sure the server-side validation works can become a trial. Theat is where this nifty tool comes in. It uses JavaScript to add an HTML attribute to your form that disables (temporarily) the client-side validation and allows you to submit form data in order to check the operation of your server-side code. Use the following process to make the tool available and test it out:</p>
+
+    <h2>Get the Bookmarklet</h2>
+    <ol>
+     <li>Point your browser to <a href="http://novalidate.com" title="Link opens in a new tab" target="_blank">novalidate.com</a>.</li>
+     <li>Check your browser to make sure the bookmarks bar is visible. If not, use the following:
+      <ul>
+       <li>In Mac Chrome, "View menu > Always Show Bookmarks Bar".</li>
+       <li>In Mac FireFox, "View > Toolbars > Bookmarks Toolbar".</li>
+       <li>In Safari, "View > Show Bookmarks Sidebar".</li>
+       <li>In Windows Chrome, "Setting icon > Bookmarks > Show Bookmarks Bar".</li>
+       <li>In Windows FireFox, "Menu icon > Customize > Show / Hide Toolbars > Bookmarks Toolbar".</li>
+       <li>In Edge, "More icon > Settings > View Favorites Settings > turn on 'Show the favorites bar".</li>
+      </ul>
+     </li>
+     <li>Locate the "novalidate!" bookmarklet in the center of the web page and drag it to your bookmarks bar.<br>
+     <img src="../images/novalidate.jpg" alt="Screenshot of the novalidate.com page">
+     </li>
+    </ol>
+    <h2>Use the Bookmarklet</h2>
+    <ol>
+     <li>To use this tool, navigate to a page with a form containing client-side validation.</li>
+     <li>Click the 'novalidate' bookmarklet.</li>
+     <li>Fill in the form, but make a mistake.</li>
+     <li>Submit the form.</li>
+     <li>The client-side validation should be ignored and the server-side validation should take over and respond to the error.</li>
+     <li>Reload the page and the novalidate tool should now be turned off. To use it again, follow the steps listed above.</li>
+    </ol>
+    <h2>Video Demonstration</h2>
+    <iframe width="560" height="315" src="//www.youtube.com/embed/zkuIgoUhjKM?rel=0" allowfullscreen></iframe>
+   </article>
+  </main>
+  <footer>
+   <a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US" target="_blank"><img alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by-sa/3.0/88x31.png"></a> All materials (except as noted) are by <a href="//blainerobertson.net" title="Visit the site" target="_blank">Blaine Robertson</a> and licensed under a <a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US" title="Read the license" target="_blank">Creative Commons Attribution-ShareAlike 3.0 License</a>.</footer>
+ </div>
+ <script src="../js/course.min.js"></script>
+</body>
+
+</html>

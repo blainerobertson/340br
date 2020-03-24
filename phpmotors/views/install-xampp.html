@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Install XAMPP | Web Backend Development I</title>
+  <meta name="description" content="Install the XAMPP local development environment for CSE 340">
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" href="../css/340course.min.css" media="screen"> </head>
+
+<body>
+  <div id="main">
+    <header id="header"><img src="../images/bs_small_banner.jpg" alt="CSE 340 Banner Image"></header>
+    <main>
+      <article id="article">
+        <h1>XAMPP</h1>
+        <h2>What is it?</h2>
+        <p>XAMPP is server software that can be downloaded and installed on a local machine. It includes a PHP engine, Apache web server software, a MariaDB (MySQL compatible) database server and the PHPMyAdmin database interface application.</p>
+        <h2>Where do I get it?</h2>
+        <p>Download from <a href="//www.apachefriends.org/index.html" title="Click to download XAMPP in a new tab" target="_blank">https://www.apachefriends.org/index.html</a>. Download the latest version 5.x available. <strong>Don't download PHP 7.</strong></p>
+        <h2>How do I configure it?</h2>
+        <p>Refer to Appendix A, B or C (depending on your laptop operating system) in the Murach text for installation and configuration directions.</p>
+        <h2>When will I use it?</h2>
+        <p>Once installed and configured you will begin using it immediately to develop and test your materials for the class.</p>
+        <h2>What's Next?</h2>
+        <p>When done installing and configuring XAMPP, be sure to <a href="clean-htdocs.html" target="_blank" title="Do the htdocs cleanup activity">Clean up the HTDOCS folder</a> prior to beginning your own work in XAMPP.</p>
+
+
+        <h2>Troubleshooting</h2>
+        <h3>Apache Will Not Start</h3>
+        <ol>
+          <li>Normally the Apache server should start without issues.</li>
+          <li>However, if it will not start it is typically because another web server is already running and will have to be stopped.</li>
+          <li>Launch the Windows Task Manager (Control + Alt + Delete keys held down together).</li>
+          <li>Click the Task Manager link.</li>
+          <li>In the Task Manager, click the "Processess" tab and look in the "Background Processes" list.</li>
+          <li>If you see an "Apache HTTP Server" in the list click it, then click the "End Task" button until that process disappears.</li>
+          <li>When it is removed from the list, return to the XAMPP Control Panel and click the "Start" button for Apache.</li>
+          <li>It should start and the background for the Apache text should turn green.</li>
+        </ol>
+        <h3>Changing the SSL Port</h3>
+        <ol>
+          <li>If you receive an error that Apache cannot start because Port 443 is in use by another program, click the "Config" button next to Apache. Find and open the Apache (httpd-ssl.conf) option. Then find where Port 443 is specified and change the Port to 444, save and close the file. Then try starting Apache again.</li>
+          <li>Once the Apache text appears with a green background, the server has successfully started.</li>
+        </ol>
+        <h3>Still no luck?</h3>
+        <p>If the two steps above don't fix the error so that XAMPP will start, then <a href="../downloads/xampp-error-fixes.pdf" title="Download the PDF of troubleshooting steps">download this PDF file of troubleshooting steps</a> and see if that helps get things running. If not, visit with the TA or your professor.</p>
+        <h2>The Site Root</h2>
+        <p>Every web server has a "root" or a folder that holds all of the assets of the web site. In XAMPP that folder is found in C: drive &gt; xampp &gt; htdocs. Please locate it now.</p>
+        <p>By default, it already has files and folders in it, do not delete anything until you know what they do. You will add your own files to this folder as you build your own site locally before sending it to your production server (purchased hosting) for everyone in the world to see. The name of the root on the web hosting server will probably not be "htdocs", but it will be important to know what it is, because we will use it in other ways. The name of the remote root folder should be part of the information sent to you by your hosting company when you purchased your hosting.</p>
+        <h2>Running and Stopping XAMPP</h2>
+        <p>Running servers on your local machine is a useful tool, but one that can potentially use much of your computer's resources. Therefore, it is important to start XAMPP only when you are developing and testing using PHP and shut it down when finished.</p>
+        <h3>Starting XAMPP</h3>
+        <p>Launch XAMPP from your applications list. Then click the Apache and MySQL servers and "Start" for each.</p>
+        <h3>Stopping XAMPP</h3>
+        <p>When shutting down, be sure to stop any servers that are running my clicking the "Stop" button next to each one that is green. Then quit XAMPP. If you quit XAMPP before stopping the servers they may continue to run in the background.</p>
+      </article>
+    </main>
+    <footer>
+      <a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US" target="_blank"><img alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by-sa/3.0/88x31.png"></a> All materials (except as noted) are by <a href="//blainerobertson.net" title="Visit the site" target="_blank">Blaine Robertson</a> and licensed under a <a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US" title="Read the license" target="_blank">Creative Commons Attribution-ShareAlike 3.0 License</a>.</footer>
+  </div>
+  <script src="../js/course.min.js"></script>
+</body>
+
+</html>

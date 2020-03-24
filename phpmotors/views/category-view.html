@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>Vehicle Classification View | Web Backend Development I</title>
+	<meta name="description"
+		content="Building and styling the vehicle classification view for the PHP Motors project for CSE 340">
+	<meta name="viewport" content="width=device-width">
+	<link rel="stylesheet" href="/340br/css/340course.css" media="screen">
+	<link rel="stylesheet" href="/340br/css/prism-coy-dev.min.css" media="screen">
+</head>
+
+<body>
+	<div id="main">
+		<header id="header">
+			<img src="/340br/images/bs_small_banner.jpg" alt="CSE 340 Banner Image">
+		</header>
+		<main>
+			<article id="article">
+				<h1>Classification View</h1>
+				<p>In the previous activities we made sure the main navigation link sent the correct data to the
+					"vehicles controller" and
+					that two custom functions were created to 1) query the vehicles from the database based on the
+					classification they belong to and then 2) build an unordered list around the vehicle data. That
+					leaves the actual view needed to display the vehicles.</p>
+
+				<h2>Video Overview</h2>
+				<p>This video overviews the functionality at the end of this activity.</p>
+				<iframe src="https://www.youtube.com/embed/Z2SaR6tC8Hc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+				<h2>Build the View</h2>
+				<ol>
+					<li>Using your view template, create a new "classification.php" view and save it in the <b>view</b>
+						folder.</li>
+					<li>This is our "Classification" view for showing a list of vehicles by classification, thus the
+						name.</li>
+					<li>In the view we want to make it obvious which classification is being displayed.</li>
+					<li>Scroll down to the &lt;title&gt; element and add the following PHP code block to the beginning
+						of it, prior to any other existing text. When done, it should look similar to this:
+						<pre><code class="language-php">&lt;title&gt;&lt;?php echo $classificationName; ?&gt; vehicles | PHP Motors, Inc.&lt;/title&gt;</code></pre>
+					</li>
+					<li>Scroll down to the main content heading (this should be inside the &lt;main&gt; element) and do
+						the same thing. When
+						done it should look similar to this:
+						<pre><code class="language-php">&lt;h1&gt;&lt;?php echo $classificationName; ?&gt; vehicles&lt;/h1&gt;</code></pre>
+					</li>
+					<li>Beneath the main content heading add the PHP code block to check for a message and display it if
+						found:
+						<pre><code class="language-php">&lt;?php if(isset($message)){
+ echo $message; }
+ ?&gt;</code></pre>
+					</li>
+					<li>Beneath the message check code block add another to display the vehicle list if it exists:
+						<pre><code class="language-php">&lt;?php if(isset($vehicleDisplay)){
+ echo $vehicleDisplay;
+} ?&gt;</code></pre>
+					</li>
+					<li>That's it! Yep, you read that right, four lines of code and the view should be ready to go.</li>
+					<li>However, it probably isn't going to look very pretty. That's why we will need to do some CSS
+						work too.</li>
+					<li>Be sure the view and all other files are saved.</li>
+				</ol>
+
+				<h2>Let's Test</h2>
+				<ol>
+					<li>Start the Apache and Database servers if they are not already running.</li>
+					<li>Run the "main controller". The home view should be delivered.</li>
+					<li>Click one of the main navigation links.</li>
+					<li>If things worked, you should be viewing the new view with the list of vehicles being displayed
+						in the content area. The title and main content heading should clearly reflect which link you
+						clicked. Click other links and watch how the view updates. Cool, huh?!!</li>
+					<li>If things did not work, double check your code, get help, do whatever it takes to get things
+						working.</li>
+					<li>If things worked, "GREAT".</li>
+					<li>Now we'll try to deal with images and appearance.</li>
+				</ol>
+
+				<h2>Images</h2>
+				<p>Currently there are only two vehicle images and they are inside the "images" folder at the
+					"phpmotors" root (at least they are if you downloaded the starter code early on).</p>
+				<p>To get a more complete experience, <a href="../downloads/vehicles.zip" title="Download the file"
+						target="_blank">download this new vehicle images folder</a> and place it inside the images
+					folder. You will want to delete the <b>delorean.jpg</b> and <b>no-image.png</b> files from the
+					images folder and use those in the vehicles folder. When you do so you will have to fix the link on
+					the home view and the logo in all views.</p>
+
+				<h2>Inventory Table</h2>
+				<p>The <b>inventory</b> table has two fields dealing with images: invImage and invThumbnail. Both will
+					have to be updated for each product so that the path to the image is accurate. You can make the
+					alterations in one of two ways: 1) use your
+					vehicle update process, or 2) use PHPMyAdmin. But the changes need to be made so the vehicle images
+					display. The basic path should resemble this <code
+						class="language-markup">/phpmotors/images/vehicles/[imagename.xxx]</code>.</p>
+
+				<!-- <table>
+     <thead>
+      <tr>
+       <th>Product</th>
+       <th>Image</th>
+       <th>Thumbnail</th>
+      </tr>
+     </thead>
+     <tbody>
+      <tr>
+       <td>Rocket</td>
+       <td>rocket.png</td>
+       <td>rocket-tn.png</td>
+      </tr>
+      <tr>
+       <td>Mortar</td>
+       <td>mortar.jpg</td>
+       <td>mortar-tn.jpg</td>
+      </tr>
+      <tr>
+       <td>Catapult</td>
+       <td>catapult.png</td>
+       <td>catapult-tn.jpg</td>
+      </tr>
+      <tr>
+       <td>Roadrunner Cutout</td>
+       <td>roadrunner.jpg</td>
+       <td>roadrunner-tn.jpg</td>
+      </tr>
+      <tr>
+       <td>Mouse Trap</td>
+       <td>trap.jpg</td>
+       <td>trap-tn.jpg</td>
+      </tr>
+      <tr>
+       <td>Instant Hole</td>
+       <td>hole.png</td>
+       <td>hole-tn.png</td>
+      </tr>
+      <tr>
+       <td>Koenigsegg</td>
+       <td>no-image.png</td>
+       <td>no-image.png</td>
+      </tr>
+      <tr>
+       <td>Anvil</td>
+       <td>anvil.png</td>
+       <td>anvil-tn.gif</td>
+      </tr>
+      <tr>
+       <td>Rubber Band</td>
+       <td>rubberband.jpg</td>
+       <td>rubberband-tn.jpg</td>
+      </tr>
+      <tr>
+       <td>Mallet</td>
+       <td>mallet.png</td>
+       <td>mallet-tn.png</td>
+      </tr>
+      <tr>
+       <td>TNT</td>
+       <td>tnt.png</td>
+       <td>tnt-tn.png</td>
+      </tr>
+      <tr>
+       <td>Bird Seed</td>
+       <td>seed.jpg</td>
+       <td>seed-tn.jpg</td>
+      </tr>
+      <tr>
+       <td>Grand Piano</td>
+       <td>piano.jpg</td>
+       <td>piano-tn.jpg</td>
+      </tr>
+      <tr>
+       <td>Helmet</td>
+       <td>helmet.png</td>
+       <td>helmet-tn.png</td>
+      </tr>
+      <tr>
+       <td>Nylon Rope</td>
+       <td>rope.jpg</td>
+       <td>rope-tn.jpg</td>
+      </tr>
+      <tr>
+       <td>Bomb</td>
+       <td>bomb.png</td>
+       <td>bomb-tn.png</td>
+      </tr>
+      <tr>
+       <td>Fence</td>
+       <td>fence.png</td>
+       <td>fence-tn.png</td>
+      </tr>
+     </tbody>
+    </table> -->
+				<p>If you have other vehicles in your database, assign the "no-image.png" to them or find images and add
+					those
+					images and the appropriate path for the images.</p>
+
+				<h2>The CSS File</h2>
+				<p>When the vehicles are displayed we want a neat, professional presentation on small and large screens.
+					To accomplish that
+					we need to make some changes to the CSS file that dictates the appearance of the views. The provided
+					code below is general
+					in nature and you may need to revise and/or adapt it to fit your existing code.</p>
+
+				<h3>Mobile First</h3>
+				<p>My stylesheet is organized so that my media queries alter the style and layout as the screen size
+					increases. The CSS rules <b>outside</b> of the media queries are for general appearance across all
+					devices or are specific to small, mobile screen sizes. With that in mind, you may or may not have
+					done the same and, as a result, may need to adapt this code. The code
+					provided uses <a href="//css-tricks.com/snippets/css/a-guide-to-flexbox/" title="Open in a new tab"
+						target="_blank">CSS Flexbox</a> for responsiveness.</p>
+				<ol>
+					<li>At or near the top of my stylesheet I have changed the CSS box model to use the border-box,
+						instead of the content box:
+						<pre class="line-numbers"><code class="language-css">html{
+ box-sizing: border-box;
+}
+
+*, *:before, *:after{
+ box-sizing: inherit;
+}</code></pre>
+						If this is unfamiliar, read <a href="//www.w3schools.com/csSref/css3_pr_box-sizing.asp"
+							title="Opens in a new tab" target="_blank">CSS3 Box-Sizing Property</a>.
+					</li>
+					<li>Then, near the bottom of my mobile styles (before the media queries which should come after all
+						of the mobile and general
+						styles) I added three rules specific to displaying the list of vehicles in our new vehicle
+						classification view:
+						<pre class="line-numbers"><code class="language-css">#inv-display{
+ margin: 0;
+ padding: 0;
+ display: flex;
+ flex-direction: column;
+}
+
+#inv-display li{
+ margin-bottom: .5em;
+ border: 1px #ccc solid;
+ list-style-type: none;
+ flex: 1 1 auto;
+}
+
+#inv-display li img {
+    max-width: 100%;
+}</code></pre>
+						<h4>An Explanation</h4>
+						<ul>
+							<li>The first rule removes all of the padding and margin from the unordered list, turns it
+								into a flex container and tells
+								it to orient all content vertically (as a column).</li>
+							<li>The second rule sets a small bottom margin on each list item, establishes a light gray
+								border, removes the bullet from the item and tells each list item to grow or shrink as
+								needed.</li>
+							<li>The third rule makes the images responsive, meaning they will grow or shrink to fill the
+								container they are in (the
+								list item) or until they are full size.</li>
+							<li>Since these rules are for mobile devices it is intended that each item will stack one
+								atop the next so they are easily seen on a mobile device.</li>
+						</ul>
+					</li>
+				</ol>
+				<h3>Media Queries - Larger Screens</h3>
+				<ol>
+					<li>Next, I scrolled down into my media query for large screens (I only have one media query for screens larger than 768px
+						wide). Near the bottom of my media query I added these new rules:
+						<pre class="line-numbers"><code class="language-css">/* For vehicle display in classification view */
+	#inv-display {
+		flex-flow: row wrap;
+		justify-content: flex-start;
+	}
+
+	#inv-display h2{
+		font-size: 1rem;
+	}
+
+	#inv-display li {
+		max-width: 200px;
+		flex: 1 0 auto;
+		text-align: center;
+		height: 250px;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+	}
+      
+	#inv-display div {
+		width: 100%;
+	}</code></pre>
+						<h4>An Explanation</h4>
+						<ul>
+							<li>The first rule changes the "flow" of the content from vertical (column) to horizontal
+								(row) and allows it to wrap
+								if there is not enough space on a line.</li>
+							<li>The second rule changes the font size of the h2 element within the list item.</li>
+							<li>The third rule formats the list item to grow but not shrink, allow content to flow
+								vertically and separate the item with space between.</li>
+							<li>The last rule simply makes sure the div inside the list item is full width.</li>
+						</ul>
+					</li>
+				</ol>
+				<h3>Adapt as Needed</h3>
+				<p>Every person's CSS file for the PHP Motors site is unique. The code I shared may need to be adapted
+					to work in your site. Feel free to adapt as needed, but in the end, the vehicles being displayed
+					should have a neat, professional appearance.</p>
+
+				<h2>Illustration</h2>
+				<p>The image below should provide an idea of the finished page:
+					<img src="/340br/phpmotors/images/php-motors/classification-view.jpg"	alt="Image of the classification view with vehicles displayed">
+				</p>
+			</article>
+		</main>
+		<footer>
+			<a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US" target="_blank"><img
+					alt="Creative Commons License" style="border-width:0"
+					src="//i.creativecommons.org/l/by-sa/3.0/88x31.png"> </a> All materials (except as noted) are by
+			Blaine Robertson and licensed under a <a rel="license"
+				href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US" title="Read the license"
+				target="_blank">Creative Commons Attribution-ShareAlike 3.0 License</a>.</footer>
+	</div>
+	<script src="/340br/js/prism-coy-dev.min.js"></script>
+
+</body>
+
+</html>

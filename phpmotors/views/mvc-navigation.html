@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+ <meta charset="utf-8">
+ <meta http-equiv="x-ua-compatible" content="ie=edge">
+ <title>M-V-C Dynamic Navigation | Web Backend Development I</title>
+ <meta name="description"
+  content="Constructing a dynamic navigation bar using the M-V-C architecture for the PHP Motors web site for CSE 340">
+ <meta name="viewport" content="width=device-width">
+ <link rel="stylesheet" href="/340br/css/340course.css" media="screen">
+ <link rel="stylesheet" href="/340br/css/prism-coy-dev.min.css">
+</head>
+
+<body>
+ <div id="wrapper">
+  <header id="header">
+   <img src="/340br/images/bs_small_banner.jpg" alt="CSE 340 Banner Image">
+  </header>
+  <main>
+   <h1>Dynamic Site Navigation</h1>
+
+   <h2>An Overview</h2>
+   <p>In this activity we will use the MVC architecture to build a dynamic navigation bar for use in the views of the PHP Motors web site. Each of the following will be done:</p>
+   <ol>
+    <li>A model will be constructed and a function built to query the database.</li>
+    <li>The connection file and model will be included into the controller's scope.</li>
+    <li>The function will be called from the controller.</li>
+    <li>The array of classifications returned by the function will be broken apart and used to build an unordered list.
+    </li>
+    <li>The unordered list will then be used in the site views (template and home) as the main navigation bar. (<b>Note:</b> We will not use this in our Error view)</li>
+    <li>Finally, a test will be done to ensure that the navigation bar responds to adding, updating and deleting car classifications in the database.</li>
+    <li>Testing will be done for each step to demonstrate troubleshooting methods.</li>
+   </ol>
+
+   <h2>Create the Model</h2>
+   <p>Remember that a model is where all database functionality exists. Controllers use the functionality in the model to interact with database servers to make dynamic web sites operate.</p>
+   <ol>
+    <li>You should have a <b>model</b> folder in the phpmotors web site.</li>
+    <li>Create a new PHP file in the model folder. Name the file
+     <b>main-model.php</b>.</li>
+    <li>Modify the default comment in the model file to indicate that it is the "Main PHP Motors Model".</li>
+    <li>You will now create a new function to get the classification information from the carclassification table in the  phpmotors database.
+    </li>
+   </ol>
+
+   <h2>Create the Function</h2>
+   <ol>
+    <li>If needed, review <a href="//www.w3schools.com/php/php_functions.asp" title="Opens in a new tab" target="_blank">PHP
+      Functions</a> before beginning.</li>
+    <li>Create a new function using the "function" key word and name the function <b>getClassifications()</b>.</li>
+    <li>When creating functions (interactions) name them to describe what they do.</li>
+    <li>Note that no parameters will be placed between the parentheses as the function will not need outside information to run.
+    </li>
+    <li>Build the function to look like the code below:
+     <pre class="line-numbers"><code class="language-php">function getClassifications(){
+ // Create a connection object from the phpmotors connection function
+ $db = phpmotorsConnect(); 
+ // The SQL statement to be used with the database 
+ $sql = 'SELECT classificationName FROM carclassification ORDER BY classificationName ASC'; 
+ // The next line creates the prepared statement using the phpmotors connection      
+ $stmt = $db->prepare($sql);
+ // The next line runs the prepared statement 
+ $stmt->execute(); 
+ // The next line gets the data from the database and 
+ // stores it as an array in the $classifications variable 
+ $classifications = $stmt->fetchAll(); 
+ // The next line closes the interaction with the database 
+ $stmt->closeCursor(); 
+ // The next line sends the array of data back to where the function 
+ // was called (this should be the controller) 
+ return $classifications;
+}</code></pre>
+    </li>
+    <li>
+     <strong>Note:</strong> We should always use Prepared Statements when interacting with databases as it provides an additional layer of protection for the database against outside attacks!</li>
+    <li>Double check your code to make sure it is accurate and no warnings or errors appear in the code.</li>
+    <li>Save the file.</li>
+   </ol>
+
+   <h2>New Symbol Meanings</h2>
+   <p>Just as with the PDO connection object last week, the code above for the Prepared Statement includes a symbol that you may wonder about. Let's explain:</p>
+   <h3>Single Arrow - <strong>&mdash;&gt;</strong>
+   </h3>
+   <p>In Object Oriented programming of PHP we create instances of a class and refer to them as objects. Objects have methods (functions) that they can perform. The single arrow " -> " represents a call to a method of an object. For example, when you write this line of code in the creation of a prepared statement: <br>
+    <code class="callout no-left">$stmt = $db->prepare($sql);</code> <br> What you are doing is calling the "prepare" method of the database connection object. You are sending it a sql query that has been stored in a variable named "$sql". If everything works, then a new PDO Prepared Statement, which is a new and different type of object, is created and
+    stored into a variable named "$stmt".</p>
+
+   <p>In real life, this is a bit harder to illustrate but let me try. Your car (even if you don't own one, pretend) is a car object. Meaning that your's isn't the only one, but it represents this abstract concept of "car". Your car has methods: move forward, move reverse, turn left, turn right, blow horn, etc... So, when you prepare to back up we could    represent it as $car->reverse();</p>
+
+   <h2>Open the PHP Motors Controller</h2>
+   <p>The PHP Motors controller is index.php and should be at the root of the phpmotors folder. Open it.</p>
+   <ol>
+    <li>In order to use the model we have two files that must be brought into the scope of the controller (refer to
+     <a href="//www.w3schools.com/php/php_includes.asp" title="Opens in a new tab" target="_blank">PHP Include and Require</a> as needed).</li>
+    <li>The two files are the connections.php file and the main-model.php file.</li>
+    <li>These files must be brought into scope in that order because:
+     <br>
+     <ul>
+      <li>the connections file contains all of the functions for talking to the database server. Without this file the
+       model cannot do it's job.</li>
+      <li>the main-model is needed to get the data from the database which the controller will use to build the dynamic navigation menu.</li>
+     </ul>
+    </li>
+    <li>Use the require_once function to bring both files into scope as shown below:
+     <pre class="line-numbers"><code class="language-php">// Get the database connection file
+ require_once 'library/connections.php';
+ // Get the PHP Motors model for use as needed
+ require_once 'model/main-model.php';</code></pre>
+    </li>
+    <li>The require_once function does three things:
+     <ul>
+      <li>it attempts to bring the requested code into scope, and</li>
+      <li>if it fails the application throws an exception (error) and quits, and</li>
+      <li>if it succeeds PHP will ignore any future requests for the same code if repeated in the same file, which saves time and is more efficient.</li>
+     </ul>
+    </li>
+   </ol>
+
+   <h2>Call the getClassifications() Function</h2>
+   <p>With the connection and model pages in the scope of the controller, code can be written to call on them to do their jobs.</p>
+   <p>
+    <strong>Note:</strong> While we could repeat this code every time we needed a view, that would be inefficient. Instead, we will write the code prior to the switch statement therefore making the resulting code available to all other code in the scope of the controller. This is referred to as <b>page</b> scope, but includes any files that are included or required into that page's scope (see
+    <a href="//php.net/manual/en/language.variables.scope.php" title="Read about scope on php.net" target="_blank">variable scope</a> at PHP.net).</p>
+   <ol>
+    <li>Create one or two empty lines beneath the lines where the connection and model files were required and brought into the controller's scope.</li>
+    <li>Call the getClassifications() function and assign what it returns to a variable named <b>$classifications</b> as shown below:
+     <pre class="line-numbers"><code class="language-php">// Get the array of classifications
+	$classifications = getClassifications();</code></pre>
+    </li>
+    <li>Let's test to see what, if anything, we got from the database.
+     <br>
+     <ul>
+      <li>Write the following code on the next two lines:
+       <pre class="line-numbers"><code class="language-php">var_dump($classifications);
+	exit;</code></pre>
+      </li>
+      <li>var_dump is a PHP function that displays information about a variable, array or object.</li>
+      <li>The exit directive stops all further processing by PHP.</li>
+      <li>Using var_dump and exit are great ways to test and see that what you thought you were getting is actually what you got!
+      </li>
+     </ul>
+    </li>
+    <li>Save all files.</li>
+    <li>Run the controller in the phpmotors folder.
+     <ol>
+      <li>Make sure the Apache and MySQL database servers are running</li>
+      <li>Open a new browser window or tab, type <code>localhost/phpmotors</code> and you should see the result of the var_dump on the screen. Remember that the controller is named "index.php" and it is a default name, meaning that if we don't specify a name, then the server will look for and deliver a file with a default name automatically.</li>
+     </ol>
+    </li>
+    <li>If things are working, the var_dump should have dumped something similar to what you see below to your browser
+     window:
+     <code class="language-php">array(5) { [0]=> array(2) { ["classificationName"]=> string(6) "Classic" [0]=>
+              string(6)
+              "Classic" } [1]=> array(2) { ["classificationName"]=>
+              string(9) "Sports" [0]=> string(9) "Sports" } [2]=> array(2) { ["classificationName"]=> string(4) "SUV"
+              [0]=>
+              string(4)
+              "SUV" } [3]=> array(2) { ["classificationName"]=> string(6) "Trucks" [0]=> string(6) "Trucks" } [4]=> array(2)
+              {
+              ["classificationName"]=>
+              string(4) "Used" [0]=> string(4) "Used" } }</code>
+    </li>
+    <li>While it may look like a mess, in reality it tells us that we have a multidimensional array with 5 sub-arrays. That is exactly what we wanted!</li>
+    <li>If you got nothing, go back and double check your code, talk with a peer, contact a TA or lab assistant or the professor. But it needs to be working.</li>
+    <li>When it is working and you're done testing comment out the var_dump and exit lines using <code>//</code> at the beginning of each line or delete the lines.</li>
+   </ol>
+
+   <h2>Build the Navigation List with Links</h2>
+   <p>With the array of classifications being returned from the database we will break it apart and use PHP and HTML to build an unordered list of links. Do the following:</p>
+
+   <p>Below the var_dump and exit lines (if commented out) or on the first empty line beneath the getClassifications() function call, write the following code:</p>
+
+   <pre class="line-numbers"><code class="language-php">// Build a navigation bar using the $classifications array
+ $navList = '&lt;ul&gt;';
+ $navList .= "&lt;li&gt;&lt;a href='/phpmotors/index.php' title='View the PHP Motors home page'&gt;Home&lt;/a&gt;&lt;/li&gt;";
+ foreach ($classifications as $classification) {
+  $navList .= "&lt;li&gt;&lt;a href='/phpmotors/index.php?action=".urlencode($classification['classificationName'])."' title='View our $classification[classificationName] product line'&gt;$classification[classificationName]&lt;/a&gt;&lt;/li&gt;";
+ }
+ $navList .= '&lt;/ul&gt;';</code></pre>
+
+   <h3>An Explanation</h3>
+   <ol>
+    <li>
+     <code class="language-php">$navList = '&lt;ul&gt;';</code> - creates an unordered list as a string and assigns it to the $navList variable.</li>
+    <li>
+     <code class="language-php">$navList .= "&lt;li&gt;&lt;a href='/phpmotors/index.php' title='View the PHP Motors home page'&gt;Home&lt;/a&gt;&lt;/li&gt;";</code> - creates a list item with a link to the controller at the root of the phpmotors folder as a string. The string is then added to the value already stored in the variable. That's what the <code class="language-php">.=</code> operator does, it adds to a variable.</li>
+    <li>
+     <code class="language-php">foreach ($classifications as $classification) {</code> - This begins a foreach loop that will find each of the sub-arrays in the $classifications array and break them apart, one at a time, and stores each one into a new variable called    <b>$classification</b>. Refer to
+     <a href="//php.net/manual/en/control-structures.foreach.php" title="Opens in a new tab" target="_blank">foreach loops</a> at php.net.</li>
+    <li>
+     <code class="language-php">$navList .= "&lt;li&gt;&lt;a
+              href='/phpmotors/index.php?action=".urlencode($classification['classificationName'])."' title='View our
+              $classification[classificationName]
+              product line'&gt;$classification[classificationName]&lt;/a&gt;&lt;/li&gt;";</code> - This is a list item with a link that points to the controller in the phpmotors folder, but this time it is followed by a question mark (e.g. ?) and then by a key - value pair. The key is <b>action</b> and the value is the classification name inside of the $classification variable. The $classification['classificationName'] is inside of a PHP function -
+     <a href="http://php.net/manual/en/function.urlencode.php" title="See the documentation for urlencode in a new tab" target="_blank">urlencode</a> - which takes care of any spaces or other special characters so they are valid HTML. The whole piece is concatenated into the string as a whole. As with all previous code in this example, the string is being added to the $navList variable.</li>
+    <li>
+     <code class="language-php">}</code> - this lone right curly brace closes the foreach loop.</li>
+    <li>
+     <code class="language-php">$navList .= '&lt;/ul&gt;';</code> - This line closes the unordered list.</li>
+   </ol>
+
+   <h2>Time Again to Test</h2>
+   <p>If the code above is written correctly, we should have built an unordered list with links that will send to the controller a request for each of the classification types in the database. Let's see if it works!</p>
+   <ol>
+    <li>Immediately below the last line, where the unordered list was closed and stored in the $navList variable.</li>
+    <li>Write the following two short lines of code:
+     <pre class="line-numbers"><code class="language-php">echo $navList;
+exit;</code></pre>
+    </li>
+    <li>Save the index.php page.</li>
+    <li>Return to the browser tab with the home page visible and reload the page to once again run the controller.</li>
+    <li>When the controller runs, it should display on the screen an unordered list with six items as shown below:
+     <br>
+     <img src="../images/php-motors/echo-list.png" alt="Picture of dynamic navigation list">
+    </li>
+    <li>If it appears, "High Five"!</li>
+    <li>If not, double-check your code, compare it against the illustrations above, talk to someone else, get some help.
+    </li>
+    <li>After it is working, just as with the previous test, comment out those two lines or delete them from the controller.
+    </li>
+   </ol>
+
+   <h2>Put it to work</h2>
+   <p>Since we built all of this outside of the switch structure it is available to any resource that we include into the controller's scope using the switch control structure, including the home.php view. Let's make it happen:</p>
+   <ol>
+    <li>Open your <b>home.php file</b>
+    </li>
+    <li>Find your &lt;nav&gt; area.</li>
+    <li>Comment out the modularization code that you should already have in place.</li>
+    <li>Add the following code within the &lt;nav&gt;&lt;/nav&gt;:
+     <br>
+     <code class="language-php">
+              &lt;?php echo $navList; ?&gt;
+            </code>
+    </li>
+    <li>This tells PHP to find and write the value of the $navList variable to the screen.</li>
+    <li>Save the home.php file.</li>
+    <li>Once again, run the index.php file.</li>
+    <li>The home page should load, but with a new navigation bar that looks like the image below:
+     <br>
+     <img src="../images/php-motors/dyn-nav.png" alt="Picture of the dynamic navigation bar"></li>
+    <li>Your home link may or may not be highlighted, that doesn't matter.</li>
+    <li>As you hover over each link you should see a title telling you that if you click the link you will see products that belong to that classification (the links don't work yet).</li>
+    <li>Look closely at the link's path. You will see that it points to the phpmotors folder and then has a question mark followed by the word "action", an equal sign, and the classification name. <strong>This is the way to pass a "name - value" pair to a controller.</strong>
+    </li>
+   </ol>
+
+   <h2>Apply to All</h2>
+   <p>When the dynamic navigation bar is working correctly in the home view, apply it to your template as well, but NOT to the 500.php error page! The navigation bar will now be delivered from the controller, but the header and footer will continue to be delivered from the code snippet modules.</p>
+
+   <h2>Video Demonstration</h2>
+   <iframe src="https://www.youtube.com/embed/CQ3gg2qXqEg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+   </article>
+  </main>
+  <footer>
+   <a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US" target="_blank"> <img alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by-sa/3.0/88x31.png"> </a> All materials (except as noted) are by Blaine Robertson and licensed under a <a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US" title="Read the license" target="_blank">Creative Commons Attribution-ShareAlike 3.0 License</a>.
+  </footer>
+ </div>
+ <script src="/340br/js/prism-coy-dev.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+ <meta charset="utf-8">
+ <meta http-equiv="x-ua-compatible" content="ie=edge">
+ <title>Images Table | Web Backend Development I</title>
+ <meta name="description" content="Building the images table in the acme database for CSE 340">
+ <meta name="viewport" content="width=device-width">
+ <link rel="stylesheet" href="/340br/css/340course.css" media="screen">
+</head>
+
+<body>
+ <div id="wrapper">
+  <header id="header"><img src="/340br/images/bs_small_banner.jpg" alt="CSE 340 Banner Image"></header>
+  <main>
+    <h1>Images Table</h1>
+    <p>When dealing with images in a dynamic web site there are two choices: 1) store the images into the database as a "blob" (binary large object) or 2) store the images to the server and store the path to the image in the database. The first option is pretty intensive for the database server and for the developer, and so we will opt for the second.</p>
+    <h2>Data Dictionary</h2>
+    <p>Back in early weeks of the semester you were introduced to Entity Relationship Diagrams (ERD). While powerful, they lack a lot of information needed to provide a complete picture to build a table. Another option is the "data dictionary". This is a table that shows the table, its fields (columns) and the particular data for each. Below is the data dictionary for the <b>images</b> table:</p>
+    <figure>
+     <img src="/340br/phpmotors/images/images-data-dictionary.png" alt="Data dictionary image of the images table for the phpmotors database">
+    </figure>
+    <p>The gold key represents the <b>imgId</b> as the primary key field and the silver key represents the <b>invId</b> field as a foreign key field to provide the relationship between the <b>images</b> and <b>inventory</b> tables.</p>
+
+    <h2>Build the Table</h2>
+    <p>In the <b>phpmotors</b> database build the new <b>images</b> table using the requirements shown in the provided data dictionary. You should note that the <b>imgId</b> field is auto incrementing and the <b>imgDate</b> is a timestamp with "CURRENT_TIMESTAMP" being entered by the database when a new record is written. The imgPrimary field has a default value of zero (0), if not changed. This means that when writing data to this table only the "invId", "imgName" and "imgPath" fields need to have data supplied to them, but the "imgPrimary" value could be changed if needed. <mark>Note: The imgPrimary field will be used to indicate if a vehicle picture will be the "Primary" or "Main" picture to be used with the vehicle or not - the default is "No" or "FALSE" as indicated by the zero.</mark></p>
+    <p>In addition, the <b>invId</b> must be designated as an "Index" (but NOT as a <b>UNIQUE</b> index) in order to establish the relationship between it and its equivalent field in the <b>inventory</b> table, which you will do next.</p>
+
+    <h2>Establish the Relationship</h2>
+    <p>We want an actual relationship to exist between the <b>images</b> and <b>inventory</b> tables. To build the relationship do the following:</p>
+    <ol>
+     <li>Click the "Structure" tab of the <b>images</b> table once it is built.</li>
+     <li>Click the "Relation view" button (just below the "Structure" tab).</li>
+     <li>Scroll down to the "Foreign key constraints" area. Set the values to match the image below:<br>
+      <img src="/340br/phpmotors/images/php-motors/fk-image-phpmotors.jpg" alt="Relationship settings for the images table">
+     </li>
+     <li>Scroll down (if needed), click "Save".</li>
+    </ol>
+    <h3>Errors?</h3>
+    <p>If you get an error saying that the relationship cannot be created, do the following:</p>
+    <ol>
+      <li>Click the inventory table's "Structure" tab.</li>
+      <li>Click the "Change" link for the invId field.</li>
+      <li>Check to make sure the following are true for the invId field:
+        <ol>
+          <li>The data type in "INT", with 10 characters (e.g. INT(10).</li>
+          <li>Attributes is "UNSIGNED".</li>
+          <li>A_I (Auto Increment) is enabled.</li>
+          <li>All others should be blank.</li>
+        </ol>
+      </li>
+      <li>If any of these items are different than what was listed, change it and then find and click the "Go" button.</li>
+      <li>Click the images table's "Structure" tab.</li>
+      <li>Click the "Change" link for the invId field.</li>
+      <li>Check to make sure the following are true for the invId field:
+        <ol>
+          <li>The data type in "INT", with 10 characters (e.g. INT(10).</li>
+          <li>Attributes is "UNSIGNED".</li>
+          <li>A_I (Auto Increment) is <b>disabled</b>.</li>
+          <li>All others should be blank.</li>
+        </ol>
+      </li>
+      <li>If any of these items are different than what was listed, change it and then find and click the "Go" button.</li>
+      <li>Click the phpmotors database link in the breadcrumb trail at the top of the screen.</li>
+      <li>Click the "Privileges" tab.</li>
+      <li>Find and click the "Edit privileges" link for the iClient user.</li>
+      <li>Locate the "Administration" column and turn on the "REFERENCES" item.
+        <img src="/340br/phpmotors/images/php-motors/iclient-privileges.jpg" alt="Image of the client privileges settings">
+      </li>
+      <li>Scroll down and click "Go".</li>
+      </ol>
+      <p>Now attempt to create the relationship again. It should work. If not, get help.</p>
+
+
+    <h2>Conclusion</h2>
+    <p>The table to hold the image name, path and the matching key value for the inventory item that the image represents is now in place. You are ready to start building the application.</p>
+  </main>
+  <footer>
+   <a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US" target="_blank"><img alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by-sa/3.0/88x31.png"></a> All materials (except as noted) are by Blaine Robertson and licensed under a <a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US" title="Read the license" target="_blank">Creative Commons Attribution-ShareAlike 3.0 License</a>.</footer>
+ </div>
+</body>
+
+</html>

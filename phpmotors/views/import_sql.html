@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Import SQL File | Web Backend Development I</title>
+    <meta name="description" content="Import SQL File to a database for CSE 340">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="../css/340course.min.css" media="screen">
+</head>
+
+<body>
+    <div id="main">
+        <header id="header"><img src="../images/bs_small_banner.jpg" alt="CSE 340 Banner Image"></header>
+        <main>
+            <article id="article">
+                <h1>Importing a SQL File</h1>
+                <p>As mentioned in the "Create a Local Database" file once a database is created the next step is to create tables and fields, then populate the tables with data. While this can be done by hand, a much faster approach if available, is to
+                    import SQL files that have the table creation queries prewritten. When imported, these script files will be read by the database server and the queries used to create the tables and data if part of the SQL file. </p>
+
+                <p>The reverse is also possible. A SQL file can be exported from an existing database and then imported to a new database. Thus, saving time in the transferring of the database tables and data from one source to another.
+                </p>
+
+                <p>The directions below guide you through the process of importing a SQL file to create two tables and populate the tables with data for the phpmotors database (which should have been created in the "Creating a Local Database" activity.
+                </p>
+
+                <h2>Download the SQL File</h2>
+                <ol>
+                    <li><a href="../downloads/murach_files.zip" title="Download the zip file">Download the zip file containing
+              the chapter and exercise files</a> for the text.</li>
+                    <li>Unzip the downloaded file.</li>
+                </ol>
+
+                <h2>Launch the Development Servers</h2>
+                <ol>
+                    <li>Open the AMP Tool (MAMP or XAMPP)</li>
+                    <li>Start the Apache Web server</li>
+                    <li>Start the MySQL server</li>
+                </ol>
+
+                <h2>Open The PHPMyAdmin Tool</h2>
+                <ol>
+                    <li>With the Apache and MySQL servers running, open a browser window or new tab.</li>
+                    <li>Type "http://localhost/phpmyadmin" or "http://localhost/phpMyAdmin" into the browser address bar.</li>
+                </ol>
+
+                <h2>Import the SQL File</h2>
+                <ol>
+                    <li>At the server level (the default when the PHPMyAdmin tool opens), click the "Import" tab.</li>
+                    <li>Click the "Choose File" button.</li>
+                    <li>Navigate to your <b>Downloads</b> folder and to the unzipped <b>murach_files</b> folder.</li>
+                    <li>Open the <b>book_apps</b> folder.</li>
+                    <li>Open the <b>_create_db</b> folder.</li>
+                    <li>Click the <b>create_db.sql</b> file. Click "Open".</li>
+                    <li>Scroll to the bottom of the Import screen and click the "Go" button.</li>
+                    <li>If things work correctly, a green bar should appear indicating that the import was successful and 23 queries were executed.</li>
+                </ol>
+
+                <h2>Check the Databases</h2>
+                <ol>
+                    <li>On the left, you should see a new item named "My".</li>
+                    <li>Click the "plus" to expand it.</li>
+                    <li>Beneath it you should see a new item named "guitar".</li>
+                    <li>Click the "plus" to expand it.</li>
+                    <li>You should now see two new databases - <b>my_guitar_shop1</b> and <b>my_guitar_shop2</b>.</li>
+                    <b>You can now click either of the databases to view the tables and data within the database.</b>
+                </ol>
+
+                <p>As mentioned earlier, these databases accompany the example applications found in the Murach textbook. You can use these databases to work along with the chapter examples.</p>
+
+                <h2>One Change</h2>
+                <p>In the chapters, the authors may refer to an administrator table and fake users within that table. The table was omitted from this import. <strong>Use the proxy user you created in the "<a href="local_db.html" title="Open in a new tab"
+              target="_blank">Create a Local Database</a>" activity instead when working with these databases.</strong></p>
+
+                <h2>Video Demonstration</h2>
+                <iframe width="560" height="315" src="//www.youtube.com/embed/taAObUBmeXY" allowfullscreen></iframe>
+
+            </article>
+        </main>
+        <footer>
+            <a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US"><img alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by-sa/3.0/88x31.png" /></a> All materials (except as noted) are by <a href="//blainerobertson.net">Blaine Robertson</a> and licensed under a <a rel="license"
+                href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US">Creative
+        Commons Attribution-ShareAlike 3.0 License</a>.</footer>
+    </div>
+    <script src="../js/course.min.js"></script>
+</body>
+
+</html>

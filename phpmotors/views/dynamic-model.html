@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Dynamic Model | Web Backend Development I</title>
+  <meta name="description" content="A brief explanation of the dynamic model used by web sites for CSE 340">
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" href="/340br/css/340course.css" media="screen">
+</head>
+
+<body>
+  <div id="wrapper">
+    <header id="header"><img src="/340br/images/bs_small_banner.jpg" alt="CSE 340 Banner Image"></header>
+    <main>
+        <h1>Dynamic Web Site Model</h1>
+
+        <p>When we work with the backend components of a dynamic web site, we need to know what those components are and what they do. This document is meant to do just that.</p>
+        <h2>Vocabulary</h2>
+        <p>Before we can understand all of this we need to differentiate <b>static</b> from <b>dynamic</b> web sites.
+        </p>
+        <h3>Static</h3>
+        <p>Back in the CIT 230 class, when all web pages were built and the content simply typed into them, that is "static". The content is fixed and doesn't change until a human edits the content.</p>
+        <h3>Dynamic</h3>
+        <p>When data is stored in a database and a computer language (e.g. PHP) is used to extract data from the
+          database and insert it into a web page (hereafter referred to as a view) based on a click or a form
+          submission we have a dynamic site. It is the dynamic model that illustrates how this happens.</p>
+
+        <h2>The Model</h2>
+        <figure>
+          <img src="/340br/images/dynamic-model.png" alt="An illustration of the dynamic model used for web sites">
+        </figure>
+        <h2>The Client</h2>
+        <p><mark>The client is generically a human being or a web browser or application on any device that displays the interaction components of a web site.</mark> Most typically it is a web page (view) where content is displayed and contains links and/or forms that allow the human to click or complete in order to tell the server what we want to do next.</p>
+        <h2>A View</h2>
+        <p><mark>A view is a web page (html, css, content, javascript) that appears in the browser or app on the
+            client.</mark> It is what the human interacts with and where the content is displayed. The view is always the <i>beginning point</i> of a dynamic interaction and the <i>end point</i> displaying the results of the interaction.</p>
+        <p><mark>When a link is clicked or a form submitted from a view, the data is sent to the Web Server using the "Request".</mark> The request has two sub-methods or sub-objects to move information from the client to the server: the GET and the POST. <mark>Links and their data are always passed through the <b>GET</b>! Forms and their data are typically passed through the <b>POST</b></mark>. Knowing this is important because you have to know where to look to get the incoming data.</p>
+        <h2>The Server</h2>
+        <p>The illustration shows the web, app(lication) and database servers as separate devices, which they can be. However, in our local development environment, they are a single software application that handles all web, PHP and database operations.</p>
+        <p><mark><b>The server is the "backend"</b></mark>. The vast majority of what we do this semester happens here. PHP resides ONLY on the server. SQL lives and works ONLY on the server. The database and its management tools exist on a server.</p>
+        <h3>Web Server</h3>
+        <p>When a request for a HTML page (e.g. file.html) is made the web server handles it alone. The App and
+          Database servers are usually not involved. This server simply finds the file or resources being "requested" and delivers it to the client.</p>
+        <h3>App(lication) Server</h3>
+        <p>When a request for PHP page (e.g. file.php) is made the web server hands the request to the App server to take care of. The App server processes the PHP or other code. If content from the database is needed, it sends a "query" using SQL to the database server. The database server sends the data back as a "<b>Result Set</b>" which the App server has to use to build the content into a view. <mark>When the view is ready, the App erver sends the view to the web server who in turn sends it back to the client in a "<b>Response</b>".</mark></p>
+        <h4>Query</h4>
+        <p><mark>A query is Structured Query Language (SQL) command that the database server understands.</mark> It can be a simple or involved. In this class we will use only "<b>Data Manipulation</b>" queries intended to Create (INSERT), Read (SELECT), Update or Delete data from the database server. These are referred to as CRUD interactions.</p>
+        <h4>Response Set</h4>
+        <p><mark>A response set is returned from the database server when a <b>SELECT</b> query is run.</mark> It is the data extracted from the database and meant to be used in building the content in a view. Otherwise, the database server usually supplies a simple "response" indicating the result of an INSERT, UPDATE or DELETE (simply put, an indication that the query worked or not).</p>
+        <h3>Database Server</h3>
+        <p>The database server can host many databases, but usually is limited to a particular type of database. In XAMPP the database is a MariaDB database, which is similar to the more widely known MySQL database which is found in MAMP. The database server understand Structured Query Language (SQL) which is how we ask our questions (queries). <mark>The database server typically replies with a result set of data, formatted as an "array" (a collections of multiple values).</mark></p>
+
+        <h2>Summary</h2>
+        <p>Knowing the components of this model, their names, the directions which they move and what they do is base knowledge for understanding how a dynamic web site functions. We will use this model daily in our class. You must know it.</p>
+    </main>
+    <footer>
+      <a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US" target="_blank"><img
+          alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by-sa/3.0/88x31.png"></a>
+      All materials (except as
+      noted) are by Blaine Robertson and licensed under a <a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US" title="Read the license" target="_blank">Creative Commons Attribution-ShareAlike 3.0 License</a>.</footer>
+  </div>
+</body>
+
+</html>

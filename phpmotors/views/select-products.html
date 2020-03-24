@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Select Vehicles | Web Backend Development I</title>
+    <meta name="description" content="Selecting vehicles for facilitating an update or delete process for the PHP Motors site of CSE 340">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="../css/340course.min.css" media="screen">
+</head>
+
+<body>
+    <div id="main">
+        <header id="header"><img src="../images/bs_small_banner.jpg" alt="CSE 340 Banner Image"></header>
+        <main>
+            <article id="article">
+                <h1>Select Vehicles</h1>
+                <h2>Overview</h2>
+                <p>When a site administrator needs to update or delete a vehicle from the database it is helpful if a list of potential vehicles is provided. This allows for quick identification of the vehicle prior to beginning the actual update or delete.
+                    This activity will do just that, it will select a list of vehicles from the database and then display a mechanism to begin the update and/or delete process.</p>
+
+                <h2>Video Demonstration</h2>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/DXYMULQnhp4" allowfullscreen></iframe>
+
+                <h2>Vehicles Controller</h2>
+                <p>Earlier you built into the vehicles controller the ability to deliver a Vehicle Management view by default. It is in this view that we will display the list of vehicles. If the potential list was long then a filtering system or search
+                    would be necessary. To keep things simple we will not do those things as part of this activity.</p>
+
+                <ol>
+                    <li>Locate and open the "<b>vehicles</b>" controller.</li>
+                    <li>Within the controller find the "default" case statement that is responsible for delivering the "<b>vehicle management</b>" view.</li>
+                    <li>Create some space between the <i>default case</i> line and the line that actually "includes" the view. In my code the created space looks like this (your names may be different):
+                        <code class="callout no-left">
+            default:<br>
+            <br>
+            <br>
+            <br>
+            &nbsp;&nbsp;include '../view/vehicle-man.php';<br>
+            break;
+            </code>
+                    </li>
+                    <li>Within the empty space we will do two things:
+                        <ol>
+                            <li>Call a function to get a list of vehicle names and vehicle id's from the inventory table and store the returned data into a variable.</li>
+                            <li>Use the data to build an HTML table to display the vehicle name and provide two links: one to trigger an update and one to trigger a delete or show an error if no vehicle data was returned.</li>
+                        </ol>
+                    </li>
+                    <li>Even though the function does not yet exist, let's write the function call and the variable to store the returned data into. Add the following code to the empty space you created earlier:
+                        <code class="callout no-left">
+              default:<br>
+              &nbsp;&nbsp;$vehicles = getVehicleBasics();<br>
+              <br>
+              <br>
+              &nbsp;&nbsp;include '../view/vehicle-man.php';<br>
+              break;
+            </code>
+                    </li>
+                    <li>On the next lines we will test to see if vehicles were returned. If so, we will build an HTML table, but if not, we will set an error message. The following code should do the trick:
+                        <code class="callout no-left">
+       default:<br>
+              &nbsp;$vehicles = getVehicleBasics();<br>
+              &nbsp;if(count($vehicles) > 0){<br>
+              &nbsp;&nbsp;$vehicleList = '&lt;table&gt;';<br>
+              &nbsp;&nbsp;$vehicleList .= '&lt;thead&gt;';<br>
+              &nbsp;&nbsp;$vehicleList .= '&lt;tr&gt;&lt;th&gt;Vehicle Name&lt;/th&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;';<br>
+              &nbsp;&nbsp;$vehicleList .= '&lt;/thead&gt;';<br>
+              &nbsp;&nbsp;$vehicleList .= '&lt;tbody&gt;';<br>
+              &nbsp;&nbsp;foreach ($vehicles as $vehicle) {<br>
+              &nbsp;&nbsp;&nbsp;$vehicleList .= "&lt;tr&gt;&lt;td&gt;$vehicle[invMake] $vehicle[invModel]&lt;/td&gt;";<br>
+              &nbsp;&nbsp;&nbsp;$vehicleList .= "&lt;td&gt;&lt;a href='/phpmotors/vehicles?action=mod&amp;id=$vehicle[invId]' title='Click to modify'&gt;Modify&lt;/a&gt;&lt;/td&gt;";<br>
+              &nbsp;&nbsp;&nbsp;$vehicleList .= "&lt;td&gt;&lt;a href='/phpmotors/vehicles?action=del&amp;id=$vehicle[invId]' title='Click to delete'&gt;Delete&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;";<br>
+              &nbsp;&nbsp;}<br>
+              &nbsp;&nbsp;&nbsp;$vehicleList .= '&lt;/tbody&gt;&lt;/table&gt;';<br>
+              &nbsp;&nbsp;} else {<br>
+              &nbsp;&nbsp;&nbsp;$message = '&lt;p class="notify"&gt;Sorry, no vehicles were returned.&lt;/p&gt;';<br>
+              }<br>
+              &nbsp;include '../view/vehicle-man.php';<br>
+              break;
+            </code>
+                        <h3>An Explanation</h3>
+                        <ul>
+                            <li>The if test ensures that the array has at least 1 element within it.</li>
+                            <li>We build the table and include a &lt;thead&gt; element with a single row and three cells. One with a label for the vehicle names and two cells with an HTML entity for a non-breaking space so the cells don't collapse.</li>
+                            <li>The table body - &lt;tbody&gt; is then opened.</li>
+                            <li>A <i>foreach</i> loop is then used to build a row with three cells:
+                                <ol>
+                                    <li>Cell one has the vehicle make and model displayed from the array row.</li>
+                                    <li>Cell two has a link that includes a trigger name - value pair "action = mod" and a second name - value pair "id = the primary key value of the item". This will allow us to indicate we want to modify a vehicle and identify
+                                        which vehicle to modify.</li>
+                                    <li>Cell three has a link that includes a trigger name - value pair "action = del" and a second name - value pair "id = the primary key value of the item". This will allow us to indicate we want to delete a vehicle and
+                                        identify which vehicle to delete.</li>
+                                </ol>
+                            </li>
+                            <li>When the loop is finished the &lt;/tbody&gt; and &lt;/table&gt; elements are closed.</li>
+                            <li>If there were no vehicles then the error message is created.</li>
+                            <li>The if - else structure ends and the vehicle management view is delivered.</li>
+                            <li>Notice the mixed use of quotes. When a simple string is created single quotes are used. When a string that needs to show a value from the array is built, then double quotes are used.</li>
+                        </ul>
+                    </li>
+                </ol>
+                <h2>The Vehicles Model</h2>
+                <p>With the code in place to build the content it's time to build the function in the model to make it happen.</p>
+                <ol>
+                    <li>Find and open the vehicles model in the <b>model</b> folder.</li>
+                    <li>Move to the bottom of the model and add a new comment indicating that the following function will get basic vehicle information from the inventory table for starting an update or delete process</li>
+                    <li>Beneath the comment write the following function (keep in mind your database connection function may be named different than the one shown):
+                        <code class="callout no-left">
+            function getVehicleBasics() {<br>
+            &nbsp;$db = phpmotors_Connect();<br>
+            &nbsp;$sql = 'SELECT invMake, invModel, invId FROM inventory ORDER BY invMake ASC';<br>
+            &nbsp;$stmt = $db->prepare($sql);<br>
+            &nbsp;$stmt->execute();<br>
+            &nbsp;$vehicles = $stmt->fetchAll(PDO::FETCH_ASSOC);<br>
+            &nbsp;$stmt->closeCursor();<br>
+            &nbsp;return $vehicles;<br>
+            }<br>
+            </code>
+                        <h3>An Explanation</h3>
+                        <ul>
+                            <li>All of this should already be familiar but I will point out one or two things.</li>
+                            <li>The query only gets the make, model and id for each inventory item. That is all we use to build the table.</li>
+                            <li>We are using the <code>fetchAll(PDO::FETCH_ASSOC)</code> method to get an associative array for each item. Meaning the field name from the database table is used to identify each vehicle value.</li>
+                        </ul>
+                    </li>
+                </ol>
+
+                <h2>The Vehicle Management View</h2>
+                <p>With the model set to query the vehicle from the inventory table and the controller ready to build either the HTML table for display or an error message, it is time to add code to the view to make it display in the browser.</p>
+                <ol>
+                    <li>Find and open the <b>vehicle management view</b> in the <b>view</b> folder.</li>
+                    <li>Scroll down in the code until you are below the two links that should already exist: one to add a new car classification and a second to add a new vehicle.</li>
+                    <li>Add the following PHP code block:
+                        <code class="callout no-left">
+            &lt;?php<br>
+              if (isset($message)) {<br>
+              &nbsp;echo $message;<br>
+              }
+             if (isset($vehicleList)) {<br>
+              &nbsp;echo $vehicleList;<br>
+              }<br>
+              ?&gt;<br>
+            </code>
+                        <h3>An Explanation</h3>
+                        <ul>
+                            <li>First we check to see if the <code>$message</code> variable exists. If so, we echo it to the view.</li>
+                            <li>Then, a second <code>if</code> test checks to see if the <code>$vehicleList</code> variable exists, if so we echo it to the view.</li>
+                        </ul>
+                    </li>
+                    <li>If you did not complete the Enhancement 6 Bonus activity (to add protection to the vehicle views), we will do it now.</li>
+                    <li>Scroll to the top of the <b>vehicle management</b> view.</li>
+                    <li>Add the following PHP code block above the HTML doctype declaration but make sure there are no empty lines or empty spaces between the code block and the declaration:
+                        <code class="callout no-left">
+            &lt;?php<br>
+if ($_SESSION['clientData']['clientLevel'] < 2) {<br>
+            &nbsp;header('location: /phpmotors/');<br>
+            &nbsp;exit;<br>
+            }<br>
+            ?&gt;<br>
+            </code>
+                        <strong>Note: Your names may not be identical to those shown. Check your login process for session names.</strong>
+                        <h3>An Explanation</h3>
+                        <ul>
+                            <li>When a client logs in, their client level is stored into the session as part of the client data.</li>
+                            <li>This tests if their "clientLevel" is less than 2.</li>
+                            <li>If so, they are redirected to the phpmotors root where the main phpmotors controller will receive it and display the home view.</li>
+                            <li>The only way the client data is stored to the session is if the client is "logged in".</li>
+                        </ul>
+                    </li>
+                    <li>Add the same code block to the other two vehicle views - <b>Add vehicle</b> and <b>Add Car Classification</b>. This ensures that only a logged in user who is an adminstrator can access the vehicle management area.</li>
+                </ol>
+                <h2>Time to Test</h2>
+                <ol>
+                    <li>Save all files if you haven't already done so.</li>
+                    <li>Run the <b>Vehicles Controller</b>.</li>
+                    <li>If you are not logged in as an adminstrative user you should be redirected to the PHP Motors home view.</li>
+                    <li>Click the "My Account" link and you should now be viewing the login view.</li>
+                    <li>Login using the administrative account that you created earlier - username: admin@cit340.net, password: Sup3rU$er</li>
+                    <li>In the browser address bar, alter the URL to point to the vehicle folder (e.g. http://localhost/phpmotors/vehicles) and press the "Enter" key.</li>
+                    <li>If things worked correctly, you should be looking at a table of vehicle and a "Modify" and "Delete" link to the right of each. Such as is illustrated below:
+                        <p><img src="../images/acme/vehicle-list.png" alt="Illustration of the vehicle list in the vehicle management view"></p>
+
+                    </li>
+                    <li>You will probably want to add some CSS to your external style sheet to dress up the table and make things easier to view.</li>
+                    <li>If things worked as planned you are ready to move on. If they didn't work, get help from a member of your learning team, using the discussion board, from one of the TA's or your professor. But it has to work before moving to the next
+                        activity.
+                    </li>
+                </ol>
+            </article>
+        </main>
+        <footer>
+            <a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US" target="_blank"><img alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by-sa/3.0/88x31.png"></a> All materials (except as noted) are by <a href="//blainerobertson.net" title="Visit the site" target="_blank">Blaine Robertson</a>            and licensed under a <a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US" title="Read the license" target="_blank">Creative Commons Attribution-ShareAlike 3.0 License</a>.</footer>
+    </div>
+    <script src="../js/course.min.js"></script>
+</body>
+
+</html>

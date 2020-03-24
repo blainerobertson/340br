@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+ <meta charset="utf-8">
+ <meta http-equiv="x-ua-compatible" content="ie=edge">
+ <title>Uploads Helper Functions | Web Backend Development I</title>
+ <meta name="description" content="Building the Uploads Helper functions for uploading images for the PHP Motors project for CSE 340">
+ <meta name="viewport" content="width=device-width">
+ <link rel="stylesheet" href="/340br/css/340course.css" media="screen">
+ <link rel="stylesheet" href="/340br/css/prism-coy-dev.min.css" media="screen">
+</head>
+
+<body>
+ <div id="wrapper">
+  <header id="header">
+   <img src="/340br/images/bs_small_banner.jpg" alt="CSE 340 Banner Image">
+  </header>
+  <main>
+   <h1>Uploads Helper Functions</h1>
+   <p>While the controller, model and view are critical to the functionality of the image upload tool, most of the real work is being performed by the "helper" functions. Each of these functions is responsible for a specific task. Some are simple, others are complex. All are commented so be sure to read the code comments to understand what each function or each step within the function does.</p>
+
+   <h2>The functions.php File</h2>
+   <p>Each of these helper functions will be added to the existing
+    <b>functions.php</b> file in the <b>library</b> folder.</p>
+   <ol>
+    <li>Find and open the <b>functions.php</b> file in the <b>library</b> folder.</li>
+    <li>Move to the bottom of the existing functions and add the following comment:
+     <pre class="line-numbers"><code class="language-php">/* * ********************************
+*  Functions for working with images
+* ********************************* */</code></pre>
+    </li>
+   </ol>
+
+   <h2>The makeThumbnailName() Function</h2>
+   <p>Notice this function does not make a thumbnail, it adds the thumbnail designation "-tn" to an image
+    name. Add the following
+    function code beneath the comment you added previously:
+    <pre class="line-numbers"><code class="language-php">// Adds "-tn" designation to file name
+function makeThumbnailName($image) {
+ $i = strrpos($image, '.');
+ $image_name = substr($image, 0, $i);
+ $ext = substr($image, $i);
+ $image = $image_name . '-tn' . $ext;
+ return $image;
+}</code></pre>
+   </p>
+   <h3>An Explanation</h3>
+   <ul>
+    <li>The function needs a string representing a name (the path or file name) of an image (e.g.
+     hummer.jpg). This is sent into
+     the function as a parameter.</li>
+    <li>The PHP <code>strrpos()</code> function looks for the location of the period in the name. When
+     found it sends back the position as a number (the # of characters in the string where the period
+     is located - hummer.jpg: the period is "7" in the
+     string).</li>
+    <li>The PHP <code>substr()</code> function is then used to break the string apart as if it were an
+     array. Everything to the left of the period (now referred to as <code>$i</code> is element zero
+     "0" in the array. It is the <code>$image_name</code> (e.g. hummer).</li>
+    <li>Whatever is left in the array is the file extension (now stored as <code>$ext</code> (e.g. jpg).
+    </li>
+    <li>Finally, the file name is concatenated to the "-tn" string and the extension is concatenated to
+     the end (e.g. hummer-tn.jpg).</li>
+    <li>The now altered name of the "thumbnail" is returned.</li>
+    <li>
+     <strong>Note:</strong> If more than one period exists, the function may possibly return
+     unexpected results. This is why file names should have only a single period in them to separate
+     the name from the extension!</li>
+   </ul>
+
+   <h2>The buildImageDisplay() Function</h2>
+   <p>This function is responsible for taking a multi-dimensional array of image information from the database and wrapping it up in HTML for display in the view. Add the following comment and function below the previous function:</p>
+<pre class="line-numbers"><code class="language-php">// Build images display for image management view
+function buildImageDisplay($imageArray) {
+ $id = '&lt;ul id="image-display"&gt;';
+ foreach ($imageArray as $image) {
+  $id .= '&lt;li&gt;';
+  $id .= "&lt;img src='$image[imgPath]' title='$image[invMake] $image[invModel] image on PHP Motors.com' alt='$image[invMake] $image[invModel] image on PHP Motors.com'&gt;";
+  $id .= "&lt;p&gt;&lt;a href='/phpmotors/uploads?action=delete&amp;imgId=$image[imgId]&amp;filename=$image[imgName]' title='Delete the image'>Delete $image[imgName]&lt;/a&gt;&lt;/p&gt;";
+  $id .= '&lt;/li&gt;';
+}
+ $id .= '&lt;/ul&gt;';
+ return $id;
+}</code></pre>
+   
+   <h3>An Explanation</h3>
+   <ul>
+    <li>The function expects a multi-dimensional array of image and vehicles in inventory information
+     (this would have been queried from the function on the model.</li>
+    <li>This function then builds an unordered list.</li>
+    <li>Using a <code>foreach()</code> loop the multi-dimensional array is broken apart into simple
+     arrays.</li>
+    <li>The various elements of the simple array are used to insert the picture into a list item.</li>
+    <li>A paragraph with a link is also inserted into the list item. The link is what is used to trigger
+     the delete functionality to remove an image from the site and the database.</li>
+    <li>When the <code>foreach()</code> loop finishes, the unordered list is closed.</li>
+    <li>The complete unordered list, with all the images and links is returned.</li>
+   </ul>
+
+   <h2>The buildVehiclesSelect() Function</h2>
+   <p>This function should look familiar, it is very similar to the
+    <code>buildClassificationsSelect()</code> function. It takes a list of inventory vehicle makes, models and id's and
+    builds them into an HTML select dropdown menu and is
+    used in the image management view. Add this comment and function below the previous function:</p>
+   <pre class="line-numbers"><code class="language-php">// Build the vehicles select list
+function buildVehiclesSelect($vehicles) {
+ $prodList = '&lt;select name="invId" id="invId"&gt;';
+ $prodList .= "&lt;option&gt;Choose a Vehicle&lt;/option&gt;";
+ foreach ($vehicles as $vehicle) {
+  $prodList .= "&lt;option value='$vehicle[invId]'&gt;$vehicle[invMake]&nbsp;$vehicle[invModel]&lt;/option&gt;";
+ }
+ $prodList .= '&lt;/select&gt;';
+ return $prodList;
+}</code></pre>
+
+   <h2>The uploadFile() Function</h2>
+   <p>This file is somewhat complicated. It stores the physical file to the server and returns the path of where the file was stored. That path will then be inserted to the database. Add the following comment and function below the previous function:</p>
+   <pre class="line-numbers"><code class="language-php">// Handles the file upload process and returns the path
+// The file path is stored into the database
+function uploadFile($name) {
+ // Gets the paths, full and local directory
+ global $image_dir, $image_dir_path;
+ if (isset($_FILES[$name])) {
+  // Gets the actual file name
+  $filename = $_FILES[$name]['name'];
+  if (empty($filename)) {
+   return;
+  }
+ // Get the file from the temp folder on the server
+ $source = $_FILES[$name]['tmp_name'];
+ // Sets the new path - images folder in this directory
+ $target = $image_dir_path . '/' . $filename;
+ // Moves the file to the target folder
+ move_uploaded_file($source, $target);
+ // Send file for further processing
+ processImage($image_dir_path, $filename);
+ // Sets the path for the image for Database storage
+ $filepath = $image_dir . '/' . $filename;
+ // Returns the path where the file is stored
+ return $filepath;
+ }
+}</code></pre>
+
+   <h3>An Explanation</h3>
+   <p>Because of the numerous processes refer to the comments in the code. But in general:</p>
+   <ul>
+    <li>The name of the uploaded file is sent into the function as a parameter.</li>
+    <li>The path variables (from the controller) are "global"-ized, meaning they are brought into the function's scope for use.</li>
+    <li>A series of checks are used to make sure there is a physical file in the PHP <code>$_FILES</code> super global object. This is similar to other super globals ($_SESSION, $_POST, $_GET) in that they work like associative arrays. In this case the <code>$_FILES</code> super global handles all file uploads.</li>
+    <li>All uploads are stored in a temporary location, that is found.</li>
+    <li>The path to the permanant storage location is built.</li>
+    <li>The physical file is then moved to the permanent location.</li>
+    <li>The physical file is then sent to another process for manipulation (it will be our next function).</li>
+    <li>Finally the path to where the file is stored is finished and returned for inserting to the database.</li>
+   </ul>
+
+   <h2>The processImage() Function</h2>
+   <p>This function builds the actual paths for storing the images and also calls a function that will resize images to dimensions that are specified. It actually replaces the original file with the modified file and creates the thumbnail file in the same location as other images. Refer to the included comments for the specifics of each line of code in the function. Enter the following comment and function below the previous function:</p>
+   <pre class="line-numbers"><code class="language-php">// Processes images by getting paths and 
+// creating smaller versions of the image
+function processImage($dir, $filename) {
+ // Set up the variables
+ $dir = $dir . '/';
+
+ // Set up the image path
+ $image_path = $dir . $filename;
+
+ // Set up the thumbnail image path
+ $image_path_tn = $dir.makeThumbnailName($filename);
+
+ // Create a thumbnail image that's a maximum of 200 pixels square
+ resizeImage($image_path, $image_path_tn, 200, 200);
+
+ // Resize original to a maximum of 500 pixels square
+ resizeImage($image_path, $image_path, 500, 500);
+}</code></pre>
+
+
+   <h2>The resizeImage() Function</h2>
+   <p>This is the true work horse function. It is responsible for: 1) checking that only image files are being uploaded, 2) checking the size of the image and resizing it if it is larger than what was specified, 3) replacing old images with new versions and 4) destroying temporary files that may exist. Refer to the comments within the code for specific operations and refer to PHP.net for details on the many PHP functions used in this function. Add the following comment and function beneath the previous function:</p>
+
+   <pre class="line-numbers"><code class="language-php">// Checks and Resizes image
+function resizeImage($old_image_path, $new_image_path, $max_width, $max_height) {
+     
+ // Get image type
+ $image_info = getimagesize($old_image_path);
+ $image_type = $image_info[2];
+
+ // Set up the function names
+ switch ($image_type) {
+ case IMAGETYPE_JPEG:
+  $image_from_file = 'imagecreatefromjpeg';
+  $image_to_file = 'imagejpeg';
+ break;
+ case IMAGETYPE_GIF:
+  $image_from_file = 'imagecreatefromgif';
+  $image_to_file = 'imagegif';
+ break;
+ case IMAGETYPE_PNG:
+  $image_from_file = 'imagecreatefrompng';
+  $image_to_file = 'imagepng';
+ break;
+ default:
+  return;
+} // ends the swith
+
+ // Get the old image and its height and width
+ $old_image = $image_from_file($old_image_path);
+ $old_width = imagesx($old_image);
+ $old_height = imagesy($old_image);
+
+ // Calculate height and width ratios
+ $width_ratio = $old_width / $max_width;
+ $height_ratio = $old_height / $max_height;
+
+ // If image is larger than specified ratio, create the new image
+ if ($width_ratio > 1 || $height_ratio > 1) {
+
+  // Calculate height and width for the new image
+  $ratio = max($width_ratio, $height_ratio);
+  $new_height = round($old_height / $ratio);
+  $new_width = round($old_width / $ratio);
+
+  // Create the new image
+  $new_image = imagecreatetruecolor($new_width, $new_height);
+
+  // Set transparency according to image type
+  if ($image_type == IMAGETYPE_GIF) {
+   $alpha = imagecolorallocatealpha($new_image, 0, 0, 0, 127);
+   imagecolortransparent($new_image, $alpha);
+  }
+
+  if ($image_type == IMAGETYPE_PNG || $image_type == IMAGETYPE_GIF) {
+   imagealphablending($new_image, false);
+   imagesavealpha($new_image, true);
+  }
+
+  // Copy old image to new image - this resizes the image
+  $new_x = 0;
+  $new_y = 0;
+  $old_x = 0;
+  $old_y = 0;
+  imagecopyresampled($new_image, $old_image, $new_x, $new_y, $old_x, $old_y, $new_width, $new_height, $old_width, $old_height);
+
+  // Write the new image to a new file
+  $image_to_file($new_image, $new_image_path);
+  // Free any memory associated with the new image
+  imagedestroy($new_image);
+  } else {
+  // Write the old image to a new file
+  $image_to_file($old_image, $new_image_path);
+  }
+  // Free any memory associated with the old image
+  imagedestroy($old_image);
+} // ends resizeImage function</code></pre>
+
+   <h2>Double Check</h2>
+   <p>
+    <strong>Save the file.</strong>
+   </p>
+   <p>With all the code added it will be easy to make a mistake. Carefully check for error markers (red icons or red underlines)
+    in the <b>functions.php</b> page. If you find them, fix them.</p>
+
+   <h2>Potential Problems</h2>
+   <p>While this may sound insane, there seems to be an issue when a image file is created with the ".jpeg" extension. If you attempt to upload such a file, it will usually fail to actually save the physical image file.</p>
+   <p>So, my advice is to use an image editing application to open and then export the file as a ".jpg" file. You can't simply change the extension, you have to export or save the file as a JPG file with the three letter extension.</p>
+   <p>Once that is done, then run the image through the upload process. This seems to solve the issue.</p>
+
+   <h2>Conclusion</h2>
+   <p>Wow! Do you feel worn out? That is a lot of code, but it sure makes our life easy. We indicate a file to upload and these helper functions do most of the work to make sure our image is exactly what we want.</p>
+
+  </main>
+  <footer>
+   <a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US" target="_blank"> <img alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by-sa/3.0/88x31.png"></a> All materials (except as noted) are by Blaine Robertson and licensed under a <a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US" title="Read the license" target="_blank">Creative Commons Attribution-ShareAlike 3.0 License</a>.</footer>
+ </div>
+ <script src="/340br/js/prism-coy-dev.min.js"></script>
+</body>
+
+</html>

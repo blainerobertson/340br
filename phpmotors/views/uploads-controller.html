@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>Uploads Controller | Web Backend Development I</title>
+	<meta name="description" content="Building the uploads folder and controller for the PHP Motors site for CSE 340">
+	<meta name="viewport" content="width=device-width">
+	<link rel="stylesheet" href="/340br/css/340course.css" media="screen">
+	<link rel="stylesheet" href="/340br/css/prism-coy-dev.min.css" media="screen">
+</head>
+
+<body>
+	<div id="wrapper">
+		<header id="header">
+			<img src="/340br/images/bs_small_banner.jpg" alt="CSE 340 Banner Image">
+		</header>
+		<main>
+				<h1>Uploads Controller</h1>
+				<p>In order to build the image uploads application we need an application space and a controller to get
+					started.</p>
+				<h2>The Application Folder</h2>
+				<ol>
+					<li>In the phpmotors project create a new folder at the root level, name the folder "<b>uploads</b>".</li>
+					<li>Remember to follow the web naming rules:
+						<ol>
+							<li>All lower case</li>
+							<li>No spaces</li>
+							<li>No special characters</li>
+							<li>Short, meaningful names</li>
+						</ol>
+					</li>
+				</ol>
+				<h2>An Images Folder</h2>
+				<ol>
+					<li>Within the <b>uploads</b> folder create a subfolder named "<b>images</b>".
+						<p>Initially, this "images" folder is where your uploaded image files will be stored. This is
+							temporary and for testing purposes only.</p>
+					</li>
+				</ol>
+
+				<h2>Check Access Permissions</h2>
+				<p>Since we will be writing files to the "<b>images</b>" folder we must make sure the operating system
+					will allow it. The process is slightly different for Mac and Windows users, so use the steps below
+					depending on your operating system.</p>
+				<h3>Mac Users</h3>
+				<ol>
+					<li>Locate the "<b>uploads</b>" folder in the operating system finder window.</li>
+					<li>Right-click the folder icon, choose "Get info".</li>
+					<li>In the new window that opens scroll down and find the "Sharing &amp; Permissions:" area. Expand	it if needed to see the options.</li>
+					<li>Click the lock icon and enter your computer login password to unlock it.</li>
+					<li>Change the privileges for "everyone" and "admin" to <b>Read &amp; Write</b>.</li>
+					<li>Click the sprocket icon at the bottom of the window and select "Apply to enclosed items".</li>
+					<li>If asked to confirm the change, click "Yes" or "Okay".</li>
+					<li>Close the window.</li>
+				</ol>
+
+				<h3>Windows Users</h3>
+				<ol>
+					<li>Locate the "<b>uploads</b>" folder in the operating system files window.</li>
+					<li>Right-click the folder icon, choose "Properties".</li>
+					<li>In the dialog box that opens, click the "Security" tab.</li>
+					<li>In the name list box, select each of the groups or user names, then make sure the "Modify" option is set to "Allow".
+					</li>
+					<li>If you need to edit, click the "Edit" button and make the change(s).</li>
+					<li>Then click the "Advanced" button.</li>
+					<li>Turn on the checkbox in the bottom left corner to "Replace all child object permission entries..."</li>
+					<li>Click "Apply", then "OK".</li>
+					<li>If asked to continue click "YES". Then "OK".</li>
+					<li>Then click "Close" to close the window.</li>
+				</ol>
+
+				<h2>The Controller</h2>
+				<p>Just as we have done in the past we will be using an MVC approach, so it is time to create the controller for our image upload application.</p>
+				<ol>
+					<li>Inside the "<b>uploads</b>" folder create a new PHP file (not a web page), named "<b>index.php</b>".</li>
+					<li>On line 1 create the opening PHP code block code (e.g. <b>&lt;?php</b> ).</li>
+					<li>Add a comment to indicate that this is the "Image uploads controller".</li>
+					<li>Below the comment add the code to create or provide access to the session:
+						<pre><code class="language-php">session_start();</code></pre>
+					</li>
+					<li>Next, let's bring in the outside resources (database connection file, models and helper function
+						library) that the controller will need:
+						<pre><code class="language-php">require_once '../library/connections.php';
+require_once '../model/main-model.php';
+require_once '../model/vehicles-model.php';
+require_once '../model/uploads-model.php';
+require_once '../library/functions.php';</code></pre>
+						The <b>uploads-model.php</b> file doesn't yet exist, but it will by the time you're done with	this week's activities.</li>
+						<li>Okay, let's build the <code>$navList</code> variable for the main menu for our views:
+<pre><code class="language-php">// Get the array of classifications
+$classifications = getClassifications();
+// Build a navigation bar using the $classifications array
+$navList = buildNavigation($classifications);</code></pre></li>
+					<li>Now, let's collect the "action" value from the "post" or "get" options of the "request" from the browser:
+						<pre class="line-numbers"><code class="language-php">$action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_STRING);
+if ($action == NULL) {
+ $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
+}</code></pre>
+					</li>
+					
+					<li>With the basics in place now it's time to start getting specific to this controller. We have two variables that will be needed in the various processes to come. One is where we declare the name of the folder where our uploaded images will be stored. The second is the path that will lead to the folder. By declaring these here, it makes it easy to update or change the name or location in one place and have it apply throughout the application <mark>You will, in fact, be asked to do this during the enhancement</mark>.</li>
+					<li>Create the following comments and code below the navigation list creation previously mentioned:
+						<pre class="line-numbers"><code class="language-php">/* * ****************************************************
+* Variables for use with the Image Upload Functionality
+* **************************************************** */
+// directory name where uploaded images are stored
+$image_dir = '/phpmotors/uploads/images';
+// The path is the full path from the server root
+$image_dir_path = $_SERVER['DOCUMENT_ROOT'] . $image_dir;</code></pre>
+					</li>
+					<li>Now let's build the control structure for the controller. Build the following:
+						<pre class="line-numbers"><code class="language-php">switch ($action) {
+ case 'upload':
+ 
+ break;
+ case 'delete':
+ 
+ break;
+ default:
+ 
+ break;
+}</code></pre>
+						As you see, the controller is going to be limited, but it should take care of the basics we
+						need. Now, let's get into the detail of each process.
+					</li>
+				</ol>
+				<h2>Commented Code</h2>
+				<p>All of the provided code is heavily commented. Be sure to read through the comments to understand what it is doing. Check for function explanations using PHP.net if needed.</p>
+
+				<h2>The Upload Process</h2>
+				<p>As the name implies, this is where the basics of uploading an image will happen. Be aware, that we will rely heavily on helper functions as well as model-based functions to do most of the work.</p>
+				<ol>
+					<li>Within the <b>upload</b> case statement add the following code:
+						<pre class="line-numbers"><code class="language-php">// Store the incoming vehicle id and primary picture indicator
+	$invId = filter_input(INPUT_POST, 'invId', FILTER_VALIDATE_INT);
+	$imgPrimary = filter_input(INPUT_POST, 'imgPrimary', FILTER_VALIDATE_INT);
+	
+	// Store the name of the uploaded image
+ $imgName = $_FILES['file1']['name'];
+      
+ $imageCheck = checkExistingImage($imgName);
+      
+ if($imageCheck){
+  $message = '&lt;p class="notice"&gt;An image by that name already exists.&lt;/p&gt;';
+ } elseif (empty($invId) || empty($imgName)) {
+  $message = '&lt;p class="notice"&gt;You must select a vehicle and image file for the vehicle.&lt;/p&gt;';
+ } else {
+  // Upload the image, store the returned path to the file
+  $imgPath = uploadFile('file1');
+      
+  // Insert the image information to the database, get the result
+  $result = storeImages($imgPath, $invId, $imgName, $imgPrimary);
+      
+  // Set a message based on the insert result
+  if ($result) {
+   $message = '&lt;p class="notice"&gt;The upload succeeded.&lt;/p&gt;';
+  } else {
+   $message = '&lt;p class="notice"&gt;Sorry, the upload failed.&lt;/p&gt;';
+  }
+ }
+      
+ // Store message to session
+ $_SESSION['message'] = $message;
+      
+ // Redirect to this controller for default action
+ header('location: .');</code></pre>
+					</li>
+				</ol>
+				<p><strong>Note:</strong> If you see errors being reported, ignore them for now. They are telling you that the editor doesn't recognize the functions being called. That's because we haven't written them yet. But, we will soon.</p>
+				<h3>An Explanation</h3>
+				<ul>
+					<li>When an image is uploaded it must be associated with a vehicle in the inventory table, the item's id is sent to the controller and stored. In addition, if the image is going to be the primary image, then that indicator is also sent to be stored.</li>
+					<li>A model-based function is called to check if an image by the name of the uploaded image already exists in the database table. </li>
+					<li>If the name check returns TRUE then an error message is set.</li>
+					<li>Then, more checks are done for the image name and vehicle id. If one is missing, the error message is set. Then, skipping down below the "else" the message is stored in the session and
+						the header function is used to redirect to this same controller. The default action of the
+						controller will deliver the view where the error will be displayed. The view's form will NOT be sticky.</li>
+					<li>If there are no errors in the inputs, then the file itself is uploaded to the server and the path to the file is returned.</li>
+					<li>The name of the file is read from the actual file and stored in a variable.</li>
+					<li>The image information (inventory Id, file name, image path, image Primary indicator) is then written to the database and
+						the result of the insert returned and stored in a variable.</li>
+					<li>Based on the result of the Insert, a message is set. The "else" statement ends and the message is stored to the session and the "uploads" controller is called using the "header" function,
+						which will deliver the view where the message will be displayed and the images will appear.</li>
+				</ul>
+
+				<h2>The Delete Process</h2>
+				<p>There is no "update" process for images. We add, read or delete them. The "delete" case is next to handle that type of process.</p>
+				<ol>
+					<li>Add the following code within the "delete" case statement:
+						<pre class="line-numbers"><code class="language-php">// Get the image name and id
+$filename = filter_input(INPUT_GET, 'filename', FILTER_SANITIZE_STRING);
+$imgId = filter_input(INPUT_GET, 'imgId', FILTER_VALIDATE_INT);
+      
+// Build the full path to the image to be deleted
+$target = $image_dir_path . '/' . $filename;
+      
+// Check that the file exists in that location
+if (file_exists($target)) {
+ // Deletes the file in the folder
+ $result = unlink($target); 
+}
+      
+// Remove from database only if physical file deleted
+if ($result) {
+ $remove = deleteImage($imgId);
+}
+      
+// Set a message based on the delete result
+if ($remove) {
+ $message = "&lt;p class='notice'&gt;$filename was successfully deleted.&lt;/p&gt;";
+} else {
+ $message = "&lt;p class='notice'&gt;$filename was NOT deleted.&lt;/p&gt;";
+}
+      
+// Store message to session
+$_SESSION['message'] = $message;
+      
+// Redirect to this controller for default action
+header('location: .');</code></pre>
+					</li>
+				</ol>
+				<h3>An Explanation</h3>
+				<ul>
+					<li>The name of the file and the id of the image are both sent as part of the delete process. These values are stored into variables.</li>
+					<li>Using the <code>$image_dir_path</code> variable that was created prior to the switch statement being written a path to the exact image is created and stored to the <code>$target</code> variable.</li>
+					<li>A check is done to see if the image exists in the target location.</li>
+					<li>If the physical file exists, it is deleted and the result of the delete is stored in the <code>$result</code> variable.</li>
+					<li>If the physical file was removed, then the image record is also removed, or attempted to be removed, from the database table.</li>
+					<li>Based on the result of the delete, a message is set.</li>
+					<li>The message is stored to the session.</li>
+					<li>The <b>uploads</b> controller is called using the
+						<code>header()</code> function which will deliver the view where the message will be displayed and the image should no longer be visible if the delete was successful.</li>
+				</ul>
+				<h2>The default process</h2>
+				<p>The last "case" statement is simply <code>default:</code>. This is the equivalent of an "else" in an
+					"if - else" structure. If none of the other case statements are true, then the default happens.</p>
+				<ol>
+					<li>Add the following code to the default statement:
+						<pre class="line-numbers"><code class="language-php">// Call function to return image info from database
+$imageArray = getImages();
+      
+// Build the image information into HTML for display
+if (count($imageArray)) {
+ $imageDisplay = buildImageDisplay($imageArray);
+} else {
+ $imageDisplay = '&lt;p class="notice"&gt;Sorry, no images could be found.&lt;/p&gt;';
+}
+      
+// Get vehicles information from database
+$vehicles = getVehicles();
+// Build a select list of vehicle information for the view
+$prodSelect = buildVehiclesSelect($vehicles);
+      
+include '../view/image-admin.php';
+exit;</code></pre>
+					</li>
+				</ol>
+				<h3>An Explanation</h3>
+				<ul>
+					<li>The first process gets a list of all images from the database table and stores it as a multi-dimensional array.</li>
+					<li>If the array has at least one item, then the picture information is sent to a helper function which builds HTML around it for display in the view.</li>
+					<li>If the array is empty an error message is built.</li>
+					<li>An array of inventory vehicle information is built using a model-based function that will be built in the vehicles model.</li>
+					<li>The products from the inventory item array are sent to a helper function to build an HTML select list for use in the view.</li>
+					<li>The view is included for display in the browser.</li>
+				</ul>
+
+				<h2>The Vehicles Model</h2>
+				<p>In the code above, a new function is mentioned, the "getVehicles()" function. We will build it now.
+				</p>
+				<ol>
+					<li>Find and open the <b>vehicles-model.php</b> file.</li>
+					<li>Scroll to the bottom and add a new comment indicating that the function will obtain information about all vehicles in inventory.</li>
+					<li>Add the following function to the model:
+						<pre class="line-numbers"><code class="language-php">/ Get information for all vehicles
+function getVehicles(){
+	$db = phpmotorsConnect();
+	$sql = 'SELECT invId, invMake, invModel FROM inventory';
+	$stmt = $db->prepare($sql);
+	$stmt->execute();
+	$invInfo = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	$stmt->closeCursor();
+	return $invInfo;
+}</code></pre></li>
+					<li>Save and close the vehicles-model file.</li>
+				</ol>
+				<h2>Conclusion</h2>
+				<p>As mentioned earlier, the controller is not too complex because it is using outside functions for most of the work. In addition, both the <b>insert</b> and <b>delete</b> processes are using the header function to redirect back to the controller so that the default process gathers the data on the inventory vehicles and images for the view. This means that the code to do so has to exist in only one location in the controller, and doesn't have to be repeated multiple times before the view can be correctly delivered.</p>
+		</main>
+		<footer>
+			<a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US" target="_blank">
+				<img alt="Creative Commons License" style="border-width:0"
+					src="//i.creativecommons.org/l/by-sa/3.0/88x31.png">
+			</a> All materials (except as noted) are by
+			Blaine Robertson and licensed under a <a rel="license"
+				href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US" title="Read the license"
+				target="_blank">Creative Commons Attribution-ShareAlike 3.0 License</a>.</footer>
+	</div>
+	<script src="/340br/js/prism-coy-dev.min.js"></script>
+</body>
+
+</html>

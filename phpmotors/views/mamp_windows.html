@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>MAMP for Windows | Web Backend Development I</title>
+  <meta name="description" content="Installing MAMP for Windows for CSE 340">
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" href="../css/340course.min.css" media="screen">
+</head>
+
+<body>
+  <div id="main">
+    <header id="header"><img src="../images/bs_small_banner.jpg" alt="CSE 340 Banner Image"></header>
+    <main>
+      <article id="article">
+        <h1>MAMP for Windows</h1>
+        <h2>Introduction</h2>
+        <p>An ideal situation for web development is to have a local environment for development and testing
+          and a remote production environment for distributing your work to the rest of the world. To create
+          a local environment requires the installation of server software on your own machine. For web
+          development using PHP, this is known as an "<abbr title="Apache, MySQL and PHP">AMP</abbr>"
+          (Apache, MySQL and PHP) stack. This software bundle gives your machine many of the same
+          capabilities as a dedicated server. On Windows, the current bundle discussed in this tutorial is
+          MAMP (Apache, MySQL and PHP) for Windows.</p>
+
+        <p>This document covers five topics:</p>
+        <ul>
+          <li><a href="#download" title="Jump to the download section">Download Mamp</a></li>
+          <li><a href="#config" title="Jump to the configuration section">Configure Mamp</a></li>
+          <li><a href="#startpage" title="Jump to the start page tools section">Using the Start Page tools</a></li>
+          <li><a href="#error-display" title="Jump to the setting error display section">Enable Error Display</a></li>
+          <li><a href="#troubleshooting" title="Jump to the troubleshooting section">Troubleshooting</a></li>
+        </ul>
+
+        <h2 id="download">Download MAMP</h2>
+        <h3>Video Demonstration</h3>
+        <p>This video demonstrates downloading MAMP for Windows.</p>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/LfNUjGCLYGU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen></iframe>
+
+
+        <p>Using your web browser go to <a href="//mamp.info/" target="_blank" title="Go to mamp.info site in a new tab">mamp.info</a>.
+          Once there, find and download the latest version of MAMP by clicking the "Free Download" button next to the
+          MAMP icon on the left (Not the MAMP PRO icon).</p>
+        <p>When the download page opens click the option on the right for Windows. The file will download to your
+          computer.</p>
+
+        <h3>Installation</h3>
+        <ol>
+          <li>Locate and launch the downloaded installation file on your computer by right-clicking the file and selecting "Run as Administrator".</li>
+          <li>If presented with the security warning(s) asking if it is OK for the software to change your
+            PC?, proceed by clicking "Yes".</li>
+          <li>You will also be warned about your User Account Control not allowing for installation to the
+            Program Files. Click "OK".</li>
+          <li>When the install begins you will shown a list of software to install. Turn OFF the checkboxes to install
+            MAMP PRO and Apple Bonjour.</li>
+          <li>Accept the license agreement.</li>
+          <li>On the following screen accept the default installation location.</li>
+          <li>On the following screens accept the default options until the installation finishes. Note: When the
+            progress bar reaches the 98% mark there will be a noticeable pause. Just let it run, it will eventually
+            finish.</li>
+          <li>When done, click "Finish" to close the installer.</li>
+          <li>There should now be a shortcut icon on the desktop that can be used to launch MAMP. I recommend you move
+            it to the taskbar for ease of access.</li>
+        </ol>
+
+        <h2>Configuring MAMP</h2>
+        <h3>Video Demonstration</h3>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/HhA66yYAdYs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen></iframe>
+
+        <h3>Cloud Drive</h3>
+        <p>Prior to setting up MAMP you will need a cloud drive account and the app for your drive should be installed
+          and working on your computer. <a href="https://www.google.com/drive/" title="Visit Google Drive" target="_blank">Google
+            Drive</a>, <a href="https://www.dropbox.com/?landing=dbv2" title="Visit Dropbox" target="_blank">Dropbox</a>
+          and <a href="https://onedrive.live.com/about/en-us/" title="Visit OneDrive" target="_blank">OneDrive</a> are
+          all examples of cloud drives. By having a cloud drive, your data is automatically backed up to the drive and
+          should your computer harddrive fail, you will not lose your data.</p>
+
+        <h3>Create the Web Root Folder</h3>
+        <p>In the cloud drive, on you local computer, create a folder named "<b>htdocs</b>". Make sure it is all lower
+          case! This will become the root folder for your web site and where all work for the class will be done.</p>
+
+        <h3>Starting Apache and the Database servers in MAMP</h3>
+        <ol>
+          <li>Launch MAMP using the desktop icon, the taskbar icon (if you created one), or the start menu.</li>
+          <li>The control panel has a start servers button which should activate as soon as MAMP is run.</li>
+          <li>Both servers (Apache and MySQL) should start automatically. If they do not, consult the Troubleshooting
+            section.</li>
+          <li>When the process starts the circle icon to the right of the text will turn green.</li>
+          <li>When both icons are green, click the "Open WebStart page" button and a browser window should open
+            showing the localhost (your computer) start page.</li>
+          <li>If you see the start page, the server is installed and running as it should.</li>
+          <li>If you encounter an error, consult the "<a href="#troubleshooting" title="Click to jump to the troubleshooting section">Troubleshooting</a>"
+            section below.</li>
+        </ol>
+
+        <h3>Running and Stopping the MAMP Servers</h3>
+        <p>Running servers on your local machine is a useful tool, but one that can potentially use much of
+          your computer's resources. Therefore, it is important to start MAMP only when you are developing
+          and testing using PHP and shut it down when finished. We will change a few setting to make this easier.</p>
+
+        <h4>Setting the Servers to Stop Automatically</h4>
+        <ol>
+          <li>In the MAMP control panel, click the "Mamp > Preferences" menu option.</li>
+          <li>Make sure the "Start/Stop" tab is active.</li>
+          <li>Turn ON the checkbox to "Stop Servers when quitting MAMP.</li>
+        </ol>
+
+        <h4>Designate the Root Folder</h4>
+        <ol>
+          <li>Click the "Web Server" tab.</li>
+          <li>Click the "Select..." button to the right of the text box.</li>
+          <li>Navigate to the "htdocs" folder in your cloud drive and select it.</li>
+          <li>When returned to the MAMP preferences window, make sure the path looks correct.</li>
+          <li>Click "OK" to close the preferences window.</li>
+          <li>The servers should automatically restart to implement the changes.</li>
+        </ol>
+
+        <h4>Test That It Worked</h4>
+        <p>Click the "Open WebStart Page" button. A new web page should open in your default browser. If it does, then
+          things are configured and working. We'll explore this start page in the next section.</p>
+
+        <h2 id="startpage">The Start Page Tools</h2>
+        <p>The start page serves several purposes: 1) it confirms that the servers are running, 2) it provides access to tools in the MAMP environment and 3) it provides access to information about the environment.</p>
+
+        <h3>Video Demonstration</h3>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/dgQTeJqXipc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+        <h3>phpInfo</h3>
+        <p>The phpInfo link shows the configuration and components of PHP as well as the version of PHP that is running.</p>
+
+        <h3>FAQ</h3>
+        <p>The FAQ's main benefit to us is that it shows all the components installed in MAMP and their versions.</p>
+
+        <h3>phpMyAdmin</h3>
+        <p>phpMyAdmin is a database management tool and the primary tool that we'll access from the Start page. To access it, select "Tools > phpMyAdmin" from the navigation bar.</p>
+        <p>The tool's window will open. We'll spend much more time learning and using this tool in future lessons. For now there are two things to remember:</p>
+        <ol>
+          <li>Remember how to get to the tool: Start page > Tools menu > phpMyAdmin.</li>
+          <li>Never, Ever change any of the four existing databases shown on the left of the screen. These are critical to the basic operation of the database server and should be left alone!</li>
+        </ol>
+
+        <h2 id="error-display">Displaying Errors</h2>
+        <p>By default MAMP hides all errors that it encounters. While this is good in a production environment it is not good for our development environment. Therefore, we need to enable the displaying of errors to help us as we develop our application.</p>
+        <ol>
+          <li>Open phpInfo as done earlier.</li>
+          <li>Scroll down until you find the item "Loaded Configuration File". Copy the path shown to the right of the title.</li>
+          <li>Open your file explorer and paste the path into the address bar at the top of the window. Press Enter.</li>
+          <li>Open the file in any text editor.</li>
+          <li>Do Contol + F to open the search tool.</li>
+          <li>Search for "display_errors".</li>
+          <li>Click the "Find Next" button to move down through the page until you find the line that says, <b>display_errors = off (the line will not have a semi-colon at the far left and should be about 25% down from the top of the document).</b></li>
+          <li>Change the word "off" to "on".</li>
+          <li>Save and close the file.</li>
+          <li>Return to the MAMP control panel and stop, then restart the servers.</li>
+          <li>From now on, if PHP encounters an error, it will report the error to you at run-time.</li>
+          <li>You should only have to do this once.</li>
+        </ol>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/a579QPO2SlU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+        <h2 id="troubleshooting">Troubleshooting</h2>
+        <p>Use the following troubleshooting items if the Apache or Database servers will not start</p>
+
+        <h3>Turn Off Conflicting Programs</h3>
+        <p>If the Apache server will not start it may be due to others programs running that are using the web
+          port. Check if any of the following are running:</p>
+        <ul>
+          <li>Skype - Quit it.</li>
+          <li>VMWare — Use this <a href="../downloads/xampp-error-fixes.pdf" title="Open the PDF in a new tab">Error
+              Correction PDF</a> to turn it off or change settings.</li>
+          <li>Conflicting services - Open the "Services" window and look for any services that are using http, httpd or mysql - <a href="https://www.thewindowsclub.com/open-windows-services" target="_blank" title="Open in a new window">Windows Services Manager</a>. See the "Check the Task Manager" section below.</li>
+          <li>Windows 10 has a service named "World Wide Web Publishing Service" that uses port 80, wit a PID
+            of 4. If it is running the Apache server will not start. Use the Task Manager to stop the
+            service.</li>
+        </ul>
+
+        <h4>Check the Task Manager</h4>
+        <ol>
+          <li>Normally the Apache server should start without issues.</li>
+          <li>However, if it will not start it is typically because another web server is already running and
+            will have to be stopped.</li>
+          <li>Launch the Windows Task Manager (Control + Alt + Delete keys held down together).</li>
+          <li>Click the Task Manager link.</li>
+          <li>In the Task Manager, click the "Processess" tab and look in the "Background Processes" list.</li>
+          <li>If you see an "Apache HTTP Server" in the list click it, then click the "End Task" button until
+            that process disappears.</li>
+          <li>When it is removed from the list, return to the XAMPP Control Panel and click the "Start"
+            button for Apache.</li>
+          <li>It should start and the background for the Apache text should turn green.</li>
+        </ol>
+
+<h2>Conclusion</h2>
+<p>With MAMP installed and configured you're ready to begin your work. If for any reason you cannot get the servers to start, get help immediately. Don't put it off. Without the servers you will not be able to proceed in our class.</p>
+
+      </article>
+    </main>
+    <footer>
+      <a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US"><img alt="Creative Commons License"
+          style="border-width:0" src="//i.creativecommons.org/l/by-sa/3.0/88x31.png" /></a> All materials
+      (except as noted) are by Blaine Robertson and licensed under a <a rel="license"
+        href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US">Creative Commons Attribution-ShareAlike 3.0
+        License</a>.</footer>
+  </div>
+  <script src="../js/course.min.js"></script>
+</body>
+
+</html>

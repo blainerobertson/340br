@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>Enhancement 6 | Web Backend Development I</title>
+	<meta name="description" content="CSE 340 Enhancement 6 directions">
+	<meta name="viewport" content="width=device-width">
+	<link rel="stylesheet" href="/340br/css/340course.css" media="screen">
+</head>
+
+<body>
+	<div id="wrapper">
+		<header id="header"><img src="/340br/images/bs_small_banner.jpg" alt="CSE 340 Banner Image"></header>
+		<main>
+			<h1>Enhancement 6</h1>
+			<h2>Introduction</h2>
+			<p>This week has introduced cookies, sessions and how they work together to maintain "state" as the browser and server interact. This is an absolute requirement to login a site visitor. As you went through the login process it should be obvious that we left some things undone.</p>
+
+			<h2>Overview</h2>
+			<p>In this enhancement you will:</p>
+			<ol>
+				<li>add the <b>admin.php</b> view, and</li>
+				<li>use the session to make sure the visitor is "logged in" in order to see the view, and</li>
+				<li>extract data from the session to display content in the <b>admin.php</b> view, and</li>
+				<li>add a new registrant to the client's table and change the clientLevel of the new registrant, and </li>
+				<li>add additional capability to the <b>admin.php</b> view to show a link to the vehicle controller but only if the logged in visitor has a clientLevel greater than "1" (the default for all new registered site visitors), and</li>
+				<li>create a "logout" process and add it to the PHP Motors web site.</li>
+			</ol>
+			<h2>Video Overview</h2>
+			<p>This short video demonstrates what the finished enhancement will look like and the functionality it	should possess.</p>
+				<iframe src="https://www.youtube.com/embed/2jL_ZBpG8sM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+			<h2>For Your Information</h2>
+			<p>The "firstname" cookie that was set to display in the "login" activity is completely independent of the Login - Logout process. When a client "logs in" or "logs out" the cookie remains. Do not let the fact that the "Welcome" message from the cookie appears interfere with your understanding of the login - logout process.</p>
+
+			<h2>Tasks</h2>
+			<p>As described above you are being asked to add a new view and then add functionality to the view based on the site visitor who is logged in. Then, add a logout process to the site.</p>
+
+			<h3>Create the View</h3>
+			<ol>
+				<li>Use your PHP Motors template to create a new view in the "<b>view</b>" folder named "<b>admin.php</b>".</li>
+				<li>Add a PHP code block to the top of the view (before the doctype declaration) but make sure there are no empty spaces or lines between the end of the PHP code block and the start of the doctype declaration!</li>
+				<li>Add code to the default case statement in the accounts controller that will deliver the admin.php view.</li>
+			</ol>
+
+			<h3>Check for Login</h3>
+			<ol>
+				<li>In the PHP code block at the top of the admin.php view, write an <code>if()</code> test to see if the visitor is NOT logged in. If the visitor is NOT logged in, use a header function to send them to the main PHP Motors controller.</li>
+			</ol>
+
+			<h3>Display SESSION data</h3>
+			<ol>
+				<li>Assuming the site visitor is "logged in", then in the <code>&lt;main&gt;</code> element create an <code>&lt;h1&gt;</code> element and display the "logged in" user's full name.</li>
+				<li>Below the <code>&lt;h1&gt;</code> create an unordered list. In each list item display the user's data that has been stored into the session, preceeded by a meaningful label (e.g. First name: Bill, Email Address: wildbill@ok.com, etc...).</li>
+			</ol>
+
+			<h3>Register a New Client</h3>
+			<ol>
+				<li>Register the following new client to the database:
+					<ul>
+						<li>Firstname: <b>Admin</b></li>
+						<li>Lastname: <b>User</b></li>
+						<li>Email: <b>admin@cit340.net</b></li>
+						<li>Password: <b>Sup3rU$er</b></li>
+					</ul>
+				</li>
+				<li>Using PHPMyAdmin, change the clientLevel for the new record to "3".</li>
+			</ol>
+
+			<h3>Additional View Functionality</h3>
+			<ol>
+				<li>Return to the <b>admin.php</b> view.</li>
+				<li>Below the unordered list write a test to determine if the clientLevel of the logged in client is greater than 1.</li>
+				<li>If the level is greater than 1 display a paragraph with a link inside that points to the vehicle controller.</li>
+				<li>If the level is equal to 1, then the paragraph and link should not be built into the view by the server. This means that if the view is sent to the browser and you do a "view page source" the paragraph html is not present.</li>
+			</ol>
+
+			<h3>Logout Process</h3>
+			<ol>
+				<li>In the accounts controller add a new case statement to watch for a "Logout" value.</li>
+				<li>If a "Logout" is received then the session should be ended (destroyed - hint, hint) and the client is returned to the main phpmotors controller.</li>
+				<li>To enable this logout process to happen, code will have to be added to the views to accomplish the following:
+					<ul>
+						<li>If a site visitor (the client) is not logged in the "My Account" link should be present and operational (as it currently exists).</li>
+						<li>When the client is "logged in" the "My Account" link should be replaced with a "Log out"
+							link that points to the accounts controller and passes the appropriate name value pair to
+							trigger the logout event.</li>
+					</ul>
+				</li>
+			</ol>
+
+			<h3>Extra Credit Code</h3>
+			<p>For 5 points of extra credit, add code to each of the "vehicle" views (vehicle management, new vehicle and new classification) that checks that a client is "loggedin" AND has a clientLevel greater than "1" to access the view. If not, redirect the client back to the phpmotors controller to deliver the PHP Motors home view.</p>
+
+			<h2>Test, Test, Test</h2>
+			<p>Be sure to complete all tasks and then test that they work.</p>
+			<ul>
+				<li>Attempt to access the <b>admin.php</b> view directly before logging in. It should deny you access and redirect you to the phpmotors controller, which should deliver the home view by default.</li>
+				<li>Make sure the "My Account" link appears prior to login, and that the "Logout" link appears after logging in.</li>
+				<li>Log in as a level "1" user to test that the data appears in the "<b>admin.php</b>" view, but that the link does not.</li>
+				<li>Logout as the level "1" user and log in as the level "3" user. When you view the <b>admin.php</b> view, your own data should appear as well as the link to the vehicles controller. Test the link to make sure it takes you to the vehicle controller, which should deliver the vehicles admin view by default.</li>
+			</ul>
+
+
+			<h2>Submission</h2>
+			<ul>
+				<li>Work with your learning team to accomplish the tasks and post to and read the weekly discussion board to help one another.</li>
+				<li>Build, run and test to make sure that each of the tasks works.</li>
+				<li>When satisfied that the code is operational:
+					<ol>
+						<li>Create a video showing:
+							<ul>
+								<li>The "my account" link is present before login and the "Logout" link appears after
+									login; show this functionality in multiple views.</li>
+								<li>Logging in as a level "1" user and the displaying of the client data in the "<b>admin.php</b>" view.</li>
+								<li>Show that the "<b>admin.php</b>" view is valid HTML5.</li>
+								<li>Logging out.</li>
+								<li>Logging in as a level "3" user and the appearance of the vehicles link.</li>
+								<li>Click the vehicles link to show that the vehicles management view is delivered.</li>
+								<li>If you did the extra credit, show it in the video.</li>
+							</ul>
+						</li>
+						<li>Post your video to your YouTube channel and copy the link to the video when published.</li>
+						<li>Zip the entire phpmotors folder and name it enhancement 6 (save this zip file outside of
+							your web site).</li>
+						<li>Submit the zip file to the enhancement 6 assignment dropbox and add the video URL to the
+							assignment dropbox comment.</li>
+					</ol>
+				</li>
+			</ul>
+
+			<h2>Grading Matrix</h2>
+			<p>This enhancement has values in multiple objectives as shown below:</p>
+			<h3>Objective 1</h3>
+			<ul>
+				<li>The "admin.php" view is valid HTML: 5 points (minus 1 point for each error found)</li>
+				<li>Total value for Objective 1: <b>5 points</b></li>
+			</ul>
+
+			<h3>Objective 2</h3>
+			<ul>
+				<li>The code to switch the "My Accounts" and "Logout" links is present and works in all views: 5 points (minus 2 points for each missed view)</li>
+				<li>The logout process is present in the accounts controller and works: 5 points (all or nothing)</li>
+				<li>The code to check for being logged in is present and works in the "admin.php" view: 5 points (all or nothing).</li>
+				<li>The code to display the "vehicles managment" link in the "admin.php" view is present and works only if the logged in client has a clientLevel greater than "1": 5 points (all or nothing)</li>
+				<li>Total value for Objective 2: <b>20 points</b></li>
+			</ul>
+
+			<h3>Objective 6</h3>
+			<ul>
+				<li>The video URL is included in the submission dropbox comment and shows:
+					<ul>
+						<li>The "my account" link is present before login and the "Logout" link appears after login;
+							show this functionality in multiple views.</li>
+						<li>Logging in as a level "1" user and the displaying of the client data in the
+							"<b>admin.php</b>" view.</li>
+						<li>Show that the "<b>admin.php</b>" view is valid HTML5.</li>
+						<li>Logging out.</li>
+						<li>Logging in as a level "3" user and the appearance of the Vehicles link.</li>
+						<li>Click the Vehicles link to show that the vehicles management view is delivered.</li>
+						<li>If you did the extra credit, it must be shown in the video to receive credit.</li>
+					</ul>
+				</li>
+				<li>1 point will be deducted for each missing item.</li>
+				<li>Total value for Objective 6: <b>6 points</b></li>
+			</ul>
+
+			<h3>Extra Credit</h3>
+			<ul>
+				<li>Code exists in each of the "vehicle" views (vehicle management, new vehicle and new classification) that checks that a client is both "loggedin" AND has a clientLevel greater than "1" to access the view. If not, the client is redirected to the phpmotors controller to deliver the PHP Motors home view.</li>
+				<li>5 points extra credit if present and operational.</li>
+			</ul>
+		</main>
+	</div>
+</body>
+
+</html>

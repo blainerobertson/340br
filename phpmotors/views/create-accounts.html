@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+ <meta charset="utf-8">
+ <meta http-equiv="x-ua-compatible" content="ie=edge">
+ <title>Create Accounts Folder | Web Backend Development I</title>
+ <meta name="description"
+  content="This activity creates the account folder and controller for the phpmotors project of CSE 340">
+ <meta name="viewport" content="width=device-width">
+ <link rel="stylesheet" href="/340br/css/340course.css" media="screen">
+ <link rel="stylesheet" href="/340br/css/prism-coy-dev.min.css">
+</head>
+
+<body>
+ <div id="wrapper">
+  <header id="header">
+   <img src="/340br/images/bs_small_banner.jpg" alt="CSE 340 Banner Image">
+  </header>
+  <main>
+   <h1>The Accounts Folder</h1>
+   <p>You have previously created a controller for the phpmotors site itself, but to provide a more focused approach to managing visitor accounts (e.g. logging in and registering), we will create a folder and new controller specifically for that purpose.</p>
+
+   <h2>Create the Accounts folder</h2>
+   <ol>
+    <li>Within the phpmotors folder, create a new folder named "<b>accounts</b>". Do you remember the web naming rules?
+     <ul>
+      <li>No capital letters</li>
+      <li>No spaces in folder or file names</li>
+      <li>No special characters in the name</li>
+      <li>Names should be short and meaningful</li>
+     </ul>
+    </li>
+    <li>Now that we have the folder we need a controller for this folder!</li>
+    <li>To make things easier (we hope) for ourselves, we will copy, paste and edit to do this.</li>
+   </ol>
+
+   <h2>Create the Controller</h2>
+   <p>Because the phpmotors controller (index.php) at the root of the phpmotors site has the basics we will use it to create our new accounts controller.</p>
+   <ol>
+    <li>Copy the phpmotors controller (index.php) at the root of the phpmotors site.</li>
+    <li>Click the <b>accounts</b> folder and paste.</li>
+    <li>An <b>index.php</b> file should now appear inside of accounts.</li>
+   </ol>
+
+   <h2>Edit the Controller</h2>
+   <h3>Alter the Requires</h3>
+   <ol>
+    <li>Open the accounts controller.</li>
+    <li>Change the comment at the top of the page to reflect that this is the "Accounts Controller".</li>
+    <li>We have to edit the paths to the database connection and phpmotors model files.</li>
+    <li>Look at the phpmotors folder structure. You will see that the <b>model</b> and <b>library</b> folders are
+     siblings to the accounts folder.
+     <br>
+     <img src="../images/php-motors/accounts-structure.png" alt="Image of the phpmotors folder structure">
+    </li>
+    <li>Since our file is inside the <b>accounts</b> folder, we have to tell the server to move up one level, then find them. To do this:
+     <ul>
+      <li>Add "<i>../</i>" in front of both paths so that they look like the examples below:
+       <pre><code class="language-php">require_once '../library/connections.php';</code></pre>
+       <pre><code class="language-php">require_once '../model/main-model.php';</code></pre>
+      </li>
+      <li>Keep in mind that your file names may be different than what is shown here.</li>
+     </ul>
+    </li>
+   </ol>
+   <h3>Keep the navList Code</h3>
+   <p>Below the two require_once statements is the code you wrote earlier to build the navigation list.
+    <br>
+    <img src="../images/php-motors/nav-list-code.png" alt="Image of the navList code block">
+    <br>Keep it as you will probably be needing it again.</p>
+
+   <h2>Alter the Control Structure</h2>
+   <ol>
+    <li>The existing control structure looks like this:
+     <pre class="line-numbers"><code class="language-php">switch ($action) {
+ case 'template':
+ include 'view/template.php';
+ break;
+ default:
+  include 'view/home.php';
+  break;
+}</code></pre>
+    </li>
+    <li>Delete the two include statements from the default statement and "template" from the first case statement.</li>
+    <li>When you're done it should look like this:
+     <pre class="line-numbers"><code class="language-php">switch ($action) {
+ case '':
+
+ break;
+ default:
+
+ break;
+}</code></pre>
+    </li>
+    <li>Save the file.</li>
+    <li>The controller is not operational at this point and reports an error. You will fix that in Enhancement 3.</li>
+   </ol>
+
+   <h2>What's Next?</h2>
+   <p>In Enhancement 3 you will create links pointing to this new "accounts" controller with name - value pairs that instruct the controller to deliver the login and registration views. The code that currently exists in this
+    controller will be modified and added to in order for the views to be delivered.</p>
+
+   <h2>Video Demonstration</h2>
+   <iframe src="https://www.youtube.com/embed/QCcDRg2WbNQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </main>
+  <footer>
+   <a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US" target="_blank">
+    <img alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by-sa/3.0/88x31.png">
+   </a> All materials (except as noted) are by Blaine Robertson and licensed under a <a rel="license"
+    href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US" title="Read the license" target="_blank">Creative Commons
+    Attribution-ShareAlike 3.0 License</a>.</footer>
+ </div>
+ <script src="../js/prism-coy-dev.min.js"></script>
+</body>
+
+</html>

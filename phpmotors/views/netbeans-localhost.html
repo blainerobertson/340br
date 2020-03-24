@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+ <meta charset="utf-8">
+ <meta http-equiv="x-ua-compatible" content="ie=edge">
+ <title>NetBeans Localhost Tutorial | Web Backend Development I</title>
+ <meta name="description" content="Configuring NetBeans to work in the local XAMPP development environment for CSE 340">
+ <meta name="viewport" content="width=device-width">
+ <link rel="stylesheet" href="../css/340course.min.css" media="screen">
+</head>
+
+<body>
+ <div id="main">
+  <header id="header"><img src="../images/bs_small_banner.jpg" alt="CSE 340 Banner Image"></header>
+  <main>
+   <article id="article">
+    <h1>NetBeans Localhost Tutorial</h1>
+    <h2 id="req">Prerequisites</h2>
+    <p>This tutorial assumes you have:</p>
+    <ul>
+     <li>Downloaded and installed the most recent version of
+      <a title="Download NetBeans" href="//netbeans.org/downloads/index.html" target="_blank">NetBeans (<b>PHP version</b>)</a>.</li>
+     <li>Completed the <a href="install-xampp.html" target="_blank" title="Click to open in a new tab">XAMPP installation and configuration</a> of a local development environment on your own machine.</li>
+     <li><a href="clean-htdocs.html" target="_blank" title="Open in a new tab">Cleaned up the HTDOCS folder</a> inside of XAMPP on your local machine.</li>
+    </ul>
+
+    <h2>Video Version</h2>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/VDWeEq-9Cz0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+
+    <h2 id="creation">Create a Domain Project</h2>
+    <p>A project is a web site for the purposes of this tutorial. It is where all files and folders reside that pertain to a web site. NetBeans then uses its functionality to keep track of those resources and assists you to manage the site as a whole.</p>
+    <p>This tutorial takes you through the process of creating a project for your classwork on your local machine.</p>
+
+    <ol>
+     <li>Launch NetBeans</li>
+     <li>Click the "Create New Project" icon (top left corner of the screen) or from the File menu choose "New Project"
+      <br>
+      <img src="../images/nb_localhost/newprojecticon.gif" alt="Netbeans new project icon" width="39" height="38" style="margin: 1em 0;">
+      <img src="../images/nb_localhost/newprojectfileselection.gif" alt="Netbeans new project menu selection image" width="280" height="37" style="margin: 1em 0;">
+     </li>
+     <li>A new project dialog box will open showing PHP options (due to our using the PHP version of the tool)
+     </li>
+     <li>Click the second option — PHP Application with Existing Sources, click "Next"
+      <br>
+      <img src="../images/nb_localhost/nb-local-newproject.jpg" alt="Netbeans new php project selection dialog box "></li>
+    </ol>
+
+    <h2 id="location">Name and Specify the Project Location</h2>
+    <ol>
+     <li>Type the name "<i>Localhost</i>" in the Project Name text box.
+      <br>
+      <img src="../images/nb_localhost/nb-local-name.jpg" alt="Netbeans new project dialog box image"></li>
+     <li>Click the "Browse" button and navigate to the "htdocs" folder (on Mac: [Applications &gt; XAMPP &gt; htdocs] or on PC: [C:\XAMPP &gt; htdocs]). Click to select it and then click "Open".</li>
+     <li>Important! Make sure the Sources Folder path ends with "htdocs". If any other text appears after "htdocs" delete it!</li>
+     <li>The PHP Version should be changed to the highest value available (e.g. 7.0).</li>
+     <li>The Default Encoding settings can remain as they are. Click "Next".</li>
+    </ol>
+
+
+    <h2 id="run">Set the Run Configuration</h2>
+    <p>The run configuration tells NetBeans what to do when a file is to be previewed or "run".
+     <br>
+     <img src="../images/nb_localhost/nb-local-runconf.jpg" alt="Netbeans run configuration dialog box"></p>
+    <ol>
+     <li>By default, the Run As: box is set to "Local Web Site (running on local web server)". Do not change this.</li>
+     <li>In the "Project URL" text box, make sure that the path is <code>http://localhost</code>.</li>
+     <li>The "Index File:" should be <code>index.php</code>.</li>
+     <li>Click "Finish" to save the settings and close the configuration window.</li>
+    </ol>
+    <h2>The Project Panel</h2>
+    <p>When you return to NetBeans, the Project panel should be viewed on the left side of your screen. If it is not visible, click the "Window" toolbar and select "Project". Insure that you have a project named "Localhost". This is where you will develop your web site files for testing on the local machine.</p>
+   </article>
+  </main>
+  <footer>
+   <a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US" target="_blank"><img alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by-sa/3.0/88x31.png"></a> All materials (except as noted) are by Blaine Robertson and licensed under a <a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US" title="Read the license" target="_blank">Creative Commons Attribution-ShareAlike 3.0 License</a>.</footer>
+ </div>
+ <script src="../js/course.js"></script>
+</body>
+
+</html>

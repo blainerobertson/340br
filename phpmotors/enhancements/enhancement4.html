@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+ <meta charset="utf-8">
+ <meta http-equiv="x-ua-compatible" content="ie=edge">
+ <title>Enhancement 4 | Web Backend Development I</title>
+ <meta name="description" content="CSE 340 Enhancement 4 directions">
+ <meta name="viewport" content="width=device-width">
+ <link rel="stylesheet" href="/340br/css/340course.css" media="screen">
+ <link rel="stylesheet" href="/340br/css/prism-coy-dev.min.css" media="screen">
+</head>
+
+<body>
+ <div id="wrapper">
+  <header id="header">
+   <img src="/340br/images/bs_small_banner.jpg" alt="CSE 340 Banner Image">
+  </header>
+  <main>
+   <h1>Enhancement 4</h1>
+   <h2>Recap</h2>
+   <p>In enhancement 1 you applied your HTML and CSS skills to build a template and home page for the PHP Motors site. In enhancement 2 the databases were created and we got some practice in writing SQL  statements to INSERT, UPDATE, SELECT and DELETE data and created a PDO connection object for each database within custom functions. In enhancement 3, we got used to working with the Model - View - Control architecture. Using the MVC, requires getting used to paths (moving
+    things around), scope (making things available) and adjusting to sending everything through a controller so it can make decisions about what needs to happen. Integral to doing all of this is an understanding of key - value pairs and control structures that react to values found in key - value pairs. Whew! That's a lot in three enhancements.</p>
+
+   <h2>Overview</h2>
+   <p>In this enhancement we will take everything that we have done in all the weeks up to this point and apply them to new problems:
+   </p>
+   <ol>
+    <li>getting a list of classifications (including both classification id's and names) from the database in order to produce a select drop down menu in an HTML form,</li>
+    <li>building a new controller and model for PHP Motors vehicles (inventory items),</li>
+    <li>building needed views for the vehicles process, and</li>
+    <li>adding new vehicles to the inventory table and new classifications to the carclassification table.</li>
+   </ol>
+
+   <h2>Video Demo</h2>
+   <p>This short video demonstrates what your video of the vehicles process being run and tested could look like.</p>
+   <iframe src="https://www.youtube.com/embed/Xaq7hahNsY8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+   <h2>Take a Breath</h2>
+   <p>At this point, you may be considering having a nervous breakdown -
+    <b>Don't</b>! Why? <b>Because you get an additional full week to do this enhancement!</b>
+   </p>
+   <p>Treat this enhancement as a <i>kinda</i> test. It gives us an opportunity to review, reinforce and provide a proof of learning.</p>
+
+   <h3>Keeping Things Straight</h3>
+   <p>One of the most difficult tasks for new programmers is keeping data coming from the browser, being stored into variables, then inserted to database straight. While there is no perfect way to do this, there is a simple practice that may help: use the database field name for the same piece of data in all of its locations.</p>
+   <p>For example, When adding a new vehicle to the inventory table, the field in the table to store its name is "<b>invMake</b>". So, in the form give the input that name:
+    <br>
+    <code class="language-markup">&lt;input name="invMake" id="invMake" type="text"&gt;</code> Then, in the controller when collecting the value, store it into a variable of the same name:
+    <br>
+    <code class="language-php">$invMake = filter_input(INPUT_POST, 'invMake');</code> While not foolproof, it does help to keep track of what form field is sending what data, what variable is storing that value and what database field the data should be stored into.</p>
+
+   <h2>Tasks</h2>
+   <p>As described above you are being asked to build a process for adding new classifications to the carclassifications table and new vehicles (inventory items) to the inventory table, all using the MVC architecure, PHP, HTML and CSS. You will build the following items, test them for operation and validate the HTML and CSS code in all views.</p>
+   <p>
+    <i style="font-size: larger;">
+     <strong>Note:</strong> For now you will not create a link to the
+     <b>vehicles</b> folder or its controller in any view. You will access the the <b>vehicles</b> folder by simply typing it into the URL (e.g. http://localhost/phpmotors/vehicles).</i>
+   </p>
+   <ol>
+    <li>Download the following "<a href="/340br/downloads/no-image.zip" title="Download the image" target="_blank">No Picture Available</a>" image, unzip it, store it to the phpmotors images folder.</li>
+    <li>Create a "<b>vehicles</b>" folder in the phpmotors folder.</li>
+    <li>Create a controller for the vehicles process in the "<b>vehicles</b>" folder. It should:
+     <ul>
+      <li>Use the database connection file.</li>
+      <li>Use the phpmotors model.</li>
+      <li>Use the vehicles model (you will create this).</li>
+      <li>Create the $navList variable to build the dynamic menu from an array of classifications obtained by calling the function in the phpmotors model, as in previous controllers.</li>
+      <li>
+       <p>Create a $classificationList variable to build a dynamic
+        <a href="//www.w3schools.com/html/html_form_elements.asp" title="See an example of a select element" target="_blank">drop-down select list</a>. The classificationName must appear to the human eye, but the classificationId must be the value of each option.</p>
+       <p> This list element will be used in the "add vehicle" view to provide a list of classifications that already exist in the database. Consider the hints below:</p>
+       <ol>
+        <li>
+         <mark>Think of how you built the dynamic navigation earlier and did it in such a way that it would be available to any view.
+         </mark></li>
+        <li><mark>Instead of building a new function you could alter the existing getClassifications() function to also select the classificationId from the database and use it in building the drop-down select list.</mark></li>
+       </ol>
+      </li>
+      <li>Watch for and capture name-value pairs for decision making.</li>
+      <li>Contain control structures to deliver views (discussed below).</li>
+      <li>Contain control structures to process requests to add new classifications to the carclassifications table and vehicles to the inventory table.
+      </li>
+      <li>The controller should return data check error messages to the view from which the data was sent.</li>
+      <li>The controller should return success or failure messages to the view from which the data was sent as described below.</li>
+     </ul>
+    </li>
+    <li>Create a vehicles model (store this in the "model" folder) which should:
+     <ul>
+      <li>Contain a function for inserting a new classification to the carclassifications table.</li>
+      <li>Contain a function for inserting a new vehicle to the inventory table.</li>
+     </ul>
+    </li>
+    <li>Create a "vehicle management" view using the phpmotors template that is delivered by default (<mark>Hint: remember that default statement in a switch control structure?)</mark>) when the vehicle controller is accessed without a name - value pair.
+     <ul>
+      <li>This view must contain two links:
+       <ol>
+        <li>One to the controller that will trigger the delivery of the add classification view.</li>
+        <li>One to the controller that will trigger the delivery of the add vehicle view.</li>
+       </ol>
+      </li>
+     </ul>
+    </li>
+    <li>Create an "add classification" view from your phpmotors template. The view should be stored in the <b>view</b> folder. The view must:
+     <ul>
+      <li>Contain a form for adding a new classification (you will only need to add the name, the id in the table is auto-incrementing).</li>
+      <li>The form must send all data to the vehicles controller for checking and insertion to the database.</li>
+      <li>The view must have the means of displaying messages returned to it from the controller.</li>
+      <li>When the data is sent for insertion to the controller and if the insertion works, the vehicles controller should call itself using a
+       <code>header()</code> function and pass no name - value pair. This should result in the "vehicle management" view being displayed and the new classification should appear as part of the navigation menu.
+       <mark>Note: There will NOT be a success message. The classification item appearing in the navigation bar will be the indication of success.</mark> However, if it fails, then a clear failure message should be displayed in the add new classification view.
+      </li>
+     </ul>
+    </li>
+    <li>Create an "add vehicle" view from your phpmotors template. The view should be stored in the <b>view</b> folder. The view must:
+     <ul>
+      <li>Contain a form for adding a new vehicle to the inventory table. (
+       <i>Hint: Check the inventory table in the phpmotors database for the fields that will be needed in the form. <b>DO NOT</b> have a form field for the invId field as it is the primary key and is auto-incrementing in the database table</i>).</li>
+      <li>When indicating the classification the vehicle belongs to, the classification must use the "select" element's drop-down list that should have been pre-built in the controller.</li>
+      <li>When adding images use the path to the "No Image Available" image that you downloaded and stored in this enhancement. (Hint: this could be hard coded into the form to happen automatically for now)</li>
+      <li>The view must have the means of displaying messages returned to it from the controller.</li>
+      <li>The form must send all data to the vehicles controller for checking and insertion to the database.</li>
+      <li>If the new vehicle is added successfully, a message to that affect must be displayed in the "add new vehicle" view.</li>
+     </ul>
+    </li>
+    <li>Thoroughly test all operations for functionality! Make sure it all works.</li>
+   </ol>
+
+   <h2>Submission</h2>
+
+   <ul>
+    <li>Work with your learning team to accomplish the task and post to and read the weekly discussion board to help one another. <b>DO NOT WAIT UNTIL THE SECOND WEEK TO DO THIS! GET STARTED EARLY!</b>
+    </li>
+    <li>Build, run and test the application to insert the new classifications and vehicles using the vehicles controller, with its associated models and views thoroughly.</li>
+    <li>Check your work to ensure that it meets all of the expectations listed.</li>
+    <li>When satisfied that the code is operational:
+     <ol>
+      <li>Create a video showing that when the <b>vehicles</b> folder is accessed by typing in the name of the folder as part of the phpmotors URL that the default "vehicles management" view is delivered and that the links to the new classification and new vehicle views
+       work by sending a key - value pair to the vehicles controller.</li>
+      <li>Include in the video showing the insertion of the new classification(include when data is missing during the
+       submission process) so that both data check error and classification insertion success are shown.</li>
+      <li>Include in the video showing the insertion of a new vehicle (include when data is missing during the submission process) so that both data check error and vehicle insertion success are shown.</li>
+      <li>Include in the video the validation of the HTML and CSS for the three new views - vehicle management, new classification and new vehicle.</li>
+      <li>Post your video to your YouTube channel and copy the link to the video when published.</li>
+      <li>Zip the entire phpmotors folder and name it enhancement 4 (save this zip file outside of your web site).</li>
+      <li>Submit the zip file to the enhancement 4 assignment dropbox and add the video URL to the assignment dropbox comment.</li>
+     </ol>
+    </li>
+   </ul>
+
+   <h2>Grading Matrix</h2>
+   <p>This enhancement has values in multiple objectives as shown below:</p>
+   <h3>Objective 1</h3>
+   <ul>
+    <li>All three views are valid HTML: 5 points (minus 1 point for each error found)</li>
+    <li>All three views are valid CSS: 5 points (minus 1 point for each error found)</li>
+    <li>Total value for Objective 1:
+     <b>10 points</b>
+    </li>
+   </ul>
+
+   <h3>Objective 2</h3>
+   <ul>
+    <li>The vehicles controller contains control structures that correctly deliver views (based on name - value pairs being delivered to it): 3 points (1 point each for the three views in the vehicles application)</li>
+    <li>The vehicles controller contains control structures that correctly process the new classification and new vehicle insertion requests: 6 points (3 points each for the processes)</li>
+    <li>Total value for Objective 2:
+     <b>9 points</b>
+    </li>
+   </ul>
+
+   <h3>Objective 3</h3>
+   <ul>
+    <li>The vehicles process is organized using the MVC architecture: 5 points (all or nothing)</li>
+    <li>Each element of the MVC performs its proper function:
+     <ul>
+      <li>The controller contains all logic for the application: 2 points (all or nothing)</li>
+      <li>The model contains the database functionality and returns outcome information to the controller: 2 points (all or nothing)
+      </li>
+      <li>The views display the needed information for the human visitor and only interact with the controller: 2 points (all or nothing)</li>
+     </ul>
+    </li>
+    <li>Total value for Objective 3:
+     <b>11 points</b>
+    </li>
+   </ul>
+
+   <h3>Objective 4</h3>
+   <ul>
+    <li>The functions in the model successfully insert data to the database using PDO prepared statements: 6 points (3 points for each function, all or nothing)</li>
+    <li>The functions in the model successfully report the outcome of the insertion back to the controller: 4 points (2 points for each function, all or nothing)</li>
+    <li>Total value for Objective 4:
+     <b>10 points</b>
+    </li>
+   </ul>
+
+   <h3>Objective 5</h3>
+   <ul>
+    <li>Data sent from the "new classification" view is filtered and stored in the controller: 2 points (all or nothing)
+    </li>
+    <li>Missing data from the "new classification" view is successfully detected and returned to the view for correction: 2 points (all or nothing)</li>
+    <li>Data sent from the "new vehicle" view is filtered and stored in the controller: 2 points (all or nothing)</li>
+    <li>Missing data from the "new vehicle" view is successfully detected and returned to the view for correction: 2 points (all or nothing)</li>
+    <li>Total value for Objective 5:
+     <b>8 points</b>
+    </li>
+   </ul>
+
+   <h3>Objective 6</h3>
+   <p>The enhancement video shows:</p>
+   <ul>
+    <li>That when the <b>vehicles</b> folder is accessed by typing in the name of the folder as part of the phpmotors URL that the
+     default "vehicles management" view is delivered and that the links to the new classificationand new vehicle views work by sending a key - value pair to the vehicles controller.</li>
+    <li>The insertion of a new classification(include when data is missing during the submission process) so that both data check error and classificationinsertion success (the new classificationappears as a navigation item) are shown.</li>
+    <li>The insertion of a new vehicle (include when data is missing during the submission process) so that both data check error and vehicle insertion success are shown.</li>
+    <li>The validation of the HTML and CSS for the three new views - vehicle management, new classificationand new vehicle.</li>
+    <li>Total value for Objective 6:
+     <b>8 points</b>
+    </li>
+   </ul>
+  </main>
+ </div>
+ <script src="/340br/js/prism-coy-dev.min.js"></script>
+</body>
+
+</html>

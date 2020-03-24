@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>Delete Vehicle| Web Backend Development I</title>
+	<meta name="description"
+		content="An activity describing the process to delete a vehicle in the PHP Motors site for CSE 340">
+	<meta name="viewport" content="width=device-width">
+	<link rel="stylesheet" href="/340br/css/340course.css" media="screen">
+	<link rel="stylesheet" href="/340br/css/prism-coy-dev.min.css" type="text/css" media="screen">
+</head>
+
+<body>
+	<div id="wrapper">
+		<header id="header"><img src="/340br/images/bs_small_banner.jpg" alt="CSE 340 Banner Image"></header>
+		<main>
+			<h1>Delete a Vehicle</h1>
+			<p>The process to delete a vehicle from a database is nearly identical to updating vehicle information. For	that reason, much of what was done in the update activities will be repeated in this activity.</p>
+			<h2>Very Important</h2>
+			<p>Unlike <i>delete</i> in a word processor, there is no "Undo" in a database delete. Once deleted, the data	is gone. The only way to restore deleted data is from a backup if one exists.</p>
+
+			<h2>Video Overview</h2>
+			<p>This video provides an overview of what will be accomplished in this activity.</p>
+			<iframe src="https://www.youtube.com/embed/ZpppHGW9QFM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+			<h2>The Basic Process</h2>
+			<p>As mentioned earlier, the deletion process is similar to an update process:</p>
+			<ol>
+				<li>Start the delete.</li>
+				<li>Information about the item being deleted is queried from the database and displayed in a view.
+					<ul>
+						<li>This is a confirmation step.</li>
+						<li>Because there is no "Undo" we want the client to confirm that this is the correct item to be deleted.</li>
+					</ul>
+				</li>
+				<li>The actual delete is submitted.</li>
+				<li>The controller uses a model-based function to carry out the delete.</li>
+				<li>The controller determines if the delete was successful or not and reports back to the browser the result.</li>
+			</ol>
+
+			<h2>Vehicle Deletion View</h2>
+			<p>As mentioned above, we want a view to display the vehicle information into so the item can be confirmed prior to being deleted. Because it is so similar to an update we will use the <b>vehicle update</b> view to get us started.</p>
+			<ol>
+				<li>Find and open the <b>vehicle update</b> view in the <b>view</b> folder.</li>
+				<li>Do a "Save As..." and save the new view into the <b>view</b> folder with a name of <b>vehicle-delete.php</b>.</li>
+				<li>Because this is only a confirmation view, much of what is here can be removed.</li>
+				<li>In the PHP code block at the top of the view, remove any code other than the check for the client level. When done, the PHP code block should look similar to this:
+<pre class="line-numbers"><code class="language-php">&lt;?php
+if($_SESSION['clientData']['clientLevel'] < 2){
+ header('location: /phpmotors/');
+ exit;
+}
+?&gt;</code></pre>
+				</li>
+				<li>Scroll down to the &lt;title&gt; element and edit the PHP code block and change "Modify" to "Delete". When done, what is left should look similar to this:
+<pre class="line-numbers"><code class="language-php">&lt;title&gt;&lt;?php if(isset($invInfo['invMake'])){ 
+	echo "Delete $invInfo[invMake] $invInfo[invModel]";} ?&gt; | PHP Motors&lt;/title&gt;</code></pre>
+				</li>
+				<li>Scroll down and make the exact same changes to the main content heading. When done it should look
+					like this:
+<pre class="line-numbers"><code class="language-php">&lt;h1&gt;&lt;?php if(isset($invInfo['invMake'])){ 
+	echo "Delete $invInfo[invMake] $invInfo[invModel]";} ?&gt; | PHP Motors&lt;/h1&gt;</code></pre>
+				</li>
+				<li>Change any text directions regarding the update to instead tell the client that they are to confirm this is the correct vehicle to be deleted because the delete cannot be undone. For example:
+<code class="language-php">&lt;p&gt;Confirm Vehicle Deletion. The delete is permanent.&lt;/p&gt;</code></li>
+				<li>Of the form inputs, we will leave only the following:
+					<ol>
+						<li>The vehicle Make</li>
+						<li>The vehicle Model</li>
+						<li>The vehicle description</li>
+						<li>The submit input</li>
+						<li>The two hidden inputs</li>
+					</ol>
+				</li>
+				<li>Highlight and delete all form inputs and their labels except those mentioned above.</li>
+				<li>Locate the <b>vehicle make</b>, <b>vehicle model</b> and <b>vehile description</b> inputs. Do the following to them:
+					<ol>
+						<li>Edit the PHP code blocks in the form (similar to what you did for the &lt;title&gt; and &lt;h1&gt; elements earlier).</li>
+						<li>Remove any client-side validation attributes that may be present.</li>
+						<li>Add a "readonly" attribute to each, and make sure it is separated from other attributes by a space.</li>
+					</ol>
+				</li>
+				<li>Change the value of the "submit" input to say "Delete Vehicle".</li>
+				<li>Change the value of the first hidden input (the "action" name - value pair) to "deleteVehicle" or something similar.</li>
+				<li>Find the second hidden input (the invId input) and remodel the "else" and "elseif" sections, just as done with the previous inputs. When done it should look something like the code shown in the code illustration below.
+				</li>
+				<li>When done, the <b>vehicle-delete.php</b> view's form could look similar to this:
+<pre class="line-numbers"><code class="language-markup">&lt;form method="post" action="/phpmotors/vehicles/"&gt;
+&lt;fieldset&gt;
+	&lt;label for="invMake"&gt;Vehicle Make&lt;/label&gt;
+	&lt;input type="text" readonly name="invMake" id="invMake" &lt;?php
+if(isset($invInfo['invMake'])) {echo "value='$invInfo[invMake]'"; }?&gt;&gt;
+
+	&lt;label for="invModel"&gt;Vehicle Model&lt;/label&gt;
+	&lt;input type="text" readonly name="invModel" id="invModel" &lt;?php
+if(isset($invInfo['invModel'])) {echo "value='$invInfo[invModel]'"; }?&gt;&gt;
+
+	&lt;label for="invDescription"&gt;Vehicle Description&lt;/label&gt;
+	&lt;textarea name="invDescription" readonly id="invDescription"&gt;&lt;?php
+if(isset($invInfo['invDescription'])) {echo $invInfo['invDescription']; }
+?&gt;&lt;/textarea&gt;
+
+&lt;input type="submit" class="regbtn" name="submit" value="Delete Vehicle"&gt;
+
+	&lt;input type="hidden" name="action" value="deleteVehicle"&gt;
+	&lt;input type="hidden" name="invId" value="&lt;?php if(isset($invInfo['invId'])){
+echo $invInfo['invId'];} ?&gt;"&gt;
+
+&lt;/fieldset&gt;
+&lt;/form&gt;</code></pre></li>
+				<li>Review the view code that no errors are reported and save the file.</li>
+			</ol>
+
+			<h2>Vehicle Controller</h2>
+			<p>With the view ready, the controller can now be set up to deliver the view and process the delete. Remember that a delete is nearly identical to an update. So, it again is a two step process:</p>
+			<h3>Step One</h3>
+			<p>Step one is to start the delete and deliver the information for confirmation.</p>
+			<ol>
+				<li>In the vehicle management view we display a "Delete" link that contains a name - value pair to indicate to the controller that a delete process was starting.</li>
+				<li>Open the <b>Vehicles</b> controller and find the code that was used to build the vehicle table for display in the <b>Vehicle Management</b> view.</li>
+				<li>You should find the name - value pair for this process is "action=del".</li>
+				<li>Scroll to the bottom of the existing control structures (in the "Switch") and if you don't already have a case statement for "del" create one. Such as:
+<pre class="line-numbers"><code class="language-php">case 'del':
+	
+break;</code></pre>
+				</li>
+				<li>Now, find the case statement for beginning the "mod" process and copy everything inside of it.</li>
+				<li>Return to the "del" case and paste the code inside of it.</li>
+				<li>Alter the include statement to point to the new <b>vehicle-delete.php</b> view.</li>
+				<li>When done the finished "mod" case should look similar to this:
+<pre class="line-numbers"><code class="language-php">case 'del':
+$invId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+$invInfo = getInvItemInfo($invId);
+if (count($invInfo) < 1) {
+		$message = 'Sorry, no vehicle information could be found.';
+	}
+	include '../view/vehicle-delete.php';
+	exit;
+	break;</code></pre></li>
+				<li>The first step in the delete process is done!</li>
+			</ol>
+			<h3>Step Two</h3>
+			<p>Step two is to process the delete and report the results.</p>
+			<ol>
+				<li>In the <b>vehicle-delete.php</b> view we have a hidden name - value input for "action". The value is "deleteVehicle".</li>
+				<li>Here in the controller, create a new "case" statement to match it. Like this:
+<pre class="line-numbers"><code class="language-php">case 'deleteVehicle':
+						
+break;</code></pre></li>
+				<li>Like before we will copy, paste and edit to give it functionality.</li>
+				<li>Find and copy the contents of the case that processed the update process. Mine is named "updateVehicle".</li>
+				<li>Return to the new, empty "deleteVehicle" case and paste everything into it.</li>
+				<li>While the form will send six inputs (Make, Model, Description, Action, vehicle ID, and Submit) we are only interested in three: the vehicle make, model and the inventory ID.</li>
+				<li>Delete all of the filters and variables except the one for the vehicle make, vehicle Model and the inventoryId (its primary key).</li>
+				<li>Because we are doing a delete, we will not do any error checking. Find and delete the whole error checking portion of the code.</li>
+				<li>Change the name of the variable that captures the result from the function to reflect it is a delete (e.g. $deleteResult).</li>
+				<li>Change the function name and parameter list to reflect that we are deleting an item and send only the inventory id variable to the function (e.g. deleteItem($invId)</li>
+				<li>Change the test of the result variable to check the now renamed variable (e.g. if($deleteResult))
+				</li>
+				<li>Change the success message to reflect the delete was a success.</li>
+				<li>Copy the entire success portion of the test (the message, the header and the exit).</li>
+				<li>Replace the failure portion of the code (message, include and exit) with the copied success code.</li>
+				<li>Alter the message to reflect that the delete failed.</li>
+				<li>When complete the entire <b>deleteVehicle</b> case should look similar to this:
+<pre class="line-numbers"><code class="language-php">case 'deleteVehicle':
+$invMake = filter_input(INPUT_POST, 'invMake', FILTER_SANITIZE_STRING);
+$invModel = filter_input(INPUT_POST, 'invModel', FILTER_SANITIZE_STRING);
+$invId = filter_input(INPUT_POST, 'invId', FILTER_SANITIZE_NUMBER_INT);
+
+$deleteResult = deleteVehicle($invId);
+if ($deleteResult) {
+	$message = "&lt;p class='notice'&gt;Congratulations the, $invMake $invModel was	successfully deleted.&lt;/p&gt;";
+	$_SESSION['message'] = $message;
+	header('location: /phpmotors/vehicles/');
+	exit;
+} else {
+	$message = "&lt;p class='notice'&gt;Error: $invMake $invModel was not
+deleted.&lt;/p&gt;";
+	$_SESSION['message'] = $message;
+	header('location: /phpmotors/vehicles/');
+	exit;
+}
+break;</code></pre></li>
+				<li>Double check your code for any obvious errors. Save the File.</li>
+			</ol>
+
+			<h2>Vehicle Model</h2>
+			<p>We need a function to handle the delete call in the database, so let's get it done.</p>
+			<ol>
+				<li>Find and open the <b>vehicles-model.php</b> file in the <b>model</b> folder.</li>
+				<li>Find and copy the "updateVehicle" function (I said the delete was nearly identical to an update).</li>
+				<li>Move to the bottom of the functions in the model and add a comment indicating the function will	carry out a vehicle deletion.</li>
+				<li>Paste the copied function beneath the comment.</li>
+				<li>To make sure we get this right, go back to the vehicles controller and find the line in which you make the call to the delete function. Copy the function name and parameter list.</li>
+				<li>Returning to the model, highlight the newly pasted function name and parameter list and paste. My code now looks like this:
+<pre><code class="language-php">function deleteVehicle($invId) {</code></pre>
+				</li>
+				<li>Alter the SQL code to perform a deletion of the vehicle based on its vehicles ID, for example:
+<pre><code class="language-sql">$sql = 'DELETE FROM inventory WHERE invId = :invId';</code></pre></li>
+				<li>Delete all of the bindValue lines except the one for the inventory ID named parameter.</li>
+				<li>That's it. When you're done the function should look similar to this (remember your database connection function name may be different than what you see here):
+<pre class="line-numbers"><code class="language-php">function deleteVehicle($invId) {
+ $db = phpmotorsConnect();
+ $sql = 'DELETE FROM inventory WHERE invId = :invId';
+ $stmt = $db->prepare($sql);
+ $stmt->bindValue(':invId', $invId, PDO::PARAM_INT);
+ $stmt->execute();
+ $rowsChanged = $stmt->rowCount();
+ $stmt->closeCursor();
+ return $rowsChanged;
+}</code></pre></li>
+				<li>Check for obvious errors and save the file.</li>
+			</ol>
+
+			<h2>Time to Test</h2>
+			<p>Now is a great time to do some housekeeping with your vehicles table as you practiced inserting items to the database and more than likely have a few records that really don't need to be there.</p>
+			<ol>
+				<li>The development servers need to be running.</li>
+				<li>Launch the phpmotors controller</li>
+				<li>Login as a site administrator (username: admin@cit340.net, password: Sup3rU$er)</li>
+				<li>On the admin page, click the "vehicle managment" link.</li>
+				<li>Find an item in the vehicles list that you can safely delete (preferably one that you added during testing).</li>
+				<li>Click the "Delete" link.</li>
+				<li>If step one worked, you should now be looking at the "Delete" confirmation page and should not be able to edit any data seen in the view.</li>
+				<li>Click the "Delete" button.</li>
+				<li>You should be returned to the <b>vehicles management</b> view and the success or failure message should be displayed.</li>
+				<li>If the delete succeeded, the item should also be gone from the list.</li>
+			</ol>
+
+			<h2>Did it Work?</h2>
+			<p>If things worked, congratulations and back slapping all around!</p>
+			<p>If not, refer to the troubleshooting section below. Then, carefully review your code versus the code provided in this activity. Ask a learning team peer, post a question to the discussion board, contact a TA, talk to your professor. But get it working!</p>
+
+			<h2>Troubleshooting</h2>
+			<p>The most common cause of insert, update and delete failure is a name mismatch error.</p>
+			<ol>
+				<li>Check the form inputs where data is being input or stored. Note the "name" attribute. This is the name in the "name-value" pair. For example if my input was <code>name="invId"</code>, then "invId"
+					is the name of my name-value pair.</li>
+				<li>In the controller, when I am filtering and storing incoming data then the filter_input name has to match that coming from the form. So, my filter_input code would have to look like this: <br>
+					<code class="language=php">filter_input(INPUT_POST, 'invId')</code>.
+					By the way, it is case sensitive!</li>
+				<li>While there are many other possible errors, this is the most common. Check it first!</li>
+			</ol>
+
+			<h2>Primary Key Value Holes</h2>
+			<p>Now that you have the ability to delete records from a database you may notice "holes" in primary key values (e.g. 1, 2, 6, 14...) as you look down through the records using the PHPMyAdmin tool.</p>
+			<p>The temptation is to "fill" those number in. Resist temptation! Ignore them. Our database is capable of storing billions of records and we let the server and PHP keep track of these values for us. So, ignore gaps in numbers and move on.</p>
+		</main>
+		<footer>
+			<a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US" target="_blank"><img	alt="Creative Commons License" style="border-width:0"	src="//i.creativecommons.org/l/by-sa/3.0/88x31.png"></a> All materials (except as noted) are by Blaine Robertson and licensed under a <a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US" title="Read the license" target="_blank">Creative Commons Attribution-ShareAlike 3.0 License</a>.</footer>
+	</div>
+	<script src="/340br/js/prism-coy-dev.min.js"></script>
+</body>
+
+</html>

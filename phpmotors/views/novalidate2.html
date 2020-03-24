@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+ <meta charset="utf-8">
+ <meta http-equiv="x-ua-compatible" content="ie=edge">
+ <title>Novalidate Tool | Web Backend Development I</title>
+ <meta name="description" content="Installing and using the novalidate bookmarklet for validation checking for CSE 340">
+ <meta name="viewport" content="width=device-width">
+ <link rel="stylesheet" href="/340br/css/340course.css" media="screen">
+ <link rel="stylesheet" href="/340br/css/prism-coy-dev.min.css" media="screen">
+ <style>
+ a.bookmarklet, a.button {
+  display: inline-block; 
+  padding: 1px 6px; 
+  /* height: 18px;  */
+  color: #fff; 
+  background: #32a0eb; 
+  border-radius: 4px; }
+
+  .noticeMe{
+   font-size: 2rem;
+  }
+ </style>
+</head>
+
+<body>
+ <div id="wrapper">
+  <header id="header"><img src="/340br/images/bs_small_banner.jpg" alt="CSE 340 Banner Image"></header>
+  <main>
+    <h1>Novalidate</h1>
+    <p>When implementing client-side and server-side validation within a web site, the protection for the data is great! However, when testing to make sure the server-side validation works can become a trial. Theat is where this nifty tool comes in. It uses JavaScript to add an HTML attribute to your form that disables (temporarily) the client-side validation and allows you to submit form data in order to check the operation of your server-side code. Use the following process to make the tool available and test it out:</p>
+
+    <h2>Get the Bookmarklet</h2>
+    <ol>
+     <li>Check your browser to make sure the bookmarks bar is visible. If not, use the following:
+      <ul>
+       <li>In Mac Chrome, "View menu > Always Show Bookmarks Bar".</li>
+       <li>In Mac FireFox, "View > Toolbars > Bookmarks Toolbar".</li>
+       <li>In Safari, "View > Show Bookmarks Sidebar".</li>
+       <li>In Windows Chrome, "Setting icon > Bookmarks > Show Bookmarks Bar".</li>
+       <li>In Windows FireFox, "Menu icon > Customize > Show / Hide Toolbars > Bookmarks Toolbar".</li>
+       <li>In Edge, "More icon > Settings > View Favorites Settings > turn on 'Show the favorites bar".</li>
+      </ul>
+     </li>
+     <li>Drag the "novalidate!" bookmarklet (below) to your bookmarks bar.
+     </li>
+     <li><a class="bookmarklet noticeMe" href="javascript:for(var f=document.forms,i=f.length;i--;)f[i].setAttribute('novalidate',i);">NoValidate</a></li>
+     <li style="background-color: cornsilk;"><p>Google Chrome users: Some versions will not allow you to drag-and-drop the link or will encode the code once dropped. See the workaround below:
+      Dragging and dropping the bookmarklet in versions of Google Chrome fails to create the bookmark. This is an issue with the Chrome browser that many users are having difficulty with.</p>
+      
+      <p>Google doesn’t apparently have a goal date for a resolution to this issue, however there is a workaround if you want bookmarklets to work in Chrome. Here’s how:</p>
+      
+      <ol>
+<li>In Chrome, click Bookmarks->Bookmark Manager.</li>
+<li>You should see a new tab with the bookmarks and folders listed.</li>
+<li>Select the “Bookmarks Tab” folder on the left.</li>
+<li>Click the menu icon in to top right corner > select "Add new bookmark".</li>
+<li>You should see two input fields. Type the name of the bookmark you would like (i.e., NoValidate) in the first field.</li>
+<li>Paste the javascript code below into the second field.</li>
+      </ol>
+      <pre><code class="language-javascript">javascript:for(var f=document.forms,i=f.length;i--;)f[i].setAttribute("novalidate",i)</code></pre>
+      </li>
+    </ol>
+    <h2>Use the Bookmarklet</h2>
+    <ol>
+     <li>To use this tool, navigate to a page with a form containing client-side validation.</li>
+     <li>Click the 'NoValidate' bookmarklet.</li>
+     <li>Fill in the form, but make a mistake.</li>
+     <li>Submit the form.</li>
+     <li>The client-side validation should be ignored and the server-side validation should take over and respond to the error.</li>
+     <li>Reload the page and the novalidate tool should now be turned off. To use it again, follow the steps listed above.</li>
+    </ol>
+    <h2>Video Demonstration</h2>
+    <iframe src="https://www.youtube.com/embed/AdjrvBos7y0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </main>
+  <footer>
+   <a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US" target="_blank"><img alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by-sa/3.0/88x31.png"></a> All materials (except as noted) are by Blaine Robertson and licensed under a <a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US" title="Read the license" target="_blank">Creative Commons Attribution-ShareAlike 3.0 License</a>.</footer>
+ </div>
+ <script src="/340br/js/prism-coy-dev.min.js"></script>
+</body>
+
+</html>

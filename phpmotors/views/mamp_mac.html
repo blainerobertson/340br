@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>MAMP for Mac | Web Backend Development I</title>
+  <meta name="description" content="Installing MAMP for Mac for CSE 340">
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" href="../css/340course.min.css" media="screen">
+</head>
+
+<body>
+  <div id="main">
+    <header id="header"><img src="../images/bs_small_banner.jpg" alt="CSE 340 Banner Image"></header>
+    <main>
+      <article id="article">
+        <h1>MAMP for Mac</h1>
+        <h2>Introduction</h2>
+        <p>An ideal situation for web development is to have a local environment for development and testing
+          and a remote production environment for distributing your work to the rest of the world. To create
+          a local environment requires the installation of server software on your own machine. For web
+          development using PHP, this is known as an "<abbr title="Apache, MySQL and PHP">AMP</abbr>"
+          (Apache, MySQL and PHP) stack. This software bundle gives your machine many of the same
+          capabilities as a dedicated server. The bundle discussed in this tutorial is
+          MAMP (Apache, MySQL and PHP) for Mac.</p>
+
+        <p>This document covers five topics:</p>
+        <ul>
+          <li><a href="#download" title="Jump to the download section">Download Mamp</a></li>
+          <li><a href="#config" title="Jump to the configuration section">Configure Mamp</a></li>
+          <li><a href="#startpage" title="Jump to the start page tools section">Using the Start Page tools</a></li>
+          <li><a href="#error-display" title="Jump to the setting error display section">Enable Error Display</a></li>
+          <li><a href="#troubleshooting" title="Jump to the troubleshooting section">Troubleshooting</a></li>
+        </ul>
+
+        <h2 id="download">Download MAMP</h2>
+        <h3>Video Demonstration</h3>
+        <p>This video demonstrates downloading MAMP for Mac.</p>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/lEN92E3B13A" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen></iframe>
+
+
+        <p>Using your web browser go to <a href="//mamp.info/" target="_blank" title="Go to mamp.info site in a new tab">mamp.info</a>.
+          Once there, find and download the latest version of MAMP by clicking the "Free Download" button next to the
+          MAMP icon on the left (Not the MAMP PRO icon).</p>
+        <p>When the download page opens click the option on the left for Mac. The file will download to your
+          computer.</p>
+
+        <h3>Installation</h3>
+        <ol>
+          <li>Locate and launch the downloaded installation file on your computer.</li>
+          <li>Accept the license agreement.</li>
+          <li>Both MAMP and MAMP PRO will be installed, but we will remove MAMP PRO as we do not wish to purchase a
+            license in order to use it at the end of the installation process.</li>
+          <li>Accept the defaults for the remainder of the installation process.</li>
+          <li>When done, click "Finish" to close the installer.</li>
+          <li>I recommend opening the Applications > MAMP folder and creating an alias of MAMP and adding the alias to
+            the dock that can be used to launch MAMP.</li>
+          <li>Finally, I recommend finding and deleting the MAMP PRO app in the Application folder, leaving only the
+            MAMP application on your computer.</li>
+        </ol>
+
+        <h2>Configuring MAMP</h2>
+        <h3>Video Demonstration</h3>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/wNoJdtHFVyc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen></iframe>
+
+        <h3>Cloud Drive</h3>
+        <p>Prior to setting up MAMP you will need a cloud drive account and the app for your drive should be
+          installed and working on your computer. <a href="https://www.google.com/drive/" title="Visit Google Drive"
+            target="_blank">Google
+            Drive</a>, <a href="https://www.dropbox.com/?landing=dbv2" title="Visit Dropbox" target="_blank">Dropbox</a>
+          and <a href="https://onedrive.live.com/about/en-us/" title="Visit OneDrive" target="_blank">OneDrive</a>
+          are all examples of cloud drives. By having a cloud drive, your data is automatically backed up to the
+          drive and should your computer hard drive fail, you will not lose your data.</p>
+
+        <h3>Create the Web Root Folder</h3>
+        <p>In the cloud drive, on you local computer, create a folder named "<b>htdocs</b>". Make sure it is
+          all lower case! This will become the root folder for your web site and where all work for the class will be
+          done.</p>
+
+        <h3>Starting Apache and the Database servers in MAMP</h3>
+        <ol>
+          <li>Launch MAMP using the dock icon or the app found in the Applications > MAMP folder.</li>
+          <li>The control panel opens and you can see the status of the servers in the top right corner.</li>
+          <li>Both servers (Apache and MySQL) should NOT start automatically but we will take steps to change this
+            behavior.</li>
+        </ol>
+
+        <h3>Running and Stopping the MAMP Servers</h3>
+        <p>Running servers on your local machine is a useful tool, but one that can potentially use much of
+          your computer's resources. Therefore, it is important to start MAMP only when you are developing
+          and testing using PHP and shut it down when finished. We will change a few setting to make this
+          easier.</p>
+
+        <h4>Setting the Servers to Start and Stop Automatically</h4>
+        <ol>
+          <li>In the MAMP menu, click the "Preferences" menu option.</li>
+          <li>In the General tab, turn ON the "Start Servers" checkbox.</li>
+          <li>Turn OFF the "Open WebStart page" checkbox.</li>
+        </ol>
+
+        <h4>Change the Web Ports</h4>
+        <ol>
+          <li>Move to the "Ports" tab.</li>
+          <li>Click the button labeled "Set Web & MySQL ports to 80 & 3306".</li>
+          <li>These are standard web ports, and we want to get used to using them.</li>
+          <li>The port numbers should change in the text boxes above the buttons.</li>
+        </ol>
+
+        <h4>Designate the Root Folder</h4>
+        <ol>
+          <li>Click the "Web Server" tab.</li>
+          <li>Click the "Select..." button to the right of the "Document Root" text.</li>
+          <li>Navigate to the "htdocs" folder in your cloud drive and select it.</li>
+          <li>When returned to the MAMP preferences window, make sure the path looks correct.</li>
+          <li>Click "OK" to close the preferences window.</li>
+        </ol>
+
+        <h4>Start the Servers</h4>
+        <ol>
+          <li>When returned to the MAMP control panel, click the "Start Servers" button.</li>
+          <li>You may be asked to provide your password to start the servers, this is necessary because any port below
+            1024 on a Mac requires authentication to be used.</li>
+          <li>You may also see a dialog box indicating that you need to grant permissions for helper tools to be
+            installed for the servers to be started and stopped automatically. Grant such permissions.</li>
+          <li>If everything works, the circles to the right of the Apache and MySQL servers should turn green.</li>
+          <li>If they fail to turn green and instead turn red, it indicates a problem and you will need to refer to the
+            video (~ 3:35 mark) or troubleshooting section below.</li>
+        </ol>
+
+        <h4>Test That It Worked</h4>
+        <p>Click the "Open WebStart Page" button. A new web page should open in your default browser. If it
+          does, then things are configured and working. We'll explore this start page in the next section.</p>
+
+        <h2 id="startpage">The Start Page Tools</h2>
+        <p>The start page serves several purposes: 1) it confirms that the servers are running, 2) it provides
+          access to tools in the MAMP environment and 3) it provides access to information about the
+          environment.</p>
+
+        <h3>Video Demonstration</h3>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/dgQTeJqXipc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen></iframe>
+
+        <h3>phpInfo</h3>
+        <p>The phpInfo link shows the configuration and components of PHP as well as the version of PHP that is
+          running.</p>
+
+        <h3>FAQ</h3>
+        <p>The FAQ's main benefit to us is that it shows all the components installed in MAMP and their
+          versions.</p>
+
+        <h3>phpMyAdmin</h3>
+        <p>phpMyAdmin is a database management tool and the primary tool that we'll access from the Start page.
+          To access it, select "Tools > phpMyAdmin" from the navigation bar.</p>
+        <p>The tool's window will open. We'll spend much more time learning and using this tool in future
+          lessons. For now there are two things to remember:</p>
+        <ol>
+          <li>Remember how to get to the tool: Start page > Tools menu > phpMyAdmin.</li>
+          <li>Never, Ever change any of the four existing databases shown on the left of the screen. These
+            are critical to the basic operation of the database server and should be left alone!</li>
+        </ol>
+
+        <h2 id="error-display">Displaying Errors</h2>
+        <p>By default MAMP hides all errors that it encounters. While this is good in a production environment it is not good for our development environment. Therefore, we need to enable the displaying of errors to help us as we develop our application.</p>
+        <ol>
+          <li>Open phpInfo as done earlier.</li>
+          <li>Scroll down until you find the item "Loaded Configuration File". Copy the path shown to the right of the title.</li>
+          <li>Open the finder, click the "Go" menu and click "Go to Folder...".</li>
+          <li>Paste the path into the dialog box that opens. Hit your Enter key.</li>
+          <li>Open the <b>php.ini</b> file in any text editor.</li>
+          <li>Do Command + F to open the search tool.</li>
+          <li>Search for "display_errors".</li>
+          <li>Click the "Find Next" button to move down through the page until you find the line that says, <b>display_errors = off</b> (the line will not have a semi-colon at the far left and should be about 25% down from the top of the document at or about line 472).</li>
+          <li>Change the word "off" to "on".</li>
+          <li>Save and close the file.</li>
+          <li>Return to the MAMP control panel and stop, then restart the servers.</li>
+          <li>From now on, if PHP encounters an error, it will report the error to you at run-time.</li>
+          <li>You should only have to do this once.</li>
+        </ol>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/u3iJh4Up-5M" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+        <h2 id="troubleshooting">Troubleshooting</h2>
+        <p>Use the following troubleshooting items if the Apache or Database servers will not start</p>
+
+        <h3>Turn Off Conflicting Programs</h3>
+        <p>If the Apache server will not start it may be due to others programs running that are using the web
+          port. Check if any of the following are running:</p>
+        <ul>
+          <li>Skype - Quit it.</li>
+          <li>VMWare — Use this <a href="../downloads/xampp-error-fixes.pdf" title="Open the PDF in a new tab">Error
+              Correction PDF</a> to turn it off or change settings.</li>
+          <li>Conflicting services - Open the "Activity Monitor" tool and look for any services that are using
+            ports 80 or 3306.</li>
+          <li>Go to the "Go > Utilities > Activity Monitor" application on your Mac.</li>
+          <li>Click the Memory tab.</li>
+          <li>Click the Ports column name to organize all running processes by port number.</li>
+          <li>Look down through the list of ports. If you find anything using port 80 or 3306, click on it to select
+            it, then click the "Force a Process to Quit" icon in the top left corner of the window. Then, click the
+            "Quit" option.</li>
+          <li>Sometimes the ports my be running inside of a virtual machine.</li>
+          <li>If no ports are seen running on port 80 or 3306, click the "Process Name" column heading to alphabetize
+            the processes by name.</li>
+          <li>Look for any process starting with "vm", if found, stop it.</li>
+          <li>When done return to the MAMP control panel and attempt to start the servers again.</li>
+          <li>If you continue to have problems, get help.</li>
+        </ul>
+
+        <h2>Conclusion</h2>
+        <p>With MAMP installed and configured you're ready to begin your work. If for any reason you cannot get
+          the servers to start, get help immediately. Don't put it off. Without the servers you will not be
+          able to proceed in our class.</p>
+
+      </article>
+    </main>
+    <footer>
+      <a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US"><img alt="Creative Commons License"
+          style="border-width:0" src="//i.creativecommons.org/l/by-sa/3.0/88x31.png" /></a> All materials
+      (except as noted) are by Blaine Robertson and licensed under a <a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US">Creative
+        Commons Attribution-ShareAlike 3.0
+        License</a>.</footer>
+  </div>
+  <script src="../js/course.min.js"></script>
+</body>
+
+</html>

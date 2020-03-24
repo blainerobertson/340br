@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+ <meta charset="utf-8">
+ <meta http-equiv="x-ua-compatible" content="ie=edge">
+ <title>Creating a Local Database | Web Backend Development I</title>
+ <meta name="description"
+  content="Creating a Local Database in the development environment using PHPMyAdmin for CSE 340">
+ <meta name="viewport" content="width=device-width">
+ <link rel="stylesheet" href="/340br/css/340course.css" media="screen">
+</head>
+
+<body>
+ <div id="wrapper">
+  <header id="header"><img src="/340br/images/bs_small_banner.jpg" alt="CSE 340 Banner Image"></header>
+  <main>
+   <article id="article">
+    <h1>Creating a Local Database</h1>
+    <h2>Local Environment</h2>
+    <p>Unlike working in a shared or remote environment, a local development environment provides much more flexibility in your setup and control. However, the same tool - PHPMyAdmin - is available to work with to setup and control the local database.
+    </p>
+
+    <h2>Launch PHPMyAdmin</h2>
+    <p>In order to work with the local database, the local Apache and MySQL database servers must be running. Once they are both running:</p>
+    <ol>
+     <li>Open a browser.</li>
+     <li>In the address bar type "http://localhost/phpmyadmin" if using XAMPP.</li>
+     <li>The PHPMyAdmin tool should now be visible
+      <br>
+      <img src="/340br/images/phpmyadmin.jpg" alt="Image of the PHPMyAdmin interface">
+
+     </li>
+    </ol>
+
+    <h2>Generic Processes</h2>
+    <h3>Creating a Local Database</h3>
+    <p>This is a <b>generic process for creating a local database</b>.</p>
+    <ol>
+     <li>Click the "Databases" tab.</li>
+     <li>Type the name of the new database into the "Create Database" text field.</li>
+     <li>Click the "Create" button.</li>
+     <li>The database should appear on the left in the database list.</li>
+     <li>The interface should change to the "Create Table" view.</li>
+    </ol>
+
+    <h3>Create Table(s)</h3>
+    <p>This is a <b>generic process for creating tables</b> from scratch or by importing a SQL file to create the tables.
+    </p>
+    <ol>
+     <li>In the "Create Table" view, type the name of the new table and indicate the number of fields for the new table
+      (if building the tables from scratch), then click the "Go" button. </li>
+     <li>Type in and click the appropriate checkboxes to create fields from scratch.</li>
+     <li>Typically, if building from scratch you would have previously developed an Entity Relationship Diagram (ERD) to know what fields were needed, their data types and sizes and any relationships might exist between fields in different tables.
+      <br>
+      <img src="../images/phpmotors-erd.png" alt="phpmotors database ERD - showing tables">
+     </li>
+     <li>Or, if importing a SQL file to create the tables, click the "Import" tab.</li>
+     <li>Click the "Choose File" button and select the SQL file on your own computer.</li>
+     <li>Scroll down, and click the "Go" button.</li>
+     <li>If the SQL file has no errors, then the new table(s) should appear indented and below the database name on the left.</li>
+     <li>And a success message should tell you that the queries were run successfully.</li>
+    </ol>
+
+    <h2>Download the PHP Motors Tables SQL File</h2>
+    <p>Download the <strong><a href="../downloads/phpmotors-db.sql.zip" title="Download the zip file" target="_blank">phpmotors-db.sql.zip</a></strong> file to use for importing a SQL file below as part of creating
+     the <b>phpmotors</b> database.</p>
+
+    <p>The directions below guide you through the process of importing a SQL file to create two tables and populate the tables with data for the phpmotors database.</p>
+
+    <h2>Open The PHPMyAdmin Tool</h2>
+    <ol>
+     <li>With the Apache and MySQL servers running, open a browser window or new tab.</li>
+     <li>Type "http://localhost/phpmyadmin" or "http://localhost/phpMyAdmin/" into the browser address bar.</li>
+    </ol>
+
+    <h2>Create the <b>phpmotors</b> database</h2>
+    <ol>
+        <li>Follow the generic process shown above for creating a database.</li>
+        <li>Name the new database "<b>phpmotors</b>".</li>
+    </ol>
+    <h2>Import the SQL File</h2>
+    <ol>
+     <li>In the list of databases (on the left) click the "<b>phpmotors</b>" database.</li>
+     <li>Click the "Import" tab.</li>
+     <li>Click the "Choose File" button.</li>
+     <li>Navigate to your <b>Downloads</b> folder and select the "<b>phpmotors-db.sql.zip</b>" file.</li>
+     <li>Click "Open".</li>
+     <li>Scroll to the bottom of the Import screen and click the "Go" button.</li>
+     <li>If things work correctly, green bars should appear indicating that the import was successful and that the queries were executed.</li>
+    </ol>
+
+    <h2>Check the Database</h2>
+    <ol>
+     <li>On the left, beneath the "<b>phpmotors</b>" database you should see two new tables: "<b>carclassification</b>" and
+      "<b>inventory</b>".</li>
+     <li>You can now click either of these tables to view the data within them.</li>
+     <li>Be default, if a table contains data the PHPMyAdmin tool opens in the "<b>Browse</b>" tab.</li>
+     <li>You can click the "<b>Structure</b>" tab to view the fields in the table and their settings. You can also make changes to fields in this tab.</li>
+    </ol>
+
+
+    <h2>Creating the DB and Importing a SQL file</h2>
+    <p>The video below illustrates the creation of the <b>phpmotors</b> database and importing a SQL file to create two tables as described the process above.</p>
+    <iframe src="https://www.youtube.com/embed/BN00Ti12DLc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+    <h2>Creating a Table from Scratch</h2>
+    <p>The video below demonstrates the building of the <b>clients</b> table from scratch in the <b>phpmotors</b>  database. You should refer to the ERD (displayed earlier in this file) while building the <b>clients</b> table.
+    </p>
+    <iframe src="https://www.youtube.com/embed/DxW3r-9TZRY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+   </article>
+  </main>
+  <footer>
+   <a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US"><img alt="Creative Commons License"
+     style="border-width:0" src="//i.creativecommons.org/l/by-sa/3.0/88x31.png" /></a> All materials (except as noted) are by Blaine Robertson and licensed under a <a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US">Creative Commons Attribution-ShareAlike 3.0 License</a>.</footer>
+ </div>
+</body>
+
+</html>
