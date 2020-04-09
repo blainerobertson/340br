@@ -7,14 +7,14 @@
     <title>Select Vehicles | Web Backend Development I</title>
     <meta name="description" content="Selecting vehicles for facilitating an update or delete process for the PHP Motors site of CSE 340">
     <meta name="viewport" content="width=device-width">
-    <link rel="stylesheet" href="../css/340course.min.css" media="screen">
+    <link rel="stylesheet" href="/340br/css/340course-min.css" media="screen">
 </head>
 
 <body>
-    <div id="main">
+    <div id="wrapper">
         <header id="header"><img src="/340br/340banner.jpg" alt="CSE 340 Banner Image"></header>
         <main>
-            <article id="article">
+            
                 <h1>Select Vehicles</h1>
                 <h2>Overview</h2>
                 <p>When a site administrator needs to update or delete a vehicle from the database it is helpful if a list of potential vehicles is provided. This allows for quick identification of the vehicle prior to beginning the actual update or delete.
@@ -178,7 +178,7 @@ if ($_SESSION['clientData']['clientLevel'] < 2) {<br>
                     <li>Login using the administrative account that you created earlier - username: admin@cit340.net, password: Sup3rU$er</li>
                     <li>In the browser address bar, alter the URL to point to the vehicle folder (e.g. http://localhost/phpmotors/vehicles) and press the "Enter" key.</li>
                     <li>If things worked correctly, you should be looking at a table of vehicle and a "Modify" and "Delete" link to the right of each. Such as is illustrated below:
-                        <p><img src="../images/acme/vehicle-list.png" alt="Illustration of the vehicle list in the vehicle management view"></p>
+                        <p><img src="/340br/images/acme/vehicle-list.png" alt="Illustration of the vehicle list in the vehicle management view"></p>
 
                     </li>
                     <li>You will probably want to add some CSS to your external style sheet to dress up the table and make things easier to view.</li>
@@ -186,7 +186,7 @@ if ($_SESSION['clientData']['clientLevel'] < 2) {<br>
                         activity.
                     </li>
                 </ol>
-            </article>
+            
         </main>
         <footer>
             <a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US" target="_blank"><img alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by-sa/3.0/88x31.png"></a> All materials (except as noted) are by <a href="//blainerobertson.net" title="Visit the site" target="_blank">Blaine Robertson</a>            and licensed under a <a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US" title="Read the license" target="_blank">Creative Commons Attribution-ShareAlike 3.0 License</a>.</footer>

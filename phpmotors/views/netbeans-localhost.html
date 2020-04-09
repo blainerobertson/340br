@@ -7,14 +7,14 @@
  <title>NetBeans Localhost Tutorial | Web Backend Development I</title>
  <meta name="description" content="Configuring NetBeans to work in the local XAMPP development environment for CSE 340">
  <meta name="viewport" content="width=device-width">
- <link rel="stylesheet" href="../css/340course.min.css" media="screen">
+ <link rel="stylesheet" href="/340br/css/340course-min.css" media="screen">
 </head>
 
 <body>
- <div id="main">
+ <div id="wrapper">
   <header id="header"><img src="/340br/340banner.jpg" alt="CSE 340 Banner Image"></header>
   <main>
-   <article id="article">
+   
     <h1>NetBeans Localhost Tutorial</h1>
     <h2 id="req">Prerequisites</h2>
     <p>This tutorial assumes you have:</p>
@@ -37,21 +37,21 @@
      <li>Launch NetBeans</li>
      <li>Click the "Create New Project" icon (top left corner of the screen) or from the File menu choose "New Project"
       <br>
-      <img src="../images/nb_localhost/newprojecticon.gif" alt="Netbeans new project icon" width="39" height="38" style="margin: 1em 0;">
-      <img src="../images/nb_localhost/newprojectfileselection.gif" alt="Netbeans new project menu selection image" width="280" height="37" style="margin: 1em 0;">
+      <img src="/340br/images/nb_localhost/newprojecticon.gif" alt="Netbeans new project icon" width="39" height="38" style="margin: 1em 0;">
+      <img src="/340br/images/nb_localhost/newprojectfileselection.gif" alt="Netbeans new project menu selection image" width="280" height="37" style="margin: 1em 0;">
      </li>
      <li>A new project dialog box will open showing PHP options (due to our using the PHP version of the tool)
      </li>
      <li>Click the second option — PHP Application with Existing Sources, click "Next"
       <br>
-      <img src="../images/nb_localhost/nb-local-newproject.jpg" alt="Netbeans new php project selection dialog box "></li>
+      <img src="/340br/images/nb_localhost/nb-local-newproject.jpg" alt="Netbeans new php project selection dialog box "></li>
     </ol>
 
     <h2 id="location">Name and Specify the Project Location</h2>
     <ol>
      <li>Type the name "<i>Localhost</i>" in the Project Name text box.
       <br>
-      <img src="../images/nb_localhost/nb-local-name.jpg" alt="Netbeans new project dialog box image"></li>
+      <img src="/340br/images/nb_localhost/nb-local-name.jpg" alt="Netbeans new project dialog box image"></li>
      <li>Click the "Browse" button and navigate to the "htdocs" folder (on Mac: [Applications &gt; XAMPP &gt; htdocs] or on PC: [C:\XAMPP &gt; htdocs]). Click to select it and then click "Open".</li>
      <li>Important! Make sure the Sources Folder path ends with "htdocs". If any other text appears after "htdocs" delete it!</li>
      <li>The PHP Version should be changed to the highest value available (e.g. 7.0).</li>
@@ -62,7 +62,7 @@
     <h2 id="run">Set the Run Configuration</h2>
     <p>The run configuration tells NetBeans what to do when a file is to be previewed or "run".
      <br>
-     <img src="../images/nb_localhost/nb-local-runconf.jpg" alt="Netbeans run configuration dialog box"></p>
+     <img src="/340br/images/nb_localhost/nb-local-runconf.jpg" alt="Netbeans run configuration dialog box"></p>
     <ol>
      <li>By default, the Run As: box is set to "Local Web Site (running on local web server)". Do not change this.</li>
      <li>In the "Project URL" text box, make sure that the path is <code>http://localhost</code>.</li>
@@ -71,7 +71,7 @@
     </ol>
     <h2>The Project Panel</h2>
     <p>When you return to NetBeans, the Project panel should be viewed on the left side of your screen. If it is not visible, click the "Window" toolbar and select "Project". Insure that you have a project named "Localhost". This is where you will develop your web site files for testing on the local machine.</p>
-   </article>
+   
   </main>
   <footer>
    <a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US" target="_blank"><img alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by-sa/3.0/88x31.png"></a> All materials (except as noted) are by Blaine Robertson and licensed under a <a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US" title="Read the license" target="_blank">Creative Commons Attribution-ShareAlike 3.0 License</a>.</footer>
