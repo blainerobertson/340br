@@ -50,14 +50,14 @@
     <p>Having planned out and constructed the individual code snippets its now time to put them into effect. In our example we will be using a server-side scripting language called "<abbr title="Pre-Hypertext Processing">PHP</abbr>". Remember that the snippet is "plugged-in" to a larger collection of code. In our case that larger collection of code would be the &lt;header&gt; of a web page. To keep things simple only the header is shown, but it would be preceded by the opening code of the web page and followed by the content and other portions of the page. See the example code segment under <strong><a href="#result" title="See the result">The Result</a></strong> below.</p>
     <figure>
      <pre class="line-numbers"><code class="language-php">&lt;nav id="page_nav"&gt;
- &lt;?php include $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/snippets/navigation.php'; ?&gt; 
+ &lt;?php require $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/snippets/navigation.php'; ?&gt; 
 &lt;/nav&gt;</code></pre>
-     <figcaption>Figure 3: A server-side include to implement the code snippet to a web page.</figcaption>
+     <figcaption>Figure 3: A server-side require to implement the code snippet to a web page.</figcaption>
     </figure>
     <p>An explanation of the code:</p>
     <ul>
      <li><span><b>&lt;?php ?&gt;</b>&nbsp;- this a PHP code block. By creating it and placing the PHP code within it, the server knows that the PHP must be executed before the web page can be returned to the browser.</span></li>
-     <li><b>include</b>&nbsp;- this is a PHP function that follows the path to a code snippet (the module) in order to draw it in and make it a part of the larger code collection at the point where the include function is written.</li>
+     <li><b>include</b>&nbsp;- this is a PHP function that follows the path to a code snippet (the module) in order to draw it in and make it a part of the larger code collection at the point where the require function is written.</li>
      <li><b>$_SERVER['DOCUMENT_ROOT']</b>&nbsp;- this is a PHP "Super Global" object and its method that instructs the server to provide a path from the root of the server's hard drive all the way to the root of the current website. Some web hosts do not require that you use this in order to make modules work, but it doesn't hurt to have it.</li>
      <li><b>.(period)</b>&nbsp;- a php concatenation symbol. In short, it takes the group of characters on the left (provided by $_SERVER['DOCUMENT_ROOT']) and joins them to the group of characters on the right ('/phpmotors/snippets/navigation.php').</li>
      <li><b>'/phpmotors/snippets/navigation.php'</b>&nbsp;- this is the path from the root of the website to the code snippet (module) to be included. Please notice the single quote marks on either side. The single quotes mark this collection of characters as a "string". This is programming terminology for a collection of alpha-numeric characters. <b>Note! If the snippets folder were not at the site root, but in a folder, the folder name would have to preceed it in the path (e.g. '/folder-name/snippets/navigation.php'</b>.</li>
@@ -66,7 +66,7 @@
 
     <p><b>Note!</b>&nbsp;The web page where this PHP include is written, would itself have to have a .php extension. Say, for example, the web page were named "home", then it would have to be "home.php". It could not have any other extension if we want the include to work.</p>
     <h2 id="result">The Result</h2>
-    <p>Since PHP is run on the server, here is how all of this code would work. Someone would see a link to home.php and click it. When the server got the request for home.php it would see the .php extension and ask the PHP engine to process it. The PHP engine would begin reading the code in the page looking for a PHP code block - &lt;?php ... ?&gt;. When it found one, it begins to execute the various commands inside of it. In our case, it would attempt to find the code snippet in the "common" folder and include it in the &lt;header&gt;. Assuming that everything worked as it was supposed to, the header would look like this when the PHP engine was done:</p>
+    <p>Since PHP is run on the server, here is how all of this code would work. Someone would see a link to home.php and click it. When the server got the request for home.php it would see the .php extension and ask the PHP engine to process it. The PHP engine would begin reading the code in the page looking for a PHP code block - &lt;?php ... ?&gt;. When it found one, it begins to execute the various commands inside of it. In our case, it would attempt to find the code snippet in the "snippets" folder and include it in the &lt;header&gt;. Assuming that everything worked as it was supposed to, the header and navigation would look like this when the PHP engine was done:</p>
 <pre class="line-numbers"><code class="language-markup">&lt;header id="page_header"&gt;
   &lt;a href="/" title="Go to the subway.com home page"&gt;
   &lt;img src="/images/subway-logo.jpeg" alt="subway.com logo"&gt;
