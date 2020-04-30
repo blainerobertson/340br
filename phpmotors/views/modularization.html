@@ -33,29 +33,28 @@
     <h2>Code Snippets</h2>
     <p>You may be inclined to ask, <i>"What exactly is a module or code snippet?"</i> The answer is, <b>"A small amount of code, not stand-alone, that can be plugged-in to a larger collection of code in order to carry out or serve a particular task"</b>. Going back to Subway.com's header, you will notice that on the left is the logo, in the top right corner is a link to their international web site, to the left of the link are various tools, and at the bottom of the header is the main navigation bar. If you were to look at the source code for any of the pages you would find that the code used to build the header is about 100 lines long (alot of that is for the drop-down menus). But if you were to copy that code and paste it on a page of its own, it would look pretty strange. It is not meant to be used in that way, it is meant to be used at the top of each web page to add specific functionality to the page as a whole.</p>
     <p>A simplified header example might lead us to create a code snippet that looks like this:</p>
-    <pre class="line-numbers"><code class="language-php">&lt;a href="/" title="Go to the subway.com home page"&gt;<br>
- &nbsp; &lt;img src="/images/subway-logo.jpeg" alt="subway.com logo"&gt;<br>
-&lt;/a&gt;<br>
-&lt;div id="tools"&gt; ... tools (e.g. search) go here ... &lt;/div&gt;<br>
-&lt;nav id="page_nav"&gt;<br>
-&nbsp; &nbsp; &lt;ul&gt;<br>
-&nbsp; &nbsp; &nbsp;&lt;li&gt;&lt;a href="/"&gt;Home&lt;/a&gt;&lt;li&gt;<br>
-&nbsp; &nbsp; &nbsp;&lt;li&gt;&lt;a href="/sandwiches"&gt;Sandwiches&lt;/a&gt;&lt;li&gt;<br>
-&nbsp; &nbsp; &nbsp;&lt;li&gt;&lt;a href="/ingredients"&gt;Ingredients&lt;/a&gt;&lt;li&gt;<br>
-&nbsp; &nbsp; &nbsp;&lt;li&gt;&lt;a href="/catering"&gt;Catering&lt;/a&gt;&lt;li&gt;
-<br>
-&nbsp; &nbsp; &nbsp;&lt;li&gt;&lt;a href="/nutrition"&gt;Nutrition&lt;/a&gt;&lt;li&gt;<br>
-&nbsp; &nbsp; &nbsp;&lt;li&gt;&lt;a href="/locations"&gt;Locations&lt;/a&gt;&lt;li&gt;<br>
-&nbsp; &nbsp; &nbsp;&lt;li&gt;&lt;a href="/careers"&gt;Careers&lt;/a&gt;&lt;li&gt;<br>
-&nbsp; &nbsp; &nbsp;&lt;li&gt;&lt;a href="/about"&gt;About Subway&lt;/a&gt;&lt;li&gt;<br>
-&nbsp; &nbsp; &lt;/ul&gt;<br>
+  <pre class="line-numbers"><code class="language-php">&lt;a href="/" title="Go to the subway.com home page"&gt;
+ &lt;img src="/images/subway-logo.jpeg" alt="subway.com logo"&gt;
+&lt;/a&gt;
+&lt;div id="tools"&gt; ... tools (e.g. search) go here ... &lt;/div&gt;
+&lt;nav id="page_nav"&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href="/"&gt;Home&lt;/a&gt;&lt;li&gt;
+    &lt;li&gt;&lt;a href="/sandwiches"&gt;Sandwiches&lt;/a&gt;&lt;li&gt;
+    &lt;li&gt;&lt;a href="/ingredients"&gt;Ingredients&lt;/a&gt;&lt;li&gt;
+    &lt;li&gt;&lt;a href="/catering"&gt;Catering&lt;/a&gt;&lt;li&gt;
+    &lt;li&gt;&lt;a href="/nutrition"&gt;Nutrition&lt;/a&gt;&lt;li&gt;
+    &lt;li&gt;&lt;a href="/locations"&gt;Locations&lt;/a&gt;&lt;li&gt;
+    &lt;li&gt;&lt;a href="/careers"&gt;Careers&lt;/a&gt;&lt;li&gt;
+    &lt;li&gt;&lt;a href="/about"&gt;About Subway&lt;/a&gt;&lt;li&gt;
+  &lt;/ul&gt;
 &lt;/nav&gt;</code></pre>
     <p>This code would be saved into a new text file, nothing else in the file except this code and given an appropriate name (e.g. header.php). The header.php file would be stored in a folder with other common, reusable snippets, so the storage folder could be named "common" or something similar.</p>
     <h2>Implementing the Snippets</h2>
     <p>Having planned out and constructed the individual code snippets its now time to put them into effect. In our example we will be using a server-side scripting language called "<abbr title="Pre-Hypertext Processing">PHP</abbr>". Remember that the snippet is "plugged-in" to a larger collection of code. In our case that larger collection of code would be the &lt;header&gt; of a web page. To keep things simple only the header is shown, but it would be preceded by the opening code of the web page and followed by the content and other portions of the page. See the example code segment under <strong><a href="#result" title="See the result">The Result</a></strong> below.</p>
-    <figure class="callout no-left">
+    <figure>
      <pre class="line-numbers"><code class="language-php">&lt;header id="page_header"&gt;
- &lt;?php include $_SERVER['DOCUMENT_ROOT'] . '/acme/common/header.php'; ?&gt; 
+ &lt;?php include $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/snippets/header.php'; ?&gt; 
 &lt;/header&gt;</code></pre>
      <figcaption>Figure 3: A server-side include to implement the code snippet to a web page.</figcaption>
     </figure>
@@ -65,30 +64,30 @@
      <li><b>include</b>&nbsp;- this is a PHP function that follows the path to a code snippet (the module) in order to draw it in and make it a part of the larger code collection at the point where the include function is written.</li>
      <li><b>$_SERVER['DOCUMENT_ROOT']</b>&nbsp;- this is a PHP "Super Global" object and its method that instructs the server to provide a path from the root of the server's hard drive all the way to the root of the current website. Some web hosts do not require that you use this in order to make modules work, but it doesn't hurt to have it.</li>
      <li><b>.(period)</b>&nbsp;- a php concatenation symbol. In short, it takes the group of characters on the left (provided by $_SERVER['DOCUMENT_ROOT']) and joins them to the group of characters on the right ('/common/header.php').</li>
-     <li><b>'/acme/common/header.php'</b>&nbsp;- this is the path from the root of the website to the code snippet (module) to be included. Please notice the single quote marks on either side. The single quotes mark this collection of characters as a "string". This is programming terminology for a collection of alpha-numeric characters. <b>Note! If the common folder were not at the site root, but in a folder, the folder name would have to preceed it in the path (e.g. '/folder-name/common/header.php'</b>.</li>
+     <li><b>'/phpmotors/snippets/header.php'</b>&nbsp;- this is the path from the root of the website to the code snippet (module) to be included. Please notice the single quote marks on either side. The single quotes mark this collection of characters as a "string". This is programming terminology for a collection of alpha-numeric characters. <b>Note! If the common folder were not at the site root, but in a folder, the folder name would have to preceed it in the path (e.g. '/folder-name/common/header.php'</b>.</li>
      <li>When placed together, everything to the right of the word "include" is a path (an absolute path if you want to be technical) that tells the server exactly where to find the file that is to be included at this location.</li>
     </ul>
 
     <p><b>Note!</b>&nbsp;The web page where this PHP include is written, would itself have to have a .php extension. Say, for example, the web page were named "home", then it would have to be "home.php". It could not have any other extension if we want the include to work.</p>
     <h2 id="result">The Result</h2>
     <p>Since PHP is run on the server, here is how all of this code would work. Someone would see a link to home.php and click it. When the server got the request for home.php it would see the .php extension and ask the PHP engine to process it. The PHP engine would begin reading the code in the page looking for a PHP code block - &lt;?php ... ?&gt;. When it found one, it begins to execute the various commands inside of it. In our case, it would attempt to find the code snippet in the "common" folder and include it in the &lt;header&gt;. Assuming that everything worked as it was supposed to, the header would look like this when the PHP engine was done:</p>
-<pre class="line-numbers"><code class="language-markup">&lt;header id="page_header"&gt;<br>
-&nbsp;&lt;a href="/" title="Go to the subway.com home page"&gt;<br>
-&nbsp;&nbsp; &lt;img src="/images/subway-logo.jpeg" alt="subway.com logo"&gt;<br>
-&nbsp;&lt;/a&gt;<br>
-&nbsp;&lt;div id="tools"&gt; ... tools (e.g. search) go here ... &lt;/div&gt;<br>
-&nbsp;&lt;nav id="page_nav"&gt;<br>
-&nbsp; &nbsp; &lt;ul&gt;<br>
-&nbsp; &nbsp; &nbsp;&lt;li&gt;&lt;a href="/"&gt;Home&lt;/a&gt;&lt;li&gt;<br>
-&nbsp; &nbsp; &nbsp;&lt;li&gt;&lt;a href="/sandwiches"&gt;Sandwiches&lt;/a&gt;&lt;li&gt;<br>
-&nbsp; &nbsp; &nbsp;&lt;li&gt;&lt;a href="/ingredients"&gt;Ingredients&lt;/a&gt;&lt;li&gt;<br>
-&nbsp; &nbsp; &nbsp;&lt;li&gt;&lt;a href="/catering"&gt;Catering&lt;/a&gt;&lt;li&gt;<br>
-&nbsp; &nbsp; &nbsp;&lt;li&gt;&lt;a href="/nutrition"&gt;Nutrition&lt;/a&gt;&lt;li&gt;<br>
-&nbsp; &nbsp; &nbsp;&lt;li&gt;&lt;a href="/locations"&gt;Locations&lt;/a&gt;&lt;li&gt;<br>
-&nbsp; &nbsp; &nbsp;&lt;li&gt;&lt;a href="/careers"&gt;Careers&lt;/a&gt;&lt;li&gt;<br>
-&nbsp; &nbsp; &nbsp;&lt;li&gt;&lt;a href="/about"&gt;About Subway&lt;/a&gt;&lt;li&gt;<br>
-&nbsp; &nbsp; &lt;/ul&gt;<br>
-&lt;/nav&gt;<br>
+<pre class="line-numbers"><code class="language-markup">&lt;header id="page_header"&gt;
+&lt;a href="/" title="Go to the subway.com home page"&gt;
+ &lt;img src="/images/subway-logo.jpeg" alt="subway.com logo"&gt;
+&lt;/a&gt;
+&lt;div id="tools"&gt; ... tools (e.g. search) go here ... &lt;/div&gt;
+&lt;nav id="page_nav"&gt;
+  &lt;ul&gt;
+  &lt;li&gt;&lt;a href="/"&gt;Home&lt;/a&gt;&lt;li&gt;
+  &lt;li&gt;&lt;a href="/sandwiches"&gt;Sandwiches&lt;/a&gt;&lt;li&gt;
+  &lt;li&gt;&lt;a href="/ingredients"&gt;Ingredients&lt;/a&gt;&lt;li&gt;
+  &lt;li&gt;&lt;a href="/catering"&gt;Catering&lt;/a&gt;&lt;li&gt;
+  &lt;li&gt;&lt;a href="/nutrition"&gt;Nutrition&lt;/a&gt;&lt;li&gt;
+  &lt;li&gt;&lt;a href="/locations"&gt;Locations&lt;/a&gt;&lt;li&gt;
+  &lt;li&gt;&lt;a href="/careers"&gt;Careers&lt;/a&gt;&lt;li&gt;
+  &lt;li&gt;&lt;a href="/about"&gt;About Subway&lt;/a&gt;&lt;li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;
 &lt;/header&gt;</code></pre>
     <p>What is neat about using this technique, besides those mentioned earlier, is that when the server delivers home.php back to the requesting web browser is that there is no sign left of any of the PHP code block or any of the code inside of it. All that is left is the finished product. Think of it like ordering a sandwich at a restaurant. You order the sandwich and that is what is delivered to you. You don't see the preparation of it, the freezers where things are stored, the cutting board or utensils used to create it.</p>
     <h2>Make a Change</h2>
