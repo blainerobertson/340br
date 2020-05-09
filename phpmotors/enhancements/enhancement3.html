@@ -64,12 +64,12 @@
      appear in the phpmotors template and all existing views (home, login, 500 error and registration).</li>
     <li>The link must point to the "<b>accounts</b>" controller and send a name-value (a.k.a. key - value) pair (remember the "action" name or key from the activities?) as a parameter that tells the controller to deliver the login view. <i>You may want to carefully study the links built in the dynamic navigation activity to see how the name-value pair is made part of the link.</i></li>
     <li>Alter the existing switch case statement in the accounts controller to react to the "login" request and deliver the login view from the <b>view</b> folder using an "include".</li>
-    <li>Return to the login view and create a link in the login view that tells the client to click it if they have not yet registered and need to create an account. The link must:
+    <li>Return to the login view and create a link (or a button) in the login view that tells the client to click it if they have not yet registered and need to create an account. The link must:
      <ul>
       <li>point to the "accounts" controller, and</li>
       <li>pass a name - value pair that tells the controller to deliver the registration view.</li>
      </ul>
-     <p>Make sure the link is large and obvious so that it is not overlooked and causes a site visitor confusion. See this example from target.com:<br><img src="/340br/phpmotors/images/target-signin.png" alt="Signin example from target.com">
+     <p>Make sure the link is large and obvious so that it is not overlooked and causes a site visitor confusion. See an example from target.com:<br><br><img src="/340br/phpmotors/images/target-signin.png" alt="Signin example from target.com">
      </p>
     </li>
     <li>Add an additional case statement to the "accounts" controller to detect the request for the registration view and deliver it to the browser from the <b>view</b> folder.</li>
