@@ -34,13 +34,13 @@
      <ul>
       <li>Click after the closing quote for clientFirstname.</li>
       <li>Add a comma and a space</li>
-      <li>Add <code class="language-php">FILTER_SANITIZE_STRING</code> &mdash; This "flag" removes any html elements and leaves only text.
+      <li>Add <code class="language-php">FILTER_SANITIZE_STRING</code> &mdash; This type removes any html elements and leaves only text.
       </li>
       <li>Repeat the same process for the clientLastname input.</li>
       <li>Repeat the same process for the clientPassword input. When done the three inputs should look similar to this:
        <pre><code class="language-php">$clientPassword = filter_input(INPUT_POST, 'clientPassword', FILTER_SANITIZE_STRING)</code></pre>
       </li>
-      <li>Because the email input represents a special type of string you will add a different flag to it. Use the <b>FILTER_SANITIZE_EMAIL</b> flag for it. When done, the email input should look like this:<br>
+      <li>Because the email input represents a special type of string you will add a different type to it. Use the <b>FILTER_SANITIZE_EMAIL</b> type for it. When done, the email input should look like this:<br>
        <pre><code class="language-php">$clientEmail = filter_input(INPUT_POST, 'clientEmail', FILTER_SANITIZE_EMAIL);</code></pre>
        .</li>
       <li>Then, just to be sure, we will add an additional check to the email.</li>
@@ -123,7 +123,7 @@ function checkPassword($clientPassword){
    <h2>A Recap</h2>
    <ul>
     <li>To this point we have told three of the filter_input functions that the data being filtered is to be treated as text and any HTML tags are to be removed - <code>FILTER_SANITIZE_STRING</code>.</li>
-    <li>We then added a different filter flag to the email input to sanitize anything out that shouldn't be there using <code>FILTER_SANITIZE_EMAIL</code>.</li>
+    <li>We then added a different filter type to the email input to sanitize anything out that shouldn't be there using <code>FILTER_SANITIZE_EMAIL</code>.</li>
     <li>We then created a new PHP file in the "<b>library</b>" folder specifically to store custom functions - "<b>functions.php</b>".</li>
     <li>In the <b>functions.php</b> file we have created two custom functions: 1) to validate an email address - <code>checkEmail()</code> - and, 2) to check a password that it meets specific requirements - <code>checkPassword()</code>.</li>
     <li>In the <b>accounts</b> controller we added a <code>require_once</code> to bring the <b>functions.php</b> page into the controller's scope.</li>
