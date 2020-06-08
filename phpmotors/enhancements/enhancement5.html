@@ -39,14 +39,14 @@
    <ol>
     <li>Add HTML5 attributes as needed to the various input elements in the "<b>new carclassification</b>" and "<b>new vehicle</b>" forms. Make sure that each input's data type is also appropriate to the data being requested.</li>
     <li>Add a PHP code block to each input in the "<b>new vehicle</b>" form so that the form inputs become "sticky" if and when errors in submissions are returned.</li>
-    <li><strong>Note:</strong> To display the value of a variable in a <code>textarea</code> element, it must be echoed between the opening and closing tags with no extra spaces or line breaks between the html opening and closing tags and the PHP code block between them.</li>
+    <li><strong>Note:</strong> <mark>To display the value of a variable in a <code>textarea</code> element, it must be echoed between the opening and closing tags with no extra spaces or line breaks between the html opening and closing tags and the PHP code block between them.</mark></li>
    </ol>
    <h3>Server-side Validation</h3>
 
    <p>In the "<b>vehicles</b>" controller add server-side validation to both the "add new carclassification" and "add new vehicle" processes. Specifically:</p>
    <ol>
     <li>Use a require_once to get the functionality of the "<b>functions.php</b>" page and make it available to this controller.</li>
-    <li>Make sure the filter_input functions are using appropriate flags for the data being collected (all incoming data must be filtered using an appropriate flag). <b>Note:</b> If using sanitize flags for float values, you must add a second flag - FILTER_FLAG_ALLOW_FRACTION - to allow the decimal place to be retained. <mark><b>Note:</b> The float sanitize filter removes all characters except numbers and the + or - sign. This means if a person enters 50.5 and it is sanitized, it leaves 505.</mark></li>
+    <li>Make sure the filter_input functions are using appropriate types for the data being collected (all incoming data must be filtered using an appropriate type). <b>Note:</b> If using sanitize types for float values, you must add a second flag - FILTER_FLAG_ALLOW_FRACTION - to allow the decimal place to be retained. <mark><b>Note:</b> The float sanitize filter removes all characters except numbers and the + or - sign. This means if a person enters 50.5 and it is sanitized, it leaves 505.</mark></li>
     <li>If any specific patterns were used in the Native HTML5 validation, make sure that those patterns are duplicated using PHP.</li>
     <li>If you create custom functions for any part of the server-side validation, make sure they are created in the "<b>functions.php</b>" page and labeled.</li>
     <li>To dynamically select the correct carclassification in the "add new vehicle" view when returning errors from server-side validation you will want to watch and follow along with this video:<br>
@@ -98,7 +98,7 @@
    <ul>
     <li>HTML client-side validation is present and operational for all required inputs in both the "add new carclassification" and "add new vehicle" forms: 10 points (minus 1 point for each missing or non-operational input)
     </li>
-    <li>Data flags have been added to the filter_input functions in the vehicles controller: 5 points (minus 1 for each missing or incorrect flag)</li>
+    <li>Data types have been added to all filter_input functions in the vehicles controller: 5 points (minus 1 for each missing or incorrect flag)</li>
     <li>Missing data from the "new vehicle" view is successfully detected and returned to the view for correction and the form inputs are "sticky": 10 points (minus 1 for each error or input that is not sticky)</li>
     <li>Total value for Objective 5: <b>25 points</b></li>
    </ul>
