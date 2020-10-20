@@ -18,6 +18,10 @@ body {
   margin: 0 1rem;
 }
 
+main li{
+  margin-bottom: .2rem;
+}
+
 h1 {
   color: #333333;
 }
