@@ -21,9 +21,11 @@
 			<h2>Overview</h2>
 			<p>In this enhancement you will:</p>
 			<ol>
-				<li>add the <b>admin.php</b> view, and</li>
+				<li>add a client <b>admin.php</b> view that will be the landing page when a client logs in, and</li>
 				<li>use the session to make sure the visitor is "logged in" in order to see the view, and</li>
 				<li>extract data from the session to display content in the <b>admin.php</b> view, and</li>
+				<li>replace the cookie welcome message, with a session-based welcome message using the first name of the logged-in client following login (this must appear in all views while the client is logged in), and</li>
+				<li>add a link to the welcome message that will allow the logged in client to click it to be directed to the client admin view through the controller, and</li>
 				<li>add a new registrant to the client's table and change the clientLevel of the new registrant, and </li>
 				<li>add additional capability to the <b>admin.php</b> view to show a link to the vehicle controller but only if the logged in visitor has a clientLevel greater than "1" (the default for all new registered site visitors), and</li>
 				<li>create a "logout" process and add it to the PHP Motors web site.</li>
@@ -33,7 +35,7 @@
 				<iframe src="https://www.youtube.com/embed/2jL_ZBpG8sM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 			<h2>For Your Information</h2>
-			<p>The "firstname" cookie that was set to display in the "login" activity is completely independent of the Login - Logout process. When a client "logs in" or "logs out" the cookie remains. Do not let the fact that the "Welcome" message from the cookie appears interfere with your understanding of the login - logout process.</p>
+			<p>The "firstname" cookie that was set to display in the "login" activity is completely independent of the Login - Logout process. When a client "logs in" or "logs out" the cookie remains. Do not let the fact that the "Welcome" message from the cookie appears after registration and prior to login interfere with your understanding of the login - logout process.</p>
 
 			<h2>Tasks</h2>
 			<p>As described above you are being asked to add a new view and then add functionality to the view based on the site visitor who is logged in. Then, add a logout process to the site.</p>
@@ -47,7 +49,7 @@
 
 			<h3>Check for Login</h3>
 			<ol>
-				<li>In the PHP code block at the top of the admin.php view, write an <code>if()</code> test to see if the visitor is NOT logged in. If the visitor is NOT logged in, use a header function to send them to the main PHP Motors controller.</li>
+				<li>In the PHP code block at the top of the admin.php view, write an <code>if()</code> test to see if the visitor is NOT logged in. If the visitor is NOT logged in, use a header function to send them to the main PHP Motors controller in order for the PHP Motors home view to be delivered.</li>
 			</ol>
 
 			<h3>Display SESSION data</h3>
@@ -56,13 +58,28 @@
 				<li>Below the <code>&lt;h1&gt;</code> create an unordered list. In each list item display the user's data that has been stored into the session, preceeded by a meaningful label (e.g. First name: Bill, Email Address: wildbill@ok.com, etc...).</li>
 			</ol>
 
+			<h3>Replace the Welcome Message</h3>
+			<ol>
+				<li>Replace the cookie-welcome message with a session-based welcome message.</li>
+				<li>The new welcome message (e.g. "Welcome Susan") must take the firstname value from the session following login.</li>
+				<li>The welcome message must appear in all views, throughout the site, while the client is logged in.</li>
+				<li>When a client logs out, the welcome message will be removed completely.</li>
+			</ol>
+
+			<h3>Welcome Message Link</h3>
+			<ol>
+				<li>After the client logs in and the session-based welcome message is working turn it into a link.</li>
+				<li>The link, when clicked, should direct to the accounts controller and deliver the client admin view.</li>
+				<li>When the client logs out, the link should be unreachable as the welcome message is removed from all views.</li>
+			</ol>
+
 			<h3>Register a New Client</h3>
 			<ol>
 				<li>Register the following new client to the database:
 					<ul>
 						<li>Firstname: <b>Admin</b></li>
 						<li>Lastname: <b>User</b></li>
-						<li>Email: <b>admin@cit340.net</b></li>
+						<li>Email: <b>admin@cse340.net</b></li>
 						<li>Password: <b>Sup3rU$er</b></li>
 					</ul>
 				</li>
@@ -80,13 +97,12 @@
 			<h3>Logout Process</h3>
 			<ol>
 				<li>In the accounts controller add a new case statement to watch for a "Logout" value.</li>
-				<li>If a "Logout" is received then the session should be ended (destroyed - hint, hint) and the client is returned to the main phpmotors controller.</li>
+				<li>If a "Logout" is received then the session data should be unset (hint, hint) and the session destroyed (hint, hint) and the client is returned to the main phpmotors controller.</li>
 				<li>To enable this logout process to happen, code will have to be added to the views to accomplish the following:
 					<ul>
-						<li>If a site visitor (the client) is not logged in the "My Account" link should be present and operational (as it currently exists).</li>
-						<li>When the client is "logged in" the "My Account" link should be replaced with a "Log out"
-							link that points to the accounts controller and passes the appropriate name value pair to
-							trigger the logout event.</li>
+						<li>If a site visitor (the client) is not logged in, the "My Account" link should be present and operational (as it currently exists).</li>
+						<li>When the client is "logged in" the "My Account" link should be replaced with a "Log out" link that points to the accounts controller and passes the appropriate name value pair to trigger the logout event.</li>
+						<li>This code area can also be where the welcome message and link are displayed or hidden.</li>
 					</ul>
 				</li>
 			</ol>
@@ -98,9 +114,10 @@
 			<p>Be sure to complete all tasks and then test that they work.</p>
 			<ul>
 				<li>Attempt to access the <b>admin.php</b> view directly before logging in. It should deny you access and redirect you to the phpmotors controller, which should deliver the home view by default.</li>
-				<li>Make sure the "My Account" link appears prior to login, and that the "Logout" link appears after logging in.</li>
-				<li>Log in as a level "1" user to test that the data appears in the "<b>admin.php</b>" view, but that the link does not.</li>
-				<li>Logout as the level "1" user and log in as the level "3" user. When you view the <b>admin.php</b> view, your own data should appear as well as the link to the vehicles controller. Test the link to make sure it takes you to the vehicle controller, which should deliver the vehicles admin view by default.</li>
+				<li>Make sure the "My Account" link appears prior to login, and that the "Logout" link and welcome message, with its link, appears after logging in.</li>
+				<li>Click the welcome message link to ensure that the client admin view is deliverd via the accounts controller.</li>
+				<li>Log in as a level "1" user to test that the data appears in the "<b>admin.php</b>" view, but that the link to the vehicle management view does not.</li>
+				<li>Logout as the level "1" user and log in as the level "3" user. When you view the <b>admin.php</b> view, your own data should appear as well as the link to the vehicle management view. Test the link to make sure it takes you to the vehicle controller, which should deliver the vehicles admin view by default.</li>
 			</ul>
 
 
@@ -112,12 +129,13 @@
 					<ol>
 						<li>Create a video showing:
 							<ul>
-								<li>The "my account" link is present before login and the "Logout" link appears after
+								<li>The "my account" link is present before login and the "Logout" link and welcome message as a link appear after
 									login; show this functionality in multiple views.</li>
 								<li>Logging in as a level "1" user and the displaying of the client data in the "<b>admin.php</b>" view.</li>
+								<li>While logged in, navigate to several views and click the welcome message link to return to the client admin view.</li>
 								<li>Show that the "<b>admin.php</b>" view is valid HTML5.</li>
 								<li>Logging out.</li>
-								<li>Logging in as a level "3" user and the appearance of the vehicles link.</li>
+								<li>Logging in as a level "3" user and the appearance of the vehicle management link.</li>
 								<li>Click the vehicles link to show that the vehicles management view is delivered.</li>
 								<li>If you did the extra credit, show it in the video.</li>
 							</ul>
@@ -141,8 +159,10 @@
 
 			<h3>Objective 2</h3>
 			<ul>
-				<li>The code to switch the "My Accounts" and "Logout" links is present and works in all views: 5 points (minus 2 points for each missed view)</li>
-				<li>The logout process is present in the accounts controller and works: 5 points (all or nothing)</li>
+				<li>The code to switch the "My Accounts" and "Logout" links is present and works in all views: 3 points (all or nothing).</li>
+				<li>The welcome message, as a link, appears while logged in and does not following logout in all views: 2 points (all or nothing).</li>
+				<li>The welcome message link returns the client to the client admin view when clicked from any view: 2 points (all or nothing)</li>
+				<li>The logout process is present in the accounts controller and works: 3 points (all or nothing)</li>
 				<li>The code to check for being logged in is present and works in the "admin.php" view: 5 points (all or nothing).</li>
 				<li>The code to display the "vehicles managment" link in the "admin.php" view is present and works only if the logged in client has a clientLevel greater than "1": 5 points (all or nothing)</li>
 				<li>Total value for Objective 2: <b>20 points</b></li>
@@ -152,10 +172,10 @@
 			<ul>
 				<li>The video URL is present and the video is narrated by you using your own voice. The video shows:
 					<ul>
-						<li>The "my account" link is present before login and the "Logout" link appears after login;
-							show this functionality in multiple views.</li>
-						<li>Logging in as a level "1" user and the displaying of the client data in the
-							"<b>admin.php</b>" view.</li>
+						<li>The "my account" link is present before login and the "Logout" link appears after login; show this functionality in multiple views.</li>
+						<li>The welcome message, with the loggedin client's firstname appears in all views following login and is removed following logout.</li>
+						<li>The welcome message link works to return the client to the client admin view when clicked from multiple views.</li>
+						<li>Logging in as a level "1" user and the displaying of the client data in the "<b>admin.php</b>" view.</li>
 						<li>The "<b>admin.php</b>" view is valid HTML5.</li>
 						<li>Logging out.</li>
 						<li>Logging in as a level "3" user and the appearance of the Vehicles link.</li>
