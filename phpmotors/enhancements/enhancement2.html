@@ -2,22 +2,23 @@
 <html lang="en">
 
 <head>
- <meta charset="utf-8">
- <meta http-equiv="x-ua-compatible" content="ie=edge">
- <title>Enhancement 2 | Web Backend Development I</title>
- <meta name="description" content="CSE 340 Enhancement 2 directions">
- <meta name="viewport" content="width=device-width">
- <link rel="stylesheet" href="/340br/css/340course.css" media="screen">
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Enhancement 2 | Web Backend Development I</title>
+  <meta name="description" content="CSE 340 Enhancement 2 directions">
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" href="/340br/css/340course.css" media="screen">
 </head>
 
 <body>
- <div id="wrapper">
-  <header id="header"><img src="/340br/340banner.jpg" alt="CSE 340 Banner Image"></header>
-  <main>
-    <h1>Enhancement 2</h1>
-    <h2>Purpose</h2>
-    <p>This enhancement allows you to work with SQL statements that are used in <abbr
-      title="Create, Read, Update and Delete">CRUD</abbr> interactions. These same interactions correspond with the privileges you gave to the proxy user when you created the <b>phpmotors</b> database.</p>
+  <div id="wrapper">
+    <header id="header"><img src="/340br/340banner.jpg" alt="CSE 340 Banner Image"></header>
+    <main>
+      <h1>Enhancement 2</h1>
+      <h2>Purpose</h2>
+      <p>This enhancement allows you to work with SQL statements that are used in <abbr
+          title="Create, Read, Update and Delete">CRUD</abbr> interactions. These same interactions correspond with the
+        privileges you gave to the proxy user when you created the <b>phpmotors</b> database.</p>
 
       <h2>When done you will have created...</h2>
       <ul>
@@ -26,106 +27,153 @@
         <li>A new php web page to display a generic server error message</li>
         <li>Two new folders for storing files</li>
       </ul>
-    <h2>Video Demo</h2>
-    <p>This short video demonstrates what your video of the connections objects being tested could look
-     like.</p>
-     <iframe src="https://www.youtube.com/embed/sKetqesyRWM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <h2>Video Demo</h2>
+      <p>This short video demonstrates what your video of the connections objects being tested could look
+        like.</p>
+      <iframe src="https://www.youtube.com/embed/sKetqesyRWM" frameborder="0"
+        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-    <h2>Assumptions</h2>
-    <p>This enhancement assumes:</p>
-    <ol>
-     <li>that you successfully created the <b>phpmotors</b> database in your local development environment.</li>
-     <li>the proxy user was also created in the PHPMyAdmin "User Accounts" tab.</li>
-     <li>you know the proxy user's password and this user has all Data privileges.</li>
-    </ol>
-
-    <h2>Tasks</h2>
-    <p>This enhancement has two distinct parts to it, 1) Writing SQL statements to use with the phpmotors database and 2) Creating a PDO connection function to work with the <b>phpmotors</b> database.</p>
-
-    <h3>Storing the SQL Statements</h3>
-    <p>The Introduction to SQL reading activity contains sample SQL statements for Selecting, Inserting, Updating and Deleting data from database table(s), you should have carefully reviewed these as part of this week's activities.
-    </p>
-    <h4>Using PHPMyAdmin to Write and Test Queries</h4>
-    <p>This video demonstrate using the PHPMyAdmin tool to write and test your queries.</p>
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/cuXH8rOSHrI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-    <ol>
-     <li>You will create a new "sql" folder inside the phpmotors folder.</li>
-     <li>You will create a new "enhancement2.sql" file inside the sql folder where you will store the finished SQL statements.
-     </li>
-     <li>Build and test your SQL statements <mark>in the PHPMyAdmin tool's SQL tab</mark> after clicking on the phpmotors database.
-    <ul>
-      <li>In the SQL tab, you can click the "Rollback when finished" checkbox under the SQL textbox in order to test your SQL statements without permenantly changing the database table(s). Note that this will only work for INSERT, UPDATE and DELETE queries, not for SELECT queries.</li>
-      <li>In the SQL tab, you can click the "Retain query box" checkbox under the SQL textbox in order to keep the query text box and your query on the screen during and after running the query.</li>
-      <li>Using one or both of these checkboxes during the writing and testing phase you can see if the query is working and make it easy to copy and paste your working query into the "enhancement2.sql" file for submission.</li>
-      <li>Whenever writing a SELECT, UPDATE or DELETE query use the primary key in the "WHERE" cluase when possible to avoid changing or selecting the incorrect record.</li>
-    </ul>
-    </li>
-     <li>When your statements are working correctly, copy and paste them into the <b>enhancement2.sql file.</b></li>
-     <li>This enhancement2.sql file will be submitted as part of the finished enhancement.</li>
-    </ol>
-    <h3>Writing SQL Statements</h3>
-    <p>Write SQL statements to accomplish the following tasks. Each task should be performed using a single query per task:</p>
-    <ol>
-     <li>Insert the following new client to the clients table (<b>Note:</b> The clientId and clientLevel fields should handle their own values and do not need to be part of this query.):
-      <br> Tony, Stark, tony@starkent.com, Iam1ronM@n, "I am the real Ironman" </li>
-     <li>Modify the Tony Stark record to change the clientLevel to 3. <strong>The previous insert query will have to have been stored in the database for the update query to work.</strong></li>
-     <li>Modify the "GM Hummer" record to read "spacious interior" rather than "small interior" using a single query. Explore the <a href="http://www.sqlteam.com/article/using-replace-in-an-update-statement"
-       title="Opens in a new tab" target="_blank">SQL Replace function</a>.
-      It needs to be part of an Update query as shown in the code examples of the <a href="https://go.oreilly.com/byu-idaho/library/view/simply-sql/9780980455250/Text/ch01.html" title="Opens in a new tab" target="_blank">SQL Reading</a> - Read Ch. 1, section 3.</li>
-     <li>Use an inner join to select the invModel field from the inventory table and the classificationName field from the carclassification table for inventory items that belong to the "SUV" category. (These resources may help you: <a href="https://www.w3schools.com/sql/sql_join.asp" title="Link opens in a new tab" target="_blank">https://www.w3schools.com/sql/sql_join.asp</a> and <a href="https://www.youtube.com/watch?v=0FEjw2HnfDs" title="Link opens in a new tab" target="_blank">https://www.youtube.com/watch?v=0FEjw2HnfDs</a>) Four records should be
-      returned as a result of the query.</li>
-     <li>Delete the Jeep Wrangler from the database. [<b>Note:</b> You can restore the Inventory table by importing the SQL file that was used to create it again].</li>
-     <li>Update all records in the Inventory table to add "/phpmotors" to the beginning of the file path in the invImage and invThumbnail columns using a single query. These references may prove helpful - <a href="https://www.w3schools.com/sql/sql_update.asp" title="This page opens in a new tab" target="_blank">SQL Update</a>, <a href="https://www.plus2net.com/sql_tutorial/concat.php" title="This page opens in a new tab" target="_blank">SQL Concat()</a>.</li>
-     <li>Create a video of you running all of these SQL statements and showing the result of running each SQL statement.
-     </li>
-    </ol>
-    <h3>Build a Database Connection File</h3>
-    <p>Create a basic php file as a connection file that contains a connection function (refer to the <b><a href="../views/db-connection.html" title="Go to the connection file" target="_blank">Create a PDO Connection</a></b> activity). The file should be in a folder named "<b>library</b>"
-     and be named "<b>connections.php</b>".</p>
-    <ol>
-     <li>Create a PDO connection function for the phpmotors database named <b>phpmotorsConnect()</b>.
-     </li>
-     <li>If and when the database connection fails, a generic failure page, built using your template file, should be delivered (using the <a href="//php.net/manual/en/function.header.php" title="View the header function at php.net" target="_blank">PHP header function</a>) that states the database could not be reached. See the image below as an example of what the
-      page could look like:<br>
-      <img src="/340br/phpmotors/images/php-motors/php-motors-error.png" alt="Sample error page for illustration purposes">
-      <p>The error view should be named <b>500.php</b> and be stored in a folder named <b>view</b> at the root of the phpmotors folder.</p>
-     </li>
-     <li>Create a video that demonstrates that the connection works.</li>
-     <li>In the same video demonstrate that errors are successfully caught when the connection fail and the error page is delivered.</li>
-    </ol>
-    <h2>Submission</h2>
-    <ul>
-     <li>Build, test and run your SQL code in the local development environment's PHPMyAdmin tool.</li>
-     <li>Work with your learning team to accomplish each task and post to and read the weekly discussion board to help one another.</li>
-     <li>Check your work to ensure that it meets all of the expectations listed.</li>
-     <li>When satisfied that the code is operational:
+      <h2>Assumptions</h2>
+      <p>This enhancement assumes:</p>
       <ol>
-       <li>Create the video(s) as explained showing the SQL statements in action and the connection object working and failing.</li>
-       <li>Post your video(s) to your YouTube channel and copy the link(s) to the video(s) when published.</li>
-       <li>Zip the phpmotors folder and name it enhancement 2 (save this zip file outside of your web site)</li>
-       <li>Submit the zip file to the enhancement 2 assignment dropbox and add the video URL(s) to the dropbox comment.
-       </li>
+        <li>that you successfully created the <b>phpmotors</b> database in your local development environment.</li>
+        <li>the proxy user was also created in the PHPMyAdmin "User Accounts" tab.</li>
+        <li>you know the proxy user's password and this user has all Data privileges.</li>
       </ol>
-     </li>
-    </ul>
 
-    <h2>Grading Matrix</h2>
-    <ul>
-     <li>All SQL statements are in a single file, named "enhancement2.sql" within a folder named "sql": <b>2 points</b></li>
-     <li>The Tony Stark insert SQL statement works: <b>2 points</b></li>
-     <li>The Tony Stark update SQL statement works: <b>2 points</b></li>
-     <li>The spacious interior update SQL statement works: <b>3 points</b></li>
-     <li>The select "SUV" items SQL statement works: <b>3 points</b></li>
-     <li>The delete Jeep Wrangler SQL statement works: <b>2 points</b></li>
-     <li>The invImage and invThumbnail update query works: <b>4 points</b></li>
-     <li>The database connection function is in a single file named "connections.php" within a folder named "library": <b>2 points</b></li>
-     <li>The phpmotors PDO connection function works: <b>3 points</b></li>
-     <li>The phpmotors PDO connection function fails and redirects to a generic error page named "500.php" which is stored in a "view" folder: <b>3 points</b></li>
-     <li>The video(s) of the SQL statements and connection function in action are present, narrated by you using your voice and demonstrate the actions called for: <b>4 points</b></li>
-     <li>Total value: <b>30 points</b> - all in objective 4</li>
-    </ul>
-  </main>
- </div>
+      <h2>Tasks</h2>
+      <p>This enhancement has two distinct parts to it, 1) Writing SQL statements to use with the phpmotors database and
+        2) Creating a PDO connection function to work with the <b>phpmotors</b> database.</p>
+
+      <h3>Storing the SQL Statements</h3>
+      <p>The Introduction to SQL reading activity contains sample SQL statements for Selecting, Inserting, Updating and
+        Deleting data from database table(s), you should have carefully reviewed these as part of this week's
+        activities.
+      </p>
+      <h4>Using PHPMyAdmin to Write and Test Queries</h4>
+      <p>This video demonstrate using the PHPMyAdmin tool to write and test your queries. (NOTE: The video says to name
+        the file "enhancement2.txt", but name it "enhancement2.sql" instead.</p>
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/cuXH8rOSHrI" frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen></iframe>
+      <ol>
+        <li>You will create a new "sql" folder inside the phpmotors folder using VS Code.</li>
+        <li>You will create a new "enhancement2.sql" file inside the sql folder where you will store the finished SQL
+          statements also using VS Code.
+        </li>
+        <li>Build and test your SQL statements <mark>in the PHPMyAdmin tool's SQL tab</mark> after clicking on the
+          phpmotors database.
+          <ul>
+            <li>In the SQL tab, you can click the "Rollback when finished" checkbox under the SQL textbox in order to
+              test your SQL statements without permenantly changing the database table(s). Note that this will only work
+              for INSERT, UPDATE and DELETE queries, not for SELECT queries.</li>
+            <li>In the SQL tab, you can click the "Retain query box" checkbox under the SQL textbox in order to keep the
+              query text box and your query on the screen during and after running the query.</li>
+            <li>Using one or both of these checkboxes during the writing and testing phase you can see if the query is
+              working and make it easy to copy and paste your working query into the "enhancement2.sql" file for
+              submission.</li>
+            <li>Whenever writing a SELECT, UPDATE or DELETE query use the primary key in the "WHERE" cluase when
+              possible to avoid changing or selecting the incorrect record.</li>
+          </ul>
+        </li>
+        <li>When your statements are working correctly, copy and paste them into the <b>enhancement2.sql file.</b></li>
+        <li>This enhancement2.sql file will be submitted as part of the finished enhancement.</li>
+      </ol>
+      <h3>Writing SQL Statements</h3>
+      <p>Write SQL statements to accomplish the following tasks. Each task should be performed using a single query per
+        task:</p>
+      <ol>
+        <li>Insert the following new client to the clients table (<b>Note:</b> The clientId and clientLevel fields
+          should handle their own values and do not need to be part of this query.):
+          <br> Tony, Stark, tony@starkent.com, Iam1ronM@n, "I am the real Ironman" </li>
+        <li>Modify the Tony Stark record to change the clientLevel to 3. <strong>The previous insert query will have to
+            have been stored in the database for the update query to work.</strong></li>
+        <li>Modify the "GM Hummer" record to read "spacious interior" rather than "small interior" using a single query.
+          Explore the <a href="http://www.sqlteam.com/article/using-replace-in-an-update-statement"
+            title="Opens in a new tab" target="_blank">SQL Replace function</a>.
+          It needs to be part of an Update query as shown in the code examples of the <a
+            href="https://go.oreilly.com/byu-idaho/library/view/simply-sql/9780980455250/Text/ch01.html"
+            title="Opens in a new tab" target="_blank">SQL Reading</a> - Read Ch. 1, section 3.</li>
+        <li>Use an inner join to select the invModel field from the inventory table and the classificationName field
+          from the carclassification table for inventory items that belong to the "SUV" category. (These resources may
+          help you: <a href="https://www.w3schools.com/sql/sql_join.asp" title="Link opens in a new tab"
+            target="_blank">https://www.w3schools.com/sql/sql_join.asp</a> and <a
+            href="https://www.youtube.com/watch?v=0FEjw2HnfDs" title="Link opens in a new tab"
+            target="_blank">https://www.youtube.com/watch?v=0FEjw2HnfDs</a>) Four records should be
+          returned as a result of the query.</li>
+        <li>Delete the Jeep Wrangler from the database. [<b>Note:</b> You can restore the Inventory table by importing
+          the SQL file that was used to create it again].</li>
+        <li>Update all records in the Inventory table to add "/phpmotors" to the beginning of the file path in the
+          invImage and invThumbnail columns using a single query. These references may prove helpful - <a
+            href="https://www.w3schools.com/sql/sql_update.asp" title="This page opens in a new tab" target="_blank">SQL
+            Update</a>, <a href="https://www.plus2net.com/sql_tutorial/concat.php" title="This page opens in a new tab"
+            target="_blank">SQL Concat()</a>.</li>
+        <li>Create a video of you running all of these SQL statements and showing the result of running each SQL
+          statement.
+        </li>
+      </ol>
+      <h3>Build a Database Connection File</h3>
+      <p>Create a basic php file as a connection file that contains a connection function (refer to the <b><a
+            href="../views/db-connection.html" title="Go to the connection file" target="_blank">Create a PDO
+            Connection</a></b> activity). The file should be in a folder named "<b>library</b>"
+        and be named "<b>connections.php</b>".</p>
+      <ol>
+        <li>Create a PDO connection function for the phpmotors database named <b>phpmotorsConnect()</b>.
+        </li>
+        <li>If and when the database connection fails, a generic failure page, built using your template file, should be
+          delivered (using the <a href="//php.net/manual/en/function.header.php"
+            title="View the header function at php.net" target="_blank">PHP header function</a>) that states the
+          database could not be reached. See the image below as an example of what the
+          page could look like:<br>
+          <img src="/340br/phpmotors/images/php-motors/php-motors-error.png"
+            alt="Sample error page for illustration purposes">
+          <p>The error view should be named <b>500.php</b> and be stored in a folder named <b>view</b> at the root of
+            the phpmotors folder.</p>
+        </li>
+        <li>Create a video that demonstrates that the connection works.</li>
+        <li>In the same video demonstrate that errors are successfully caught when the connection fail and the error
+          page is delivered.</li>
+      </ol>
+      <h2>Submission</h2>
+      <ul>
+        <li>Build, test and run your SQL code in the local development environment's PHPMyAdmin tool.</li>
+        <li>Work with your learning team to accomplish each task and post to and read the weekly discussion board to
+          help one another.</li>
+        <li>Check your work to ensure that it meets all of the expectations listed.</li>
+        <li>When satisfied that the code is operational:
+          <ol>
+            <li>Create the video(s) as explained showing the SQL statements in action and the connection object working
+              and failing.</li>
+            <li>Post your video(s) to your YouTube channel and copy the link(s) to the video(s) when published.</li>
+            <li>Zip the phpmotors folder and name it enhancement 2 (save this zip file outside of your web site)</li>
+            <li>Submit the zip file to the enhancement 2 assignment dropbox and add the video URL(s) to the dropbox
+              comment.
+            </li>
+          </ol>
+        </li>
+      </ul>
+
+      <h2>Grading Matrix</h2>
+      <ul>
+        <li>All SQL statements are in a single file, named "enhancement2.sql" within a folder named "sql": <b>2
+            points</b></li>
+        <li>The Tony Stark insert SQL statement works: <b>2 points</b></li>
+        <li>The Tony Stark update SQL statement works: <b>2 points</b></li>
+        <li>The spacious interior update SQL statement works: <b>3 points</b></li>
+        <li>The select "SUV" items SQL statement works: <b>3 points</b></li>
+        <li>The delete Jeep Wrangler SQL statement works: <b>2 points</b></li>
+        <li>The invImage and invThumbnail update query works: <b>4 points</b></li>
+        <li>The database connection function is in a single file named "connections.php" within a folder named
+          "library": <b>2 points</b></li>
+        <li>The phpmotors PDO connection function works: <b>3 points</b></li>
+        <li>The phpmotors PDO connection function fails and redirects to a generic error page named "500.php" which is
+          stored in a "view" folder: <b>3 points</b></li>
+        <li>The video(s) of the SQL statements and connection function in action are present, narrated by you using your
+          voice and demonstrate the actions called for: <b>4 points</b></li>
+        <li>Total value: <b>30 points</b> - all in objective 4</li>
+      </ul>
+    </main>
+  </div>
 </body>
 
 </html>
