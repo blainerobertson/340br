@@ -2,158 +2,194 @@
 <html lang="en">
 
 <head>
- <meta charset="utf-8">
- <meta http-equiv="x-ua-compatible" content="ie=edge">
- <title>Enhancement 3 | Web Backend Development I</title>
- <meta name="description" content="CSE 340 Enhancement 3 directions">
- <meta name="viewport" content="width=device-width">
- <link rel="stylesheet" href="/340br/css/340course.css" media="screen">
- <link rel="stylesheet" href="/340br/css/prism-coy-dev.min.css">
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Enhancement 3 | Web Backend Development I</title>
+  <meta name="description" content="CSE 340 Enhancement 3 directions">
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" href="/340br/css/340course.css" media="screen">
+  <link rel="stylesheet" href="/340br/css/prism-coy-dev.min.css">
 </head>
 
 <body>
- <div id="wrapper">
-  <header id="header"><img src="/340br/340banner.jpg" alt="CSE 340 Banner Image"></header>
-  <main>
-   <h1>Enhancement 3</h1>
-   <h2>Purpose</h2>
-   <p>In this enhancement you will combine skills from the last two weeks to build a system into the phpmotors web site that is capable of delivering both a registration and login view to a site visitor when the "My Account" link in the page header on the PHP Motors site is clicked. This process will require use of the MVC architecture.</p>
+  <div id="wrapper">
+    <header id="header"><img src="/340br/340banner.jpg" alt="CSE 340 Banner Image"></header>
+    <main>
+      <h1>Enhancement 3</h1>
+      <h2>Purpose</h2>
+      <p>In this enhancement you will combine skills from the last two weeks to build a system into the phpmotors web
+        site that is capable of delivering both a registration and login view to a site visitor when the "My Account"
+        link in the page header on the PHP Motors site is clicked. This process will require use of the MVC
+        architecture.</p>
 
-   <h2>When done you will have created...</h2>
-   <ul>
-     <li>A function and code to create a dynamic navigation bar, replacing the static one created in enhancement 1</li>
-     <li>A new folder for storing a controller</li>
-     <li>Two new php pages (views), one will contain a login form and the other will contain a registration form. Neither of these forms need work, this week.</li>
-     <li>Both views must be valid HTML and CSS and pass usability tests.</li>
-     <li>Alter the header module to add a link for "My Account"</li>
-     <li>Create a controller with logic to deliver the correct view based on the incoming request</li>
-   </ul>
+      <h2>When done you will have created...</h2>
+      <ul>
+        <li>A function and code to create a dynamic navigation bar, replacing the static one created in enhancement 1
+        </li>
+        <li>A new folder for storing a controller</li>
+        <li>Two new php pages (views), one will contain a login form and the other will contain a registration form.
+          Neither of these forms need work, this week.</li>
+        <li>Both views must be valid HTML and CSS and pass usability tests.</li>
+        <li>Alter the header module to add a link for "My Account"</li>
+        <li>Create a controller with logic to deliver the correct view based on the incoming request</li>
+      </ul>
 
-   <h2>Video Demo</h2>
-   <p>This short video demonstrates what your links and the flow of this enhancement should look like.</p>
-   <iframe src="https://www.youtube.com/embed/UPdORcv_UC0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <h2>Video Demo</h2>
+      <p>This short video demonstrates what your links and the flow of this enhancement should look like.</p>
+      <iframe src="https://www.youtube.com/embed/UPdORcv_UC0" frameborder="0"
+        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-   <h3>Keeping Things Straight</h3>
-   <p>One of the most difficult tasks for new programmers is keeping data coming from the browser, being stored into
-    variables, then inserted to database straight. While there is no perfect way to do this, there is a simple practice that may help: use the database field name for the same piece of data in all of its locations.
-   </p>
-   <p>For example, When registering a new client to the clients table, the field in the table to store the first name is "<b>clientFirstname</b>". So, in the form give the input that name:<br>
-    <pre><code class="language-markup">&lt;input name="clientFirstname" id="clientFirstname" type="text"&gt;</code></pre>
-    Then, in the controller when collecting the value, store it into a variable of the same name:
-    <pre><code class="language-php">$clientFirstname = filter_input(INPUT_POST, 'clientFirstname');</code></pre> While not foolproof, it does help to keep track of what form field is sending what data, what variable is storing that value and what database field the data should be stored into.</p>
+      <h3>Keeping Things Straight</h3>
+      <p>One of the most difficult tasks for new programmers is keeping data coming from the browser, being stored into
+        variables, then inserted to database straight. While there is no perfect way to do this, there is a simple
+        practice that may help: use the database field name for the same piece of data in all of its locations.
+      </p>
+      <p>For example, When registering a new client to the clients table, the field in the table to store the first name
+        is "<b>clientFirstname</b>". So, in the form give the input that name:<br>
+        <pre><code class="language-markup">&lt;input name="clientFirstname" id="clientFirstname" type="text"&gt;</code></pre>
+        Then, in the controller when collecting the value, store it into a variable of the same name:
+        <pre><code class="language-php">$clientFirstname = filter_input(INPUT_POST, 'clientFirstname');</code></pre>
+        While not foolproof, it does help to keep track of what form field is sending what data, what variable is
+        storing that value and what database field the data should be stored into.</p>
 
-   <h2>Tasks</h2>
-   <ol>
-    <li>Work with your learning team to accomplish the tasks and post to and read the weekly discussion board to help
-     one another.</li>
-    <li>Make sure your phpmotors template is using the "<b>$navList</b>" variable to provide the navigation bar as directed in the "Build a Dynamic Navigation Menu" activity, prior to doing step 3.</li>
-    <li>Use your phpmotors template to build a login view and store it into the "view" folder (remember that ALL views should be stored into the <b>view</b> folder). The form will require the user to supply:
-     <ul>
-      <li>their email address</li>
-      <li>their password</li>
-     </ul>
-     <p>Make sure you use HTML5 and usability standards to build the view and form (e.g. use label elements with the input elements and use HTML5 input types for the input elements within the form).</p>
-     <p>Use CSS to style the form for professional appearance and usability.</p>
-     <p><strong>The form DOES NOT NEED TO ACTUALLY LOGIN AN INDIVIDUAL for this enhancement</strong>.</p>
-    </li>
-    <li>Use your phpmotors template to build a registration view and store it into the "view" folder. The view must
-     contain a form that collects the following information from a site visitor:
-     <br>
-     <ul>
-      <li>First name</li>
-      <li>Last name</li>
-      <li>Email address</li>
-      <li>A password</li>
-     </ul>
-     <p>Ensure that the registrant understands that all fields are required, <b>but you do not need to enforce the require right now, this is just a notification.</b></p>
-     <p>Make sure you use HTML5 and usability standards to build the view and form (e.g. use label elements with the input elements and use HTML5 input types for the input elements within the form).</p>
-     <p>Use CSS to style the form for professional appearance and usability.</p>
-     <p><strong>The form DOES NOT NEED TO ACTUALLY REGISTER AN INDIVIDUAL for this enhancement</strong>.</p>
-    </li>
-    <!--     The views are done, build the functionality  -->
-    <li>Create a link in the header code snippet module for the "My Account" item. By doing it here, the link should
-     appear in the phpmotors template and all existing views (home, login, 500 error and registration).</li>
-    <li>The link must point to the "<b>accounts</b>" controller and send a name-value (a.k.a. key - value) pair (remember the "action" name or key from the activities?) as a parameter that tells the controller to deliver the login view. <i>You may want to carefully study the links built in the dynamic navigation activity to see how the name-value pair is made part of the link.</i></li>
-    <li>Alter the existing switch case statement in the accounts controller to react to the "login" request and deliver the login view from the <b>view</b> folder using an "include".</li>
-    <li>Return to the login view and create a link (or a button) in the login view that tells the client to click it if they have not yet registered and need to create an account. The link must:
-     <ul>
-      <li>point to the "accounts" controller, and</li>
-      <li>pass a name - value pair that tells the controller to deliver the registration view.</li>
-     </ul>
-     <p>Make sure the link is large and obvious so that it is not overlooked and causes a site visitor confusion. See an example from target.com:<br><br><img src="/340br/phpmotors/images/target-signin.png" alt="Signin example from target.com">
-     </p>
-    </li>
-    <li>Add an additional case statement to the "accounts" controller to detect the request for the registration view and deliver it to the browser from the <b>view</b> folder.</li>
-    <li>The default statement in the accounts controller should remain empty for now.</li>
-    <li>Save all of your work.</li>
-   </ol>
+      <h2>Tasks</h2>
+      <ol>
+        <li>Work with your learning team to accomplish the tasks and post to and read the weekly discussion board to
+          help
+          one another.</li>
+        <li>Make sure your phpmotors template is using the "<b>$navList</b>" variable to provide the navigation bar as
+          directed in the "Build a Dynamic Navigation Menu" activity, prior to doing step 3.</li>
+        <li>Use your phpmotors template to build a login view and store it into the "view" folder (remember that ALL
+          views should be stored into the <b>view</b> folder). The form will require the user to supply:
+          <ul>
+            <li>their email address</li>
+            <li>their password</li>
+          </ul>
+          <p>Make sure you use HTML5 and usability standards to build the view and form (e.g. use label elements with
+            the input elements and use HTML5 input types for the input elements within the form).</p>
+          <p>Use CSS to style the form for professional appearance and usability.</p>
+          <p><strong>The form DOES NOT NEED TO ACTUALLY LOGIN AN INDIVIDUAL for this enhancement</strong>.</p>
+        </li>
+        <li>Use your phpmotors template to build a registration view and store it into the "view" folder. The view must
+          contain a form that collects the following information from a site visitor:
+          <br>
+          <ul>
+            <li>First name</li>
+            <li>Last name</li>
+            <li>Email address</li>
+            <li>A password</li>
+          </ul>
+          <p>Ensure that the registrant understands that all fields are required, <b>but you do not need to enforce the
+              require right now, this is just a notification.</b></p>
+          <p>Make sure you use HTML5 and usability standards to build the view and form (e.g. use label elements with
+            the input elements and use HTML5 input types for the input elements within the form).</p>
+          <p>Use CSS to style the form for professional appearance and usability.</p>
+          <p><strong>The form DOES NOT NEED TO ACTUALLY REGISTER AN INDIVIDUAL for this enhancement</strong>.</p>
+        </li>
+        <!--     The views are done, build the functionality  -->
+        <li>Create a link in the header code snippet module for the "My Account" item. By doing it here, the link should
+          appear in the phpmotors template and all existing views (home, login, 500 error and registration).</li>
+        <li>The link must point to the "<b>accounts</b>" controller and send a name-value (a.k.a. key - value) pair
+          (remember the "action" name or key from the activities?) as a parameter that tells the controller to deliver
+          the login view. <i>You may want to carefully study the links built in the dynamic navigation activity to see
+            how the name-value pair is made part of the link.</i></li>
+        <li>Alter the existing switch case statement in the accounts controller to react to the "login" request and
+          deliver the login view from the <b>view</b> folder using an "include".</li>
+        <li>Return to the login view and create a link (or a button) in the login view that tells the client to click it
+          if they have not yet registered and need to create an account. The link must:
+          <ul>
+            <li>point to the "accounts" controller, and</li>
+            <li>pass a name - value pair that tells the controller to deliver the registration view.</li>
+          </ul>
+          <p>Make sure the link is large and obvious so that it is not overlooked and causes a site visitor confusion.
+            See an example from target.com:<br><br><img src="/340br/phpmotors/images/target-signin.png"
+              alt="Signin example from target.com">
+          </p>
+        </li>
+        <li>Add an additional case statement to the "accounts" controller to detect the request for the registration
+          view and deliver it to the browser from the <b>view</b> folder.</li>
+        <li>The default statement in the accounts controller should remain empty for now.</li>
+        <li>Save all of your work.</li>
+      </ol>
 
-   <h2>Test, Test, Test</h2>
-   <ol>
-    <li>Make sure the development environment servers are running.</li>
-    <li>Run the phpmotors main controller.</li>
-    <li>Click the "My Accounts" link in the header of the home page. The login view should be delivered to the browser.
-    </li>
-    <li>Click the "Create a New Account" link. The registration view should be delivered to the browser.</li>
-    <li>Make sure that the URL in both links is pointing to the accounts controller and passing name - value pairs as
-     parameters to deliver the respective views. <b>Under no circumstances should the links point directly to the view!</b></li>
-    <li>Test the "My Account" link in all views to make sure it works in all of them.</li>
-    <li>If things work "Clap your hands and shout Hooray!".</li>
-    <li>If things don't work, go back and troubleshoot your code, ask for help, post to the discussion board, but
-     <b>GET HELP</b> until it works.</li>
-   </ol>
+      <h2>Test, Test, Test</h2>
+      <ol>
+        <li>Make sure the development environment servers are running.</li>
+        <li>Run the phpmotors main controller.</li>
+        <li>Click the "My Accounts" link in the header of the home page. The login view should be delivered to the
+          browser.
+        </li>
+        <li>Click the "Create a New Account" link. The registration view should be delivered to the browser.</li>
+        <li>Make sure that the URL in both links is pointing to the accounts controller and passing name - value pairs
+          as
+          parameters to deliver the respective views. <b>Under no circumstances should the links point directly to the
+            view!</b></li>
+        <li>Test the "My Account" link in all views to make sure it works in all of them.</li>
+        <li>If things work "Clap your hands and shout Hooray!".</li>
+        <li>If things don't work, go back and troubleshoot your code, ask for help, post to the discussion board, but
+          <b>GET HELP</b> until it works.</li>
+      </ol>
 
-   <h2>Submission</h2>
-   <ul>
-    <li>Thoroughly test your links to ensure that they point to the accounts controller and that the correct views are
-     delivered.</li>
-    <li>Validate all views for HTML5 validity.</li>
-    <li>Validate the CSS for validity.</li>
-    <li>Double check your work to ensure that it meets all of the expectations listed.</li>
-    <li>When satisfied that the code is operational:
-     <ol>
-      <li>Create a video that demonstrates:
-       <ol>
+      <h2>Submission</h2>
+      <ul>
+        <li>Thoroughly test your links to ensure that they point to the accounts controller and that the correct views
+          are
+          delivered.</li>
+        <li>Validate all views for HTML5 validity.</li>
+        <li>Validate the CSS for validity.</li>
+        <li>Double check your work to ensure that it meets all of the expectations listed.</li>
+        <li>When satisfied that the code is operational:
+          <ol>
+            <li>Create a video that demonstrates:
+              <ol>
+                <li>The "My Account" link works in the home, login and registration views.</li>
+                <li>That the home, login and registration views are valid html and css.</li>
+                <li>That the login and registration views pass usability testing</li>
+                <li>That the links to deliver the views are moving through the controller and not directly to the view.
+                </li>
+              </ol>
+            </li>
+            <li>Post your video to your YouTube channel and copy the link to the video when published.</li>
+            <li>Zip the phpmotors folder and name it enhancement 3 (save this zip file outside of your web site)</li>
+            <li>Submit the zip file to the enhancement 3 assignment dropbox and add the video URL to the dropbox
+              comment.
+            </li>
+          </ol>
+        </li>
+      </ul>
+
+      <h2>Grading Matrix</h2>
+      <h3>Objective 1 Items</h3>
+      <ul>
+        <li>Home, login and registration views are valid HTML5 - 3 points (minus 1 for each error found)</li>
+        <li>Home, login and registration views are valid CSS - 3 points (minus 1 for each error found)</li>
+        <li>The login and registration views contain no usability errors or contrast errors - 4 points</li>
+        <li>Total value of objective 1: <b>10 points</b></li>
+      </ul>
+      <h3>Objective 3 Items</h3>
+      <ul>
+        <li>The "My Account" link in the home, login and registration views point to the accounts controller and passes
+          an appropriate name - value pair to request the login view and the view is delivered - 10 points (minus 3
+          points for each view that is missing this link or minus 10 points if the link doesn't work)</li>
+        <li>The registration link in the login view points to the accounts controller and passes an appropriate name -
+          value pair to request the registration view and the view is delivered - 5 points (all or nothing)</li>
+        <li>The accounts controller has operable case statements to deliver the appropriate views according to the value
+          of the $action variable - 5 points (all or nothing)</li>
+        <li>Total value of objective 3: <b>20 points</b></li>
+      </ul>
+      <h3>Objective 6</h3>
+      <ul>
+        <li>A video is provided, which is narrated by you using your voice, that demonstrates that:</li>
         <li>The "My Account" link works in the home, login and registration views.</li>
-        <li>That the home, login and registration views are valid html and css.</li>
-        <li>That the login and registration views pass usability testing</li>
-       </ol>
-      </li>
-      <li>Post your video to your YouTube channel and copy the link to the video when published.</li>
-      <li>Zip the phpmotors folder and name it enhancement 3 (save this zip file outside of your web site)</li>
-      <li>Submit the zip file to the enhancement 3 assignment dropbox and add the video URL to the dropbox comment.
-      </li>
-     </ol>
-    </li>
-   </ul>
+        <li>That the home, login and registration views are valid HTML and CSS.</li>
+        <li>The login and registration views pass usability testing</li>
+        <li>That the links to the views pass through controllers and not directly to the view.</li>
+        <li>Total value of objective 6: <b>5 points</b></li>
+      </ul>
 
-   <h2>Grading Matrix</h2>
-   <h3>Objective 1 Items</h3>
-   <ul>
-    <li>Home, login and registration views are valid HTML5 - 3 points (minus 1 for each error found)</li>
-    <li>Home, login and registration views are valid CSS - 3 points (minus 1 for each error found)</li>
-    <li>The login and registration views contain no usability errors or contrast errors - 4 points</li>
-    <li>Total value of objective 1: <b>10 points</b></li>
-   </ul>
-   <h3>Objective 3 Items</h3>
-   <ul>
-    <li>The "My Account" link in the home, login and registration views point to the accounts controller and passes an appropriate name - value pair to request the login view and the view is delivered - 10 points (minus 3 points for each view that is missing this link or minus 10 points if the link doesn't work)</li>
-    <li>The registration link in the login view points to the accounts controller and passes an appropriate name - value pair to request the registration view and the view is delivered - 5 points (all or nothing)</li>
-    <li>The accounts controller has operable case statements to deliver the appropriate views according to the value of the $action variable - 5 points (all or nothing)</li>
-    <li>Total value of objective 3: <b>20 points</b></li>
-   </ul>
-   <h3>Objective 6</h3>
-   <ul>
-    <li>A video is provided, which is narrated by you using your voice, that demonstrates that:</li>
-    <li>The "My Account" link works in the home, login and registration views.</li>
-    <li>That the home, login and registration views are valid HTML and CSS.</li>
-    <li>The login and registration views pass usability testing</li>
-    <li>Total value of objective 6: <b>5 points</b></li>
-   </ul>
-
-  </main>
- </div>
- <script src="/340br/js/prism-coy-dev.min.js"></script>
+    </main>
+  </div>
+  <script src="/340br/js/prism-coy-dev.min.js"></script>
 </body>
 
 </html>
