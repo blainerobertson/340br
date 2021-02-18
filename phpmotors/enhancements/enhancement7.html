@@ -16,7 +16,9 @@
 		<main>
 			<h1>Enhancement 7</h1>
 			<h2>Introduction</h2>
-			<p>Updating and deleting records in a database were covered this week. I hope that you noticed that we worked with the most cumbersome data (the vehicles) but we didn't do anything with car classifications or client data. You'll build the application to update client data in this enhancement.</p>
+			<p>Updating and deleting records in a database were covered this week. I hope that you noticed that we worked with
+				the most cumbersome data (the vehicles) but we didn't do anything with car classifications or client data.
+				You'll build the application to update client data in this enhancement.</p>
 
 			<h2>Overview</h2>
 			<p>In this enhancement you will:</p>
@@ -24,17 +26,20 @@
 				<li>Alter the current "admin" view to be more informative to clients.</li>
 				<li>Add a link to the "admin" view that will deliver a view to update account information.</li>
 				<li>Build the "update account" view so clients can update their registration data (first name, last
-					name, email) or change their password. <mark><b>Note:</b> These will be separate processes, think <i>OR</i> not <i>AND</i>.</mark></li>
+					name, email) or change their password. <mark><b>Note:</b> These will be separate processes, think <i>OR</i>
+						not <i>AND</i>.</mark></li>
 				<li>Add functionality to the accounts controller and account model to handle the updates.</li>
 			</ol>
 
 			<h2>Video Overview</h2>
-			<p>This short video demonstrates what the finished enhancement will look like and the functionality it	should possess.</p>
-				<iframe src="https://www.youtube.com/embed/cJ624wvZnY8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+			<p>This short video demonstrates what the finished enhancement will look like and the functionality it should
+				possess.</p>
+			<iframe src="https://www.youtube.com/embed/cJ624wvZnY8" frameborder="0"
+				allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 			<h2>Tasks</h2>
-			<p>As described above you are being asked to implement <abbr
-					title="CREATE, READ, UPDATE, DELETE">CRUD</abbr> functionality for client data. Specifically:</p>
+			<p>As described above you are being asked to implement <abbr title="CREATE, READ, UPDATE, DELETE">CRUD</abbr>
+				functionality for client data. Specifically:</p>
 
 			<h3>admin.php View</h3>
 			<p>When a client logs in they are taken to the <b>admin.php</b>" view where their data is displayed as
@@ -42,43 +47,65 @@
 			<ol>
 				<li>Remove the client level data from displaying in the view (do NOT display it at all).</li>
 				<li>Add text indicating to the client that they are "logged in".</li>
-				<li>Add an "update account information" link to the view so a client can update their information. The	link must direct to the "accounts controller" and pass a name - value pair to deliver the update	view. Make sure the link is visible	and clear for all clients.</li>
+				<li>Add an "update account information" link to the view so a client can update their information. The link must
+					direct to the "accounts controller" and pass a name - value pair to deliver the update view. Make sure the
+					link is visible and clear for all clients.</li>
 				<li>Add an HTML heading to preceed the "vehicles managment" link and a brief explanation telling
-					administrative clients that they should use the link to administer inventory (The heading,	explanation and inventory link should be visible	only to administrative clients (those with a clientLevel greater than 1), not to non-administrative	clients.</li>
-				<li>Add PHP code to display a message from the session if one exists. Make it display below the	&lt;h1&gt; heading but above the account information display.</li>
+					administrative clients that they should use the link to administer inventory (The heading, explanation and
+					inventory link should be visible only to administrative clients (those with a clientLevel greater than 1), not
+					to non-administrative clients.</li>
+				<li>Add PHP code to display a message from the session if one exists. Make it display below the &lt;h1&gt;
+					heading but above the account information display.</li>
 			</ol>
 
 			<h3>Update Client View</h3>
 			<p>You will create a new view where clients can update their registration data - first name, last name,
 				email address and password:</p>
 			<ol>
-				<li>Create a new view using your phpmotors template. The view should be named <b>client-update.php</b>	and be saved into the <b>view</b> folder.</li>
-				<li>Add a PHP code block at the top of the view with code to only allow access to the view if the client	is logged in.</li>
+				<li>Create a new view using your phpmotors template. The view should be named <b>client-update.php</b> and be
+					saved into the <b>view</b> folder.</li>
+				<li>Add a PHP code block at the top of the view with code to only allow access to the view if the client is
+					logged in.</li>
 				<li>The view will contain <mark>two forms</mark>: 1) "Account Update", consisting of the first and last
 					names and email and 2) "Change Password" to change the password.</li>
+				<li>Ensure that the view is valid HTML when done and the forms are styled to meet form best practices (see week
+					5).
+				</li>
 			</ol>
 			<h4>Account Update Form</h4>
 			<ol>
-				<li>Add the first form and display, from the <b>client information session array</b>, the client's first name, last name and email address in an appropriate input field for editting. Be sure that each input has an accompanying label element.</li>
-				<li>Each of the three inputs must also be "sticky" if errors are returned from the controller during server-side validation.</li>
-				<li>All three fields are required and all three must be checked using both client-side and server-side validation.</li>
-				<li>Make the client Id (also from the clientInfo session array) a hidden field with an appropriate name - value pair.</li>
-				<li>Add a hidden input to pass an "action" name-value pair to the accounts controller indicating that an update is happening.</li>
+				<li>Add the first form and display, from the <b>client information session array</b>, the client's first name,
+					last name and email address in an appropriate input field for editting. Be sure that each input has an
+					accompanying label element.</li>
+				<li>Each of the three inputs must also be "sticky" if errors are returned from the controller during server-side
+					validation.</li>
+				<li>All three fields are required and all three must be checked using both client-side and server-side
+					validation.</li>
+				<li>Make the client Id (also from the clientInfo session array) a hidden field with an appropriate name - value
+					pair.</li>
+				<li>Add a hidden input to pass an "action" name-value pair to the accounts controller indicating that an update
+					is happening.</li>
 				<li>Add an appropriate submit input for the account update.</li>
 				<li>Add an appropriate HTML heading to precede the form and identify its purpose. </li>
-				<li>Add a PHP code block to display an error message directly above the form, if errors are found during the update process.</li>
+				<li>Add a PHP code block to display an error message directly above the form, if errors are found during the
+					update process.</li>
 			</ol>
 			<h4>Change Password Form</h4>
 			<ol>
 				<li>Add the second form, completely separate from the first.</li>
 				<li>Do NOT display the password in the input (it is a hash anyway and wouldn't make any sense) field.</li>
-				<li>Include a form input and accompanying label for entering a new password. Use the same validation for it as you did for the password field in the original registration form.</li>
-				<li>Provide information to the client to know that by entering a password it will change the current password and reminding them of the requirements for a password (length, characters, etc...).</li>
-				<li>Make the client Id (also from the clientInfo session array) a hidden field with an appropriate name - value pair.</li>
-				<li>Add a hidden input to pass an "action" name-value pair to the accounts controller indicating that a password change is happening.</li>
+				<li>Include a form input and accompanying label for entering a new password. Use the same validation for it as
+					you did for the password field in the original registration form.</li>
+				<li>Provide information to the client to know that by entering a password it will change the current password
+					and reminding them of the requirements for a password (length, characters, etc...).</li>
+				<li>Make the client Id (also from the clientInfo session array) a hidden field with an appropriate name - value
+					pair.</li>
+				<li>Add a hidden input to pass an "action" name-value pair to the accounts controller indicating that a password
+					change is happening.</li>
 				<li>Add an appropriate submit input for the password change.</li>
 				<li>Add an appropriate HTML heading to precede the form and identify its purpose.</li>
-				<li>Add a PHP code block to display an error message directly above the form, if errors are found during the password update process.</li>
+				<li>Add a PHP code block to display an error message directly above the form, if errors are found during the
+					password update process.</li>
 			</ol>
 
 
@@ -92,30 +119,35 @@
 					statements are case-sensitive, so <b>&nbsp;case "modifyAccount":&nbsp; is not the same as &nbsp;case
 						"modifyaccount":&nbsp;</b>. <mark><b>Solution:</b> The two values must match (e.g. $action =
 						"modifyAccount"; and <b>case "modifyAccount":</b>).</mark></li>
-				<li>Error: The input field's name and the input_filter's name do not match (e.g. &lt;input name="firstname"...&gt;, filter_input(INPUT_POST, "clientFirstName");). <mark><b>Solution:</b> The
-						two names match exactly (e.g. &lt;input  name="clientFirstname"...&gt;, filter_input(INPUT_POST,
+				<li>Error: The input field's name and the input_filter's name do not match (e.g. &lt;input
+					name="firstname"...&gt;, filter_input(INPUT_POST, "clientFirstName");). <mark><b>Solution:</b> The
+						two names match exactly (e.g. &lt;input name="clientFirstname"...&gt;, filter_input(INPUT_POST,
 						"clientFirstname");).</mark></li>
 				<li>Error: The parameters being passed into a function are not in the order expected by the function
 					(e.g. In the model the function is "updateClient($clientFirstname, $clientLastname, $clientEmail,
-					$clientId){...}". The function call in the controller is "updateClient($clientId, $clientFirstname, $clientLastname, $clientEmail)".)
+					$clientId){...}". The function call in the controller is "updateClient($clientId, $clientFirstname,
+					$clientLastname, $clientEmail)".)
 					<mark><b>Solution:</b> Make sure the parameters in the function are in the correct order in both
 						locations (e.g. updateClient($clientFirstname, $clientLastname, $clientEmail, $clientId);).</mark></li>
 			</ol>
 
 			<h3>Accounts Controller</h3>
 			<ol>
-				<li>Add a case statement that will deliver the  <b>client-update.php</b> view.</li>
+				<li>Add a case statement that will deliver the <b>client-update.php</b> view.</li>
 				<li>Add a case statement to handle the "account update" process:
 					<ol>
 						<li>Filter and collect the inputs, be sure to use correct validation or sanitization flags.</li>
-						<li>Check if the email address is different than the one in the session. If yes, check that the new email address does not already exist in the clients table (the same process as during registration).</li>
+						<li>Check if the email address is different than the one in the session. If yes, check that the new email
+							address does not already exist in the clients table (the same process as during registration).</li>
 						<li>Check for errors.</li>
 						<li>Return data to the client-update view for correction if errors are found.</li>
 						<li>Process the update using an appropriate function.</li>
 						<li>Set a success or failure message and store it in the session.</li>
-						<li>Query the client data from the database, based on the clientId - this may require a new function in the model.</li>
+						<li>Query the client data from the database, based on the clientId - this may require a new function in the
+							model.</li>
 						<li>Store the new client data into the session (just as you did during the login).</li>
-						<li>Deliver the "admin.php" view where the updated client information will be displayed along with the success or failure message.</li>
+						<li>Deliver the "admin.php" view where the updated client information will be displayed along with the
+							success or failure message.</li>
 					</ol>
 				</li>
 				<li>Add a case statement to handle the "password change" process:
@@ -123,10 +155,12 @@
 						<li>Filter and collect the new password.</li>
 						<li>Check that it meets the password requirements (the same as during registration).</li>
 						<li>If there is an error, set an error message and return to the previous view to be fixed.</li>
-						<li>If no error is found, the password must be hashed then sent to a function to be updated in the database.</li>
+						<li>If no error is found, the password must be hashed then sent to a function to be updated in the database.
+						</li>
 						<li>Determine the result of the update.</li>
 						<li>Set a success or failure message and store it in the session.</li>
-						<li>Deliver the "admin.php" view where the client information will be displayed along with the success or failure message.</li>
+						<li>Deliver the "admin.php" view where the client information will be displayed along with the success or
+							failure message.</li>
 					</ol>
 				</li>
 			</ol>
@@ -134,49 +168,55 @@
 			<h3>Accounts Model</h3>
 			<p>The model will need two three new functions:</p>
 			<ol>
-				<li>The first function will need to handle the update of the account information as submitted to the controller from the account update form. It will only need to update the firstname, lastname and email values based on the clientId.</li>
-				<li>The second function will be similar to the function that was previously built to get client nformation based on the email address. However, this function will get the client information based on the clientId.</li>
-				<li>The third function will need to update the password (as a hash) as submitted to the controller from the change password form, based on the clientId. Be sure that after submitting the new password to check the clients table to make sure the password is a hash as part of your testing.</li>
+				<li>The first function will need to handle the update of the account information as submitted to the controller
+					from the account update form. It will only need to update the firstname, lastname and email values based on
+					the clientId.</li>
+				<li>The second function will be similar to the function that was previously built to get client nformation based
+					on the email address. However, this function will get the client information based on the clientId.</li>
+				<li>The third function will need to update the password (as a hash) as submitted to the controller from the
+					change password form, based on the clientId. Be sure that after submitting the new password to check the
+					clients table to make sure the password is a hash as part of your testing.</li>
 			</ol>
 
 			<h2>Test, Test, Test</h2>
 			<p>Be sure to complete all tasks and then test that they work.</p>
 			<ul>
 				<li>Log in to be directed to the "<b>admin.php</b>" view.</li>
-				<li>If logged in as an administrator (clientLevel greater than 1), the "inventory" link should appear with a heading and text explanation.</li>
+				<li>If logged in as an administrator (clientLevel greater than 1), the "inventory" link should appear with a
+					heading and text explanation.</li>
 				<li>If logged in as any type of client (any clientLevel), there should be an "account update" link.</li>
-				<li>When the "account update" link is clicked, the  "account update" view should appear:
+				<li>When the "account update" link is clicked, the "account update" view should appear:
 					<ul>
 						<li>There should be two forms, each with its own heading.</li>
-						<li>The "Account Update" form should have three fields. The first name, last name and email fields should be populated with the current client's data.</li>
+						<li>The "Account Update" form should have three fields. The first name, last name and email fields should be
+							populated with the current client's data.</li>
 						<li>Change a value in one of the name fields or the email field and submit the form.</li>
-						<li>The "admin view" should appear, displaying the new data and the success message or the old data and a failure message.</li>
-						<li>The "Change Password" form should have a single input, but explain the password requirements and that this will change the existing password.</li>
+						<li>The "admin view" should appear, displaying the new data and the success message or the old data and a
+							failure message.</li>
+						<li>The "Change Password" form should have a single input, but explain the password requirements and that
+							this will change the existing password.</li>
 						<li>Change the password incorrectly, submit the form.</li>
 						<li>The update password form should reappear with an error message concerning the password field.</li>
-						<li>Change the password, meeting the requirements (be sure you know what the new password is), and submit the form.</li>
+						<li>Change the password, meeting the requirements (be sure you know what the new password is), and submit
+							the form.</li>
 						<li>The "admin" view should appear, displaying the client data and the success or failure message.</li>
 						<li>To be sure logout and log back in using the new password to make sure it works.</li>
 					</ul>
 
 					<h2>Submission</h2>
 					<ul>
-						<li>Work with your learning team to accomplish the tasks and post to and read the weekly discussion board to help one another.</li>
+						<li>Work with your learning team to accomplish the tasks and post to and read the weekly discussion board to
+							help one another.</li>
 						<li>Build, run and test to make sure that each of the tasks works.</li>
 						<li>When satisfied that the code is operational:
 							<ol>
-								<li>Create a video showing:
-									<ul>
-										<li>Show that the "<b>admin.php</b>" view possesses the called for changes.</li>
-										<li>Show that the "<b>client-update.php</b>" view is valid HTML5.</li>
-										<li>The account update process works.</li>
-										<li>The password change process works.</li>
-										<li>Logging out and logging in again after a password change.</li>
-									</ul>
+								<li>Create a video showing each of the items described in Objective 6 of the grading matrix (below):
 								</li>
 								<li>Post your video to your YouTube channel and copy the link to the video when published.</li>
-								<li>Zip the entire phpmotors folder and name it enhancement 7 (save this zip file outside of your web site).</li>
-								<li>Submit the zip file to the enhancement 7 assignment dropbox and add the video URL to the assignment dropbox comment.</li>
+								<li>Zip the entire phpmotors folder and name it enhancement 7 (save this zip file outside of your web
+									site).</li>
+								<li>Submit the zip file to the enhancement 7 assignment dropbox and add the video URL to the assignment
+									dropbox comment.</li>
 							</ol>
 						</li>
 					</ul>
@@ -185,7 +225,8 @@
 					<p>This enhancement has values in multiple objectives as shown below:</p>
 					<h3>Objective 1</h3>
 					<ul>
-						<li>The <b>client-update.php</b> view is valid HTML: 5 points (minus 1 point for each error
+						<li>The <b>client-update.php</b> view is valid HTML and styled to meet form best practices (see week 5): 5
+							points (minus 1 point for each error
 							found)</li>
 						<li>Total value for Objective 1: <b>5 points</b></li>
 					</ul>
@@ -233,7 +274,9 @@
 						<li>The video URL is present and the video is narrated by you using your own voice. The video shows:
 							<ul>
 								<li>That the "<b>admin.php</b>" view possesses the called for changes.</li>
-								<li>That the "<b>client-update.php</b>" view is valid HTML5.</li>
+								<li>That the "<b>client-update.php</b>" view is valid HTML5 and styled to meet form best practices (see
+									week 5).
+								</li>
 								<li>The account update process works.</li>
 								<li>The password change process works.</li>
 								<li>Logging out and logging in again after a password change.</li>
