@@ -17,97 +17,133 @@
 			<h1>Enhancement 9</h1>
 
 			<h2>Overview</h2>
-			<p>In this enhancement you are asked to implement enhanced functionality for the site based on image uploads. This enhancement will consist of three sections:</p>
+			<p>In this enhancement you are asked to implement enhanced functionality for the site based on image uploads. This
+				enhancement will consist of three sections:</p>
 			<h3>Add Vehicle Images</h3>
 			<ol>
-				<li>Change the target of image uploads in the uploads controller to the "<b>vehicles</b>" folder within the phpmotors "<b>images</b>" folder from the current "uploads > images" folder.</li>
+				<li>Change the target of image uploads in the uploads controller to the "<b>vehicles</b>" folder within the
+					phpmotors "<b>images</b>" folder from the current "uploads > images" folder.</li>
 				<li>Delete all records from the images table so that it is empty.</li>
-				<li>Make a duplicate of the <b>vehicles</b> folder to your desktop. Once done, delete all of the images inside the <b>images/vehicles</b> folder in the PHP Motors site.</li>
-				<li>Upload all existing vehicle images using the upload process so that the images will be sized correctly and stored into the "<b>images</b>" table of the phpmotors database and to the "images > vehicles" folder. <mark>Each of these uploads should be designated as "Primary" images.</mark></li>
+				<li>Make a duplicate of the <b>vehicles</b> folder to your desktop. Once done, delete all of the images inside
+					the <b>images/vehicles</b> folder in the PHP Motors site.</li>
+				<li>Upload all existing vehicle images using the upload process so that the images will be sized correctly and
+					stored into the "<b>images</b>" table of the phpmotors database and to the "images > vehicles" folder.
+					<mark>Each of these uploads should be designated as "Primary" images.</mark></li>
 				<li>Add the DMC DeLorean to the inventory table.</li>
 				<li>Upload the delorean image and associate it with the car, making it the primary image.</li>
-				<li>Associate the "no-image" picture to the "Dog Car" in the inventory table. Make it the primary image for that vehicle.</li>
-				<li>Add at least one additional image to <b>three</b> vehicles. These images will NOT be primary images, rather they will be additional images for the vehicle.</li>
+				<li>Associate the "no-image" picture to the "Dog Car" in the inventory table. Make it the primary image for that
+					vehicle.</li>
+				<li>Add at least one additional image to <b>three</b> vehicles. These images will NOT be primary images, rather
+					they will be additional images for the vehicle.</li>
 			</ol>
 			<h3>Revisions</h3>
 			<ol start="8">
-				<li>Return to the inventory controller, model and helper functions and make alterations so that all image paths are now obtained from the <b>images</b> table.</li>
-				<li>Alter the SQL query in the <code>getVehiclesByClassification()</code> function of the vehicle-model.php file so that only images that are "Primary" images are returned.</li>
-				<li>Be sure to test using "print_r()" or "var_dump()" with the returned array to ensure that everything continues to work as before.</li>
-				<li>Ensure that the DeLorean image to the home page works from its location in the "images>vehicles" folder.</li>
+				<li>Return to the inventory controller, model and helper functions and make alterations so that all image paths
+					are now obtained from the <b>images</b> table.</li>
+				<li>Alter the SQL query in the <code>getVehiclesByClassification()</code> function of the vehicle-model.php file
+					so that only images that are "Primary" images are returned.</li>
+				<li>Be sure to test using "print_r()" or "var_dump()" with the returned array to ensure that everything
+					continues to work as before.</li>
+				<li>Ensure that the DeLorean image to the home page works from its location in the "images>vehicles" folder.
+				</li>
 			</ol>
 			<h3>New Functionality</h3>
 			<ol start="11">
-				<li>Write code that will find and deliver any vehicle thumbnail images from the database to the vehicles "detail" view when a vehicle is selected via the main menu of the PHP Motors site.</li>
+				<li>Write code that will find and deliver any vehicle thumbnail images from the database to the vehicles
+					"detail" view when a vehicle is selected via the main menu of the PHP Motors site.</li>
 				<li>Add CSS so that the thumbnails for a vehicle appear to the left of the vehicle detail information.</li>
-				<li>Add CSS so that when a thumbnail is hovered over on the large screen only, the image will enlarge to show more detail. When the mouse leaves the image, it will return to normal size.</li>
+				<li>Add CSS so that when a thumbnail is hovered over on the large screen only, the image will enlarge to show
+					more detail. When the mouse leaves the image, it will return to normal size.</li>
 			</ol>
 
 			<h2>Video Overview</h2>
-			<p>This short video demonstrates what the finished enhancement will look like and the functionality it should possess.</p>
-			<iframe src="https://www.youtube.com/embed/_QMk0N87bwE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+			<p>This short video demonstrates what the finished enhancement will look like and the functionality it should
+				possess.</p>
+			<iframe src="https://www.youtube.com/embed/_QMk0N87bwE" frameborder="0"
+				allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 			<h2>Tasks</h2>
 			<h3>Add Vehicle Images</h3>
 			<ol>
-				<li>During the activities for this week all image uploads are directed to the "<b>images</b>" folder inside the "<b>uploads</b>" folder. This was great for testing, but not so good for the PHP Motors site. Therefore:
+				<li>During the activities for this week all image uploads are directed to the "<b>images</b>" folder inside the
+					"<b>uploads</b>" folder. This was great for testing, but not so good for the PHP Motors site. Therefore:
 					<ol>
-						<li>Change the target path to point to the "<b>vehicles</b>" folder within the main "<b>images</b>" folder at the root of the PHP Motors site.</li>
+						<li>Change the target path to point to the "<b>vehicles</b>" folder within the main "<b>images</b>" folder
+							at the root of the PHP Motors site.</li>
 						<li>The change will occur in the "<b>uploads</b>" controller.</li>
-						<li>Once made, run the file upload tool to make sure your new images are being stored to the correct location.</li>
+						<li>Once made, run the file upload tool to make sure your new images are being stored to the correct
+							location.</li>
 					</ol>
 				</li>
-				<li>The current image files in the "images > vehicles" folder are not sized correctly, nor do they appear in the "<b>images</b>" table of the database. We want both to occur, therefore:
+				<li>The current image files in the "images > vehicles" folder are not sized correctly, nor do they appear in the
+					"<b>images</b>" table of the database. We want both to occur, therefore:
 					<ol>
 						<li>Copy the existing "images > vehicles" folder and store it on your desktop.</li>
 						<li>Delete all existing images in the original "images > vehicles" folder within the phpmotors folder.</li>
-						<li>Use the image upload application to upload the original images and associate them with the correct vehicle. Each of these images must be designated as "Primary" images for the vehicel. The thumbnails do not need to be uploaded as new thumbnails will be created as part of the upload process.</li>
-						</ol>
-						</li>
+						<li>Use the image upload application to upload the original images and associate them with the correct
+							vehicle. Each of these images must be designated as "Primary" images for the vehicel. The thumbnails do
+							not need to be uploaded as new thumbnails will be created as part of the upload process.</li>
 					</ol>
-					<h3>Revisions</h3>
+				</li>
+			</ol>
+			<h3>Revisions</h3>
+			<ol>
+				<li>When done uploading the images you will need to make changes to the vehicles controller and model and helper
+					functions for displaying vehicles by classification. All images should now be obtained from the images table,
+					and not the inventory table. In the model it will require the use of a "JOIN" and a "LIKE" in the query, as
+					well as limiting images to primary images. When done, as you use the main navigation bar to click each
+					classification item and make sure the thumbnail images of each vehicle appear in the view and are from the
+					images table.</li>
+				<li>You may need to write a new function for obtaining vehicle details to display in the detail view.</li>
+				<li>Do NOT alter the function that obtains vehicle information that is used in the vehicle editting process.
+				</li>
+				<li>This functionality should be true for all vehicle images throughout the PHP Motors site.</li>
+			</ol>
+			<h3>New Functionality</h3>
+			<ol>
+				<li>When the classification view is delivered the vehicle image(s) should be delivered from the images table.
+				</li>
+				<li>When the "vehicle detail" view is loaded the "full size" image should display (again, from the images
+					table), but what if additional images have been uploaded for that vehicle? It would be beneficial if
+					"thumbnails" of all images pertaining to that item were displayed. Therefore:
 					<ol>
-						<li>When done uploading the images you will need to make changes to the vehicles controller and model and helper functions for displaying vehicles by classification. All images should now be obtained from the images table, and not the inventory table. In the model it will require the use of a "JOIN" and a "LIKE" in the query, as well as limiting images to primary images. When done, as you use the main navigation bar to click each classification item and make sure the thumbnail images of each vehicle appear in the view and are from the images table.</li>
-						<li>You may need to write a new function for obtaining vehicle details to display in the detail view.</li>
-						<li>Do NOT alter the function that obtains vehicle information that is used in the vehicle editting process.</li>
-						<li>This functionality should be true for all vehicle images throughout the PHP Motors site.</li>
-					</ol>
-					<h3>New Functionality</h3>
-					<ol>
-						<li>When the classification view is delivered the vehicle image(s) should be delivered from the images table.</li>
-					<li>When the "vehicle detail" view is loaded the "full size" image should display (again, from the images table), but what if additional images have been uploaded for that vehicle? It would be beneficial if "thumbnails" of all images pertaining to that item were displayed. Therefore:
-					<ol>
-						<li>In the uploads model, build a new function that will obtain thumbnail image information from the "<b>images</b>" table that are based on the vehicleId. You will need to use the <a href="//www.w3schools.com/sql/sql_like.asp" title="Opens in a new tab" target="_blank">LIKE</a> operator in your SQL query to find "-tn" in the file name.</li>
-						<li>In the <b>vehicles</b> controller, call the function when the vehicle detail page is requested. <b>The uploads model will have to be brought into the controller's scope.</b></li>
-						<li>The returned list of thumbnail images should be fed into a custom function that will wrap them in HTML so they are ready to be viewed. No additional information about the image needs to be included, just the thumbnail image itself with an "alt" value added to the image.</li>
-						<li>The HTML containing the images should be included into the "vehicle detail" view by the "vehicle" controller when the view is delivered and styled to be professional in appearance. The thumbnails must appear to the left of the vehicle detail information on large screens, and below the information on mobile screens. On mobile screens a heading should appear above the thumbnail images.</li>
-						<li>Add CSS that will cause a thumbnail to enlarge in size when hovered over. When the mouse leaves the thumbnail image, it should return to normal size. This should occur only on large screens, not mobile devices.</li>
-						<li>Add at least one additional images (it doesn't matter if they actually match the vehicle) to at least three inventory vehicles.</li>
-						<li>To test, access the "vehicle detail" view via the main navigation bar. Make sure the additional thumbnail images appear and are professional in their appearance. The view should continue to be valid HTML5 and valid CSS3 when done.</li>
+						<li>In the uploads model, build a new function that will obtain thumbnail image information from the
+							"<b>images</b>" table that are based on the vehicleId. You will need to use the <a
+								href="//www.w3schools.com/sql/sql_like.asp" title="Opens in a new tab" target="_blank">LIKE</a> operator
+							in your SQL query to find "-tn" in the file name.</li>
+						<li>In the <b>vehicles</b> controller, call the function when the vehicle detail page is requested. <b>The
+								uploads model will have to be brought into the controller's scope.</b></li>
+						<li>The returned list of thumbnail images should be fed into a custom function that will wrap them in HTML
+							so they are ready to be viewed. No additional information about the image needs to be included, just the
+							thumbnail image itself with an "alt" value added to the image.</li>
+						<li>The HTML containing the images should be included into the "vehicle detail" view by the "vehicle"
+							controller when the view is delivered and styled to be professional in appearance. The thumbnails must
+							appear to the left of the vehicle detail information on large screens, and below the information on mobile
+							screens. On mobile screens a heading should appear above the thumbnail images.</li>
+						<li>Add CSS that will cause a thumbnail to enlarge in size when hovered over. When the mouse leaves the
+							thumbnail image, it should return to normal size. This should occur only on large screens, not mobile
+							devices.</li>
+						<li>Add at least one additional images (it doesn't matter if they actually match the vehicle) to at least
+							three inventory vehicles.</li>
+						<li>To test, access the "vehicle detail" view via the main navigation bar. Make sure the additional
+							thumbnail images appear and are professional in their appearance. The view should continue to be valid
+							HTML5 and valid CSS3 when done.</li>
 					</ol>
 				</li>
 			</ol>
 
 			<h2>Test, Test, Test</h2>
-			<p>Be sure to complete all tasks and then test that they work. Steps to test each task have already been provided in each task.</p>
+			<p>Be sure to complete all tasks and then test that they work. Steps to test each task have already been provided
+				in each task.</p>
 
 			<h2>Submission</h2>
 			<ul>
-				<li>Work with your learning team to accomplish the tasks and post to and read the weekly discussion board to help one another.</li>
+				<li>Work with your learning team to accomplish the tasks and post to and read the weekly discussion board to
+					help one another.</li>
 				<li>Build, run and test to make sure that each of the tasks works.</li>
-				<li>When satisfied that the code is operational, create a video showing:
-					<ol>
-						<li>Navigate to a "vehicle detail" view that contains additional images in the database from the main navigation bar. Show that:
-							<ol>
-								<li>The additional images load.</li>
-								<li>That the view is valid HTML5.</li>
-								<li>That the view is valid CSS3.</li>
-								<li>Use the browser's inspect tool to show that the full size image is no larger than 500 pixels wide or tall.</li>
-								<li>Use the browser's inspect tool to show that the thumbnail images are no larger than 200 pixels wide or tall.</li>
-							</ol>
-						</li>
-						<li>Show the "<b>images</b>" table in the PHPMyAdmin tool to demonstrate that two versions of each image in the "images > vehicles>" folder exist in the table.</li>
-					</ol>
+				<li>When satisfied that the code is operational, create a video showing each of the items shown in Objective 6
+					of the grading matrix.
+				</li>
 				<li>Post your video to your YouTube channel and copy the link to the video when published.</li>
 				<li>Zip the entire phpmotors folder and name it enhancement 9 (save this zip file outside of your web site).
 				</li>
@@ -120,21 +156,26 @@
 			<ul>
 				<li>The vehicle detail view is valid HTML5 (2 points: minus 1 for each error)</li>
 				<li>The vehicle detail view uses valid CSS3 (2 points: minus 1 for each error)</li>
-				<li>Full size images are no larger than 500 pixels wide or tall (2 points: minus 1 for an image that is larger)</li>
-				<li>Thumbnail images are no larger than 200 pixels wide or tall (2 points: minus 1 for an image that is larger)</li>
+				<li>Full size images are no larger than 500 pixels wide or tall (2 points: minus 1 for an image that is larger)
+				</li>
+				<li>Thumbnail images are no larger than 200 pixels wide or tall (2 points: minus 1 for an image that is larger)
+				</li>
 				<li><b>Total value for Objective 1: 8 points</b></li>
 			</ul>
 
 			<h3>Objective 2</h3>
 			<ul>
-				<li>A new custom function exists in the <b>functions.php</b> file to wrap the vehicle images in HTML and return the result to the vehicles controller (fully operational). (5 points: Yes or No)</li>
-				<li>Exisiting functions have been updated to obtain all vehicle image information from the "images" table, and not from the "inventory" table. (5 points: Yes or No)</li>
+				<li>A new custom function exists in the <b>functions.php</b> file to wrap the vehicle images in HTML and return
+					the result to the vehicles controller (fully operational). (5 points: Yes or No)</li>
+				<li>Exisiting functions have been updated to obtain all vehicle image information from the "images" table, and
+					not from the "inventory" table. (5 points: Yes or No)</li>
 				<li><b>Total value for Objective 2: 10 points</b></li>
 			</ul>
 
 			<h3>Objective 4</h3>
 			<ul>
-				<li>A function to extract thumbnail images related to a vehicle exists, uses a PDO Prepared Statement approach and works. (5 points: Yes or No)</li>
+				<li>A function to extract thumbnail images related to a vehicle exists, uses a PDO Prepared Statement approach
+					and works. (5 points: Yes or No)</li>
 				<li><b>Total value for Objective 4: 5 points</b></li>
 			</ul>
 
@@ -142,18 +183,23 @@
 			<ul>
 				<li>The video URL is present and the video is narrated by you using your own voice. The video demonstrates:
 					<ul>
-						<li>Navigating to a "vehicle detail" view that contains additional images in the database from the main navigation bar. Show that:
+						<li>Navigating to a "vehicle detail" view that contains additional images in the database from the main
+							navigation bar. Show that:
 							<ol>
 								<li>The additional images (large and thumbnails) load: 1 point</li>
 								<li>That the view is valid HTML5: 1 point</li>
 								<li>That the view is valid CSS3: 1 point</li>
-								<li>Use the browser's inspect tool to show that the full size image is no larger than 500 pixels wide or tall: 1 point</li>
-								<li>Use the browser's inspect tool to show that the thumbnail images are no larger than 200 pixels wide or tall: 1 point</li>
-								<li>The thumbnails in the detail view are on the left of the details in large screens and enlarge to provide more detail. (1 point)</li>
+								<li>Use the browser's inspect tool to show that the full size image is no larger than 500 pixels wide or
+									tall: 1 point</li>
+								<li>Use the browser's inspect tool to show that the thumbnail images are no larger than 200 pixels wide
+									or tall: 1 point</li>
+								<li>The thumbnails in the detail view are on the left of the details in large screens and enlarge to
+									provide more detail. (1 point)</li>
 								<li>The thumbnails are below the vehicle details on mobile devices. (1 point)</li>
 							</ol>
 						</li>
-						<li>Show the "<b>images</b>" table in the PHPMyAdmin tool to demonstrate that two versions of each image in the "images > vehicles>" folder exist in the table: 1 point</li>
+						<li>Show the "<b>images</b>" table in the PHPMyAdmin tool to demonstrate that two versions of each image in
+							the "images > vehicles>" folder exist in the table: 1 point</li>
 					</ul>
 				</li>
 				<li><b>Total value for Objective 6: 8 points</b></li>
