@@ -14,132 +14,165 @@
 	<div id="wrapper">
 		<header id="header"><img src="/340br/340banner.jpg" alt="CSE 340 Banner Image"></header>
 		<main>
-				<h1>Enhancement 8</h1>
-				<h2>Introduction</h2>
-				<p>This week's activities saw us make the navigation bar operational. When a classification name is clicked, that classification's vehicles, from the database, are delivered to a view. This enhancement asks you to take the next step - Specific vehicle information delivered to a view.</p>
+			<h1>Enhancement 8</h1>
+			<h2>Introduction</h2>
+			<p>This week's activities saw us make the navigation bar operational. When a classification name is clicked, that
+				classification's vehicles, from the database, are delivered to a view. This enhancement asks you to take the
+				next step - Specific vehicle information delivered to a view.</p>
 
-				<h2>Overview</h2>
-				<p>In this enhancement you will:</p>
-				<ol>
-					<li>Alter the code for each vehicle being delivered to the classification view so that a link exists for that specific vehicle. When the link is clicked, a "vehicle detail" view is delivered where complete details about that vehicle are displayed.</li>
-					<li>Style the vehicle information to display clearly and professionally in any size browser window. </li>
-				</ol>
+			<h2>Overview</h2>
+			<p>In this enhancement you will:</p>
+			<ol>
+				<li>Alter the code for each vehicle being delivered to the classification view so that a link exists for that
+					specific vehicle. When the link is clicked, a "vehicle detail" view is delivered where complete details about
+					that vehicle are displayed.</li>
+				<li>Style the vehicle information to display clearly and professionally in any size browser window. </li>
+			</ol>
 
-				<h2>Video Overview</h2>
-				<p>This short video demonstrates what the finished enhancement may look like and the functionality it could possess.</p>
-					<iframe src="https://www.youtube.com/embed/70t-jXtYz2k" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+			<h2>Video Overview</h2>
+			<p>This short video demonstrates what the finished enhancement may look like and the functionality it could
+				possess.</p>
+			<iframe src="https://www.youtube.com/embed/70t-jXtYz2k" frameborder="0"
+				allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-				<h2>Tasks</h2>
-				<ol>
-					<li>Alter the <b>buildVehiclesDisplay()</b> function in the <b>functions.php</b> file to add a link(s) that, when clicked, sends two name-value pairs to the vehicles controller. One name-value pair must trigger a new control structure to get information about a vehicle. The second name-value pair must indicate the specific vehicle (Hint: What is identifier that is <b>unique</b> to each inventory item? Use it as the value in the name - value pair). Suggestion: look at how e-commerce sites such as amazon.com do it (typically both the item name and image are clickable).</li>
-					<li>Add a new control structure to the vehicle controller that will handle the process of getting a specific vehicle's information in order to deliver it to a vehicle detail view. If no vehicle can be found, a message must be set to that effect and the message will be sent to the view instead of the vehicle information.</li>
-					<li>Build a function in the "vehicles model" to retrieve information about a specific vehicle in inventory and return it to the controller.</li>
-					<li>Build a custom function in the <b>functions.php</b> file that will take the specific vehicle's information and wrap it up in HTML to deliver to the view, specifically:
-						<ul>
-							<li>Use the full-size image, not the thumbnail image.</li>
-							<li>The make, model and price should be prominent in the view.</li>
-							<li>The price must display as U.S. Dollars with appropriate currency symbol and proper place value commas.</li>
-							<li>The description must be present.</li>
-							<li>The other vehicle items must be displayed with appropriate supporting text to make sense to a site client. See this image from hertz car sales as an example:<br>
-								<img src="/340br/phpmotors/images/php-motors/car-example.jpg"
-									alt="Example of a car detail view from hertz car sales">
-							</li>
-						</ul>
-					</li>
-					<li>Build a new view named "<b>vehicle-detail.php</b>" and save it to the <b>view</b> folder using your template file. The view must:
-						<ul>
-							<li>Display the vehicle make and model in the title element and in the main content heading.</li>
-							<li>Have the ability to display a message if one exists.</li>
-							<li>Display the vehicle details by echoing the variable containing the vehicle details wrapped up in HTML from your custom function.</li>
-							<li>Be valid HTML5 and use valid CSS3 to display the vehicle information for easy reading and presenting a professional appearance.</li> 
-						<li>For large screens, the image and content must sit side-by-side (similar to the example car image). On small screens, the content should stack into a single column.</li>
-							<li>The content (including images) must maintain its clarity of presentation in the browser as the browser window grows or shrinks. In other words, it must be responsive.</li>
-						</ul>
-					</li>
-				</ol>
+			<h2>Tasks</h2>
+			<ol>
+				<li>Alter the <b>buildVehiclesDisplay()</b> function in the <b>functions.php</b> file to add a link(s) that,
+					when clicked, sends two name-value pairs to the vehicles controller. One name-value pair must trigger a new
+					control structure to get information about a vehicle. The second name-value pair must indicate the specific
+					vehicle (Hint: What is identifier that is <b>unique</b> to each inventory item? Use it as the value in the
+					name - value pair). Suggestion: look at how e-commerce sites such as amazon.com do it (typically both the item
+					name and image are clickable).</li>
+				<li>Add a new control structure to the vehicle controller that will handle the process of getting a specific
+					vehicle's information in order to deliver it to a vehicle detail view. If no vehicle can be found, a message
+					must be set to that effect and the message will be sent to the view instead of the vehicle information.</li>
+				<li>Build a function in the "vehicles model" to retrieve information about a specific vehicle in inventory and
+					return it to the controller.</li>
+				<li>Build a custom function in the <b>functions.php</b> file that will take the specific vehicle's information
+					and wrap it up in HTML to deliver to the view, specifically:
+					<ul>
+						<li>Use the full-size image, not the thumbnail image.</li>
+						<li>The make, model and price should be prominent in the view.</li>
+						<li>The price must display as U.S. Dollars with appropriate currency symbol and proper place value commas.
+						</li>
+						<li>The description must be present.</li>
+						<li>The other vehicle items must be displayed with appropriate supporting text to make sense to a site
+							client. See this image from hertz car sales as an example:<br>
+							<img src="/340br/phpmotors/images/php-motors/car-example.jpg"
+								alt="Example of a car detail view from hertz car sales">
+						</li>
+					</ul>
+				</li>
+				<li>Build a new view named "<b>vehicle-detail.php</b>" and save it to the <b>view</b> folder using your template
+					file. The view must:
+					<ul>
+						<li>Display the vehicle make and model in the title element and in the main content heading.</li>
+						<li>Have the ability to display a message if one exists.</li>
+						<li>Display the vehicle details by echoing the variable containing the vehicle details wrapped up in HTML
+							from your custom function.</li>
+						<li>Be valid HTML5 and use valid CSS3 to display the vehicle information for easy reading and presenting a
+							professional appearance.</li>
+						<li>For large screens, the image and content must sit side-by-side (similar to the example car image). On
+							small screens, the content should stack into a single column.</li>
+						<li>The content (including images) must maintain its clarity of presentation in the browser as the browser
+							window grows or shrinks. In other words, it must be responsive.</li>
+					</ul>
+				</li>
+			</ol>
 
-				<h2>Test, Test, Test</h2>
-				<p>Be sure to complete all tasks and then test that they work.</p>
-				<ol>
-					<li>Load the phpmotors site in your local development environment.</li>
-					<li>Click a link in the main navigation bar.</li>
-					<li>From the classification vehicles that should be presented in the browser click the provided link(s) for any vehicle.</li>
-					<li>The vehicles's details should be visible in a new view. The details are clear, professional in appearance that can be easily consumed by the human looking at the browser.</li>
-					<li>Change the screen size to emulate delivery to various device sizes. The content should be responsive and adjust to allow clear presentation regardless of screen size.</li>
-					<li>Repeat multiple times (clicking on navigation link, then "drilling down" to the vehicle detail) to ensure that the process works with all vehicles.</li>
-				</ol>
+			<h2>Test, Test, Test</h2>
+			<p>Be sure to complete all tasks and then test that they work.</p>
+			<ol>
+				<li>Load the phpmotors site in your local development environment.</li>
+				<li>Click a link in the main navigation bar.</li>
+				<li>From the classification vehicles that should be presented in the browser click the provided link(s) for any
+					vehicle.</li>
+				<li>The vehicles's details should be visible in a new view. The details are clear, professional in appearance
+					that can be easily consumed by the human looking at the browser.</li>
+				<li>Change the screen size to emulate delivery to various device sizes. The content should be responsive and
+					adjust to allow clear presentation regardless of screen size.</li>
+				<li>Repeat multiple times (clicking on navigation link, then "drilling down" to the vehicle detail) to ensure
+					that the process works with all vehicles.</li>
+			</ol>
 
 
-				<h2>Submission</h2>
-				<ul>
-					<li>Work with your learning team to accomplish the tasks and post to and read the weekly discussion board to help one another.</li>
-					<li>Build, run and test to make sure that each of the tasks works.</li>
-					<li>When satisfied that the code is operational:
-						<ol>
-							<li>Create a video showing:
-								<ul>
-									<li>The process in action by clicking on multiple vehicles from multiple classifications to show that each vehicle is delivered to the detail view.</li>
-									<li>Use a browser emulation tool to show various size screens
-										to show that the vehicle detail maintains a professional appearance and can be easily read, on all screen sizes.</li>
-									<li>That the vehicle detail view is valid HTML5 and CSS3.</li>
-								</ul>
-							</li>
-							<li>Post your video to your YouTube channel and copy the link to the video when published.
-							</li>
-							<li>Zip the entire phpmotors folder and name it enhancement 8 (save this zip file outside of your web site).</li>
-							<li>Submit the zip file to the enhancement 8 assignment dropbox and add the video URL to the assignment dropbox comment.</li>
-						</ol>
-					</li>
-				</ul>
+			<h2>Submission</h2>
+			<ul>
+				<li>Work with your learning team to accomplish the tasks and post to and read the weekly discussion board to
+					help one another.</li>
+				<li>Build, run and test to make sure that each of the tasks works.</li>
+				<li>When satisfied that the code is operational:
+					<ol>
+						<li>Create a video showing each of the items listed in Objective 6 of the grading matrix.</li>
+						<li>Post your video to your YouTube channel and copy the link to the video when published.
+						</li>
+						<li>Zip the entire phpmotors folder and name it enhancement 8 (save this zip file outside of your web site).
+						</li>
+						<li>Submit the zip file to the enhancement 8 assignment dropbox and add the video URL to the assignment
+							dropbox comment.</li>
+					</ol>
+				</li>
+			</ul>
 
-				<h2>Grading Matrix</h2>
-				<p>This enhancement has values in multiple objectives as shown below:</p>
-				<h3>Objective 1</h3>
-				<ul>
-					<li>The vehicle detail view is valid HTML5 (2 points: minus 1 for each error)</li>
-					<li>The vehicle detail view uses valid CSS3 (2 points: minus 1 for each error)</li>
-					<li>The vehicle information is responsive and can be easily read on changing screen sizes without zooming or horizontal scrolling. This includes a column layout on large screens and stacked layout on small screens. (4 points: Yes or No)</li>
-					<li>The price is formatted correctly using commas and contains the currency symbol for US dollars (2 points: Yes or No)</li>
-					<li>Total value for Objective 1: 10 points</li>
-				</ul>
+			<h2>Grading Matrix</h2>
+			<p>This enhancement has values in multiple objectives as shown below:</p>
+			<h3>Objective 1</h3>
+			<ul>
+				<li>The vehicle detail view is valid HTML5 (2 points: minus 1 for each error)</li>
+				<li>The vehicle detail view uses valid CSS3 (2 points: minus 1 for each error)</li>
+				<li>The vehicle information is responsive and can be easily read on changing screen sizes without zooming or
+					horizontal scrolling. This includes a column layout on large screens and stacked layout on small screens. (4
+					points: Yes or No)</li>
+				<li>The price is formatted correctly using commas and contains the currency symbol for US dollars (2 points: Yes
+					or No)</li>
+				<li>Total value for Objective 1: 10 points</li>
+			</ul>
 
-				<h3>Objective 2</h3>
-				<ul>
-					<li>The vehicles controller contains the control structure and process to deliver the vehicle detail (fully operational) (5 points: Yes or No)</li>
-					<li>A new custom function exists in the <b>functions.php</b> file to take the vehicle details and build HTML around it then return the result to the controller (fully operational). (5 points: Yes or No)
-					</li>
-					<li>Total value for Objective 2: 10 points</li>
-				</ul>
+			<h3>Objective 2</h3>
+			<ul>
+				<li>The vehicles controller contains the control structure and process to deliver the vehicle detail (fully
+					operational) (5 points: Yes or No)</li>
+				<li>A new custom function exists in the <b>functions.php</b> file to take the vehicle details and build HTML
+					around it then return the result to the controller (fully operational). (5 points: Yes or No)
+				</li>
+				<li>Total value for Objective 2: 10 points</li>
+			</ul>
 
-				<h3>Objective 3</h3>
-				<ul>
-					<li>The vehicle detail delivery process is an MVC solution. (5 points: Yes or No)</li>
-					<li>Total value for Objective 3: 5 points</li>
-				</ul>
+			<h3>Objective 3</h3>
+			<ul>
+				<li>The vehicle detail delivery process is an MVC solution. (5 points: Yes or No)</li>
+				<li>Total value for Objective 3: 5 points</li>
+			</ul>
 
-				<h3>Objective 4</h3>
-				<ul>
-					<li>The vehicle detail function in the "vehicles model" uses a PDO Prepared Statement approach and works. (5 points: Yes or No)</li>
-					<li>Total value for Objective 4: 5 points</li>
-				</ul>
+			<h3>Objective 4</h3>
+			<ul>
+				<li>The vehicle detail function in the "vehicles model" uses a PDO Prepared Statement approach and works. (5
+					points: Yes or No)</li>
+				<li>Total value for Objective 4: 5 points</li>
+			</ul>
 
-				<h3>Objective 5</h3>
-				<ul>
-					<li>Name-value pairs passed into the controller from the classification view are filtered and/or sanitized prior to being sent to the function for use with the database. (5 points: Yes or No)</li>
-					<li>Total value for Objective 5: 5 points</li>
-				</ul>
+			<h3>Objective 5</h3>
+			<ul>
+				<li>Name-value pairs passed into the controller from the classification view are filtered and/or sanitized prior
+					to being sent to the function for use with the database. (5 points: Yes or No)</li>
+				<li>Total value for Objective 5: 5 points</li>
+			</ul>
 
-				<h3>Objective 6</h3>
-				<ul>
-					<li>The video URL is present and the video is narrated by you using your own voice. The video shows:
-						<ul>
-							<li>The process in action by clicking on multiple vehicles from multiple classifications to show that each vehicle is delivered to the detail view.</li>
-							<li>Using a mobile emulation tool to show that the vehicle detail maintains a professional appearance and can be easily read, on all screen sizes.</li>
-							<li>That the vehicle detail view is valid HTML5 and CSS3.</li>
-						</ul>
-						(5 points: Yes or No)</li>
-					<li>Total value for Objective 6: 5 points</li>
-				</ul>
+			<h3>Objective 6</h3>
+			<ul>
+				<li>The video URL is present and the video is narrated by you using your own voice. The video shows:
+					<ul>
+						<li>Using the navigation bar to navigate to a classification view, then clicking on an individual vehicle,
+							the vehicle detail view is delivered for that vehicle.</li>
+						<li>The layout of the detail view changes on different screen sizes to make effective use of the screen
+							real-estate available.</li>
+						<li>Using a mobile emulation tool to show that the vehicle detail maintains a <mark>professional
+								appearance</mark> and can be easily read, on all screen sizes.</li>
+						<li>That the vehicle detail view is valid HTML5 and CSS3.</li>
+					</ul>
+					(5 points: Yes or No)</li>
+				<li>Total value for Objective 6: 5 points</li>
+			</ul>
 		</main>
 	</div>
 
