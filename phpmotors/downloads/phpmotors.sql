@@ -26,16 +26,16 @@ SET time_zone = "+00:00";
 --
 DROP TABLE IF EXISTS `inventory`;
 CREATE TABLE `inventory` (
-  `invId` int(10) UNSIGNED NOT NULL,
+  `invId` int UNSIGNED NOT NULL,
   `invMake` varchar(30) NOT NULL,
   `invModel` varchar(30) NOT NULL,
-  `invDescription` text DEFAULT NULL,
+  `invDescription` text NOT NULL,
   `invImage` varchar(50) NOT NULL,
   `invThumbnail` varchar(50) NOT NULL,
   `invPrice` decimal(10,0) NOT NULL,
-  `invStock` smallint(6) NOT NULL,
+  `invStock` smallint NOT NULL,
   `invColor` varchar(20) NOT NULL,
-  `classificationId` int(10) NOT NULL
+  `classificationId` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -69,14 +69,14 @@ ALTER TABLE `inventory`
 -- AUTO_INCREMENT for table `inventory`
 --
 ALTER TABLE `inventory`
-  MODIFY `invId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `invId` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
   
 --
 -- Table structure for table `carclassification`
 --
 DROP TABLE IF EXISTS `carclassification`;
 CREATE TABLE `carclassification` (
-  `classificationId` int(10) NOT NULL,
+  `classificationId` int NOT NULL,
   `classificationName` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -100,7 +100,7 @@ ALTER TABLE `carclassification`
 -- AUTO_INCREMENT for table `carclassification`
 --
 ALTER TABLE `carclassification`
-  MODIFY `classificationId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `classificationId` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
   
 --
 -- Constraints for table `inventory`
@@ -114,7 +114,7 @@ COMMIT;
 --
 -- DROP TABLE IF EXISTS `clients`;
 -- CREATE TABLE `clients` (
---   `clientId` int(10) UNSIGNED NOT NULL,
+--   `clientId` int UNSIGNED NOT NULL,
 --   `clientFirstname` varchar(15) NOT NULL,
 --   `clientLastname` varchar(25) NOT NULL,
 --   `clientEmail` varchar(40) NOT NULL,
@@ -133,7 +133,7 @@ COMMIT;
 -- AUTO_INCREMENT for table `clients`
 --
 -- ALTER TABLE `clients`
---   MODIFY `clientId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+-- MODIFY `clientId` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 
   
