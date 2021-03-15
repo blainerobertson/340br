@@ -18,28 +18,38 @@
 			<img src="/340br/340banner.jpg" alt="CSE 340 Banner Image">
 		</header>
 		<main>
-				<h1>Image Management View</h1>
-				<p>Using the MVC means that a view is needed for human  interaction between the browser and server. Already you have built the database table, the controller, the model, added helper  functions to the the functions library and finally it is time to build the view.</p>
+			<h1>Image Management View</h1>
+			<p>Using the MVC means that a view is needed for human interaction between the browser and server. Already you
+				have built the database table, the controller, the model, added helper functions to the the functions library
+				and finally it is time to build the view.</p>
 
-				<h2>Video Overview</h2>
-				<p>This video demonstrates the completed view, to manage image uploads, after all activities are completed.</p>
-				<iframe src="https://www.youtube.com/embed/EXAarDW-4h0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+			<h2>Video Overview</h2>
+			<p>This video demonstrates the completed view, to manage image uploads, after all activities are completed.</p>
+			<iframe src="https://www.youtube.com/embed/EXAarDW-4h0" frameborder="0"
+				allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-				<h2>Create the View</h2>
-				<ol>
-					<li>Use your php motors template to create a new view named "<b>image-admin.php</b> in the <b>view</b> folder.</li>
-					<li>Create a new PHP code block at the top of the view making sure there are no empty spaces or lines between the code block
-						and the HTML doctype declaration.</li>
-					<li>In the code block add PHP code to check if there is a message set in the <code>$_SESSION</code> and if so, assign it to a local <code>$message</code> variable:
-<pre class="line-numbers"><code class="language-php">if (isset($_SESSION['message'])) {
+			<h2>Create the View</h2>
+			<ol>
+				<li>Use your php motors template to create a new view named "<b>image-admin.php</b> in the <b>view</b> folder.
+				</li>
+				<li>Create a new PHP code block at the top of the view making sure there are no empty spaces or lines between
+					the code block
+					and the HTML doctype declaration.</li>
+				<li>In the code block add PHP code to check if there is a message set in the <code>$_SESSION</code> and if so,
+					assign it to a local <code>$message</code> variable:
+					<pre class="line-numbers"><code class="language-php">if (isset($_SESSION['message'])) {
  $message = $_SESSION['message'];
 }</code></pre>
-					</li>
-					<li>Set the <code>&lt;title&gt;</code> and the main content heading <code>&lt;h1&gt;</code> values to be "Image Management".</li>
-					<li>Beneath the content heading add a paragraph welcoming the client to the image management page and instruct them to choose
-						one of the options presented below.</li>
-					<li>The first option is the form where the client selects the vehicle and an image to upload for the vehicle. In addition, if the <code>$message</code> variable is set, it will be displayed here. The code should look like this:
-						<pre class="line-numbers"><code class="language-markup">&lt;h2&gt;Add New Vehicle Image&lt;/h2&gt;
+				</li>
+				<li>Set the <code>&lt;title&gt;</code> and the main content heading <code>&lt;h1&gt;</code> values to be "Image
+					Management".</li>
+				<li>Beneath the content heading add a paragraph welcoming the client to the image management page and instruct
+					them to choose
+					one of the options presented below.</li>
+				<li>The first option is the form where the client selects the vehicle and an image to upload for the vehicle. In
+					addition, if the <code>$message</code> variable is set, it will be displayed here. The code should look like
+					this:
+					<pre class="line-numbers"><code class="language-markup">&lt;h2&gt;Add New Vehicle Image&lt;/h2&gt;
 &lt;?php
  if (isset($message)) {
   echo $message;
@@ -60,75 +70,118 @@
  &lt;input type="submit" class="regbtn" value="Upload"&gt;
  &lt;input type="hidden" name="action" value="upload"&gt;
 &lt;/form&gt;</code></pre>
-						<h3>An Explanation</h3>
-						<ul>
-							<li>The form opening tag has the standard "action" and "method" attributes. The "action" directs the form to send the
-								data to the controller found in the <b>uploads</b> folder.</li>
-							<li>You will note a third attribute in the opening form tag - "enctype". This attribute and its value of "multipart/form-data" is required when uploading files. See
-								<a href="//www.w3schools.com/TAgs/att_form_enctype.asp" title="Opens in a new tab" target="_blank">https://www.w3schools.com/TAgs/att_form_enctype.asp</a> for more information.</li>
-							<li>The PHP code block with the echo statement for <code>$prodSelect</code> indicates where the select list of the vehicles from the database will be displayed.</li>
-							<li>The fieldset and its enclosed labels and inputs are how the client indicates if the image is the "Primary" image of the vehicle.The default is "No" as indicated by the "checked" attribute in the "No" input. <mark>Notice that both the yes and no inputs have the same name. This means that only one can be selected at a time - it is called a radio button group.</mark></li>
-							<li>In addition you will see a new "type" of input field -
-								<code>type="file"</code>. This allows the browser to open a new dialog box so you can select a file for uploading.</li>
-							<li>The other items in the code should already be familiar to you.</li>
-						</ul>
-					</li>
-					<li>After the form closing tag add a <code>&lt;hr&gt;</code> element to create a visual separator on the page.</li>
-					<li>Beneath the horizontal rule add the following code:
-<pre class="line-numbers"><code class="language-markup">&lt;h2&gt;Existing Images&lt;/h2&gt;
+					<h3>An Explanation</h3>
+					<ul>
+						<li>The form opening tag has the standard "action" and "method" attributes. The "action" directs the form to
+							send the
+							data to the controller found in the <b>uploads</b> folder.</li>
+						<li>You will note a third attribute in the opening form tag - "enctype". This attribute and its value of
+							"multipart/form-data" is required when uploading files. See
+							<a href="//www.w3schools.com/TAgs/att_form_enctype.asp" title="Opens in a new tab"
+								target="_blank">https://www.w3schools.com/TAgs/att_form_enctype.asp</a> for more information.</li>
+						<li>The PHP code block with the echo statement for <code>$prodSelect</code> indicates where the select list
+							of the vehicles from the database will be displayed.</li>
+						<li>The fieldset and its enclosed labels and inputs are how the client indicates if the image is the
+							"Primary" image of the vehicle.The default is "No" as indicated by the "checked" attribute in the "No"
+							input. <mark>Notice that both the yes and no inputs have the same name. This means that only one can be
+								selected at a time - it is called a radio button group.</mark></li>
+						<li>In addition you will see a new "type" of input field -
+							<code>type="file"</code>. This allows the browser to open a new dialog box so you can select a file for
+							uploading.</li>
+						<li>The other items in the code should already be familiar to you.</li>
+					</ul>
+				</li>
+				<li>After the form closing tag add a <code>&lt;hr&gt;</code> element to create a visual separator on the page.
+				</li>
+				<li>Beneath the horizontal rule add the following code:
+					<pre class="line-numbers"><code class="language-markup">&lt;h2&gt;Existing Images&lt;/h2&gt;
 &lt;p class="notice"&gt;If deleting an image, delete the thumbnail too and vice versa.&lt;/p&gt;
 &lt;?php
  if (isset($imageDisplay)) {
   echo $imageDisplay;
  } ?&gt;</code></pre>
-						<h3>An Explanation</h3>
-						<p>In the controller, prior to delivery of the view in the default process, the images that already exist in the database
-							(if any) are queried out. The array is then sent to a helper function to be wrapped up in HTML for display purposes.
-							The resulting HTML is stored into the <code>$imageDisplay</code> variable. In this block of code the images are displayed and their accompanying link to start the delete process.</p>
-					</li>
-					<li>Finally, scroll all the way to the bottom of the view.</li>
-					<li>Beneath the closing HTML tag -
-						<code><b>&lt;/html&gt;</b></code> - add a new PHP code block and the code to unset the message from the session, since we are done using it:
-						<pre
-							class="line-numbers"><code class="language-php">&lt;?php unset($_SESSION['message']); ?&gt;</code></pre>
-					</li>
-					<li>Check for any error indicators in the code, if found fix them.</li>
-					<li>Save the view.</li>
-				</ol>
-				<h2>CSS</h2>
-				<p>During the testing process, you will probably need to make alterations to the CSS in order provide a clean appearance to upload form and the images as they are displayed. Be sure to do so and test to make sure the HTML and CSS are both valid.</p>
+					<h3>An Explanation</h3>
+					<p>In the controller, prior to delivery of the view in the default process, the images that already exist in
+						the database
+						(if any) are queried out. The array is then sent to a helper function to be wrapped up in HTML for display
+						purposes.
+						The resulting HTML is stored into the <code>$imageDisplay</code> variable. In this block of code the images
+						are displayed and their accompanying link to start the delete process.</p>
+				</li>
+				<li>Finally, scroll all the way to the bottom of the view.</li>
+				<li>Beneath the closing HTML tag -
+					<code><b>&lt;/html&gt;</b></code> - add a new PHP code block and the code to unset the message from the
+					session, since we are done using it:
+					<pre class="line-numbers"><code class="language-php">&lt;?php unset($_SESSION['message']); ?&gt;</code></pre>
+				</li>
+				<li>Check for any error indicators in the code, if found fix them.</li>
+				<li>Save the view.</li>
+			</ol>
+			<h2>CSS</h2>
+			<p>During the testing process, you will probably need to make alterations to the CSS in order provide a clean
+				appearance to upload form and the images as they are displayed. Be sure to do so and test to make sure the HTML
+				and CSS are both valid.</p>
 
-				<h2>Test It</h2>
-				<p>Normally we would have done testing along the way, but because of the process we followed for these activities we couldn't until now.</p>
-				<ol>
-					<li>Start your Apache and Database servers.</li>
-					<li>"Run" the <b>uploads</b> controller (you'll probably have to access it by editting the URL).</li>
-					<li>If things worked, you should see the view and a message indicating that no images could be found.</li>
-					<li>Now try to upload a file:
-						<ul>
-							<li>Select a vehicle from the select drop-down list.</li>
-							<li>Click the "Choose File" button, a dialog box should open.</li>
-							<li>Check one of the radio buttons to indicate if the image is the main or primary image for the vehicel.</li>
-							<li>Find an image on your computer (any image will do right now) and select it.</li>
-							<li>The image name should appear next to the "Choose File" button when selected.</li>
-							<li>Click the "Upload" submit button.</li>
-							<li>If things worked, you should be returned to this view and a success message should be displayed and two versions of the image should appear beneath the "Existing Images" heading - one "regular" and one "thumbnail" version.</li>
-							<li>Both images should show their file name beneath them in link form accompanied by the "Delete" text preceeding the file name.</li>
-							<li>Open the "images" folder in the "uploads" folder to confirm that the physical files are present.</li>
-							<li>Open the PHPMyAdmin tool and check the " <b>images</b>" table to insure that all of the data for two images (one regular and one thumbnail) is present.</li>
-							<li>Return to the image management view and click one of the "delete" links.</li>
-							<li>The view should refresh and display the deletion success or failure message and if successful, the image should be gone.
-							</li>
-							<li>Open the "images" folder in the "uploads" folder to confirm that the physical file is gone.</li>
-							<li>Open the PHPMyAdmin tool and check the "<b>images</b>" table to insure that the data for the image that was deleted is gone. You may need to refresh to see any changes.</li>
-						</ul>
-					</li>
-					<li>If everything worked - CELEBRATE, CELEBRATE, DANCE TO THE MUSIC...</li>
-					<li>If the process failed, troubleshoot, get help..., but get it working prior to moving on to the enhancement.</li>
-				</ol>
+			<h2>Potential Error for Windows Users</h2>
+			<p>Occasionally, Windows users will encounter a <mark>Fatal error: Call to undefined function
+					imagecreatefromjpeg()...</mark>. This is because the function is part of a dynamic graphic library that ships
+				with PHP, but may not be enabled on Windows machines. If you encounter this error when attempting to upload a
+				picture file, do the
+				following:</p>
+			<ul>
+				<li>Open the C:\ drive, find and open the xampp folder.</li>
+				<li>Find and open the php folder.</li>
+				<li>Open the php.ini file in notepad or another editor.</li>
+				<li>Search for "extension=gd".</li>
+				<li>Remove the semicolon at the start of the line.</li>
+				<li>Save and close the file.</li>
+				<li>Restart xampp and try uploading an image again.</li>
+			</ul>
+
+			<h2>Test It</h2>
+			<p>Normally we would have done testing along the way, but because of the process we followed for these activities
+				we couldn't until now.</p>
+			<ol>
+				<li>Start your Apache and Database servers.</li>
+				<li>"Run" the <b>uploads</b> controller (you'll probably have to access it by editting the URL).</li>
+				<li>If things worked, you should see the view and a message indicating that no images could be found.</li>
+				<li>Now try to upload a file:
+					<ul>
+						<li>Select a vehicle from the select drop-down list.</li>
+						<li>Click the "Choose File" button, a dialog box should open.</li>
+						<li>Check one of the radio buttons to indicate if the image is the main or primary image for the vehicel.
+						</li>
+						<li>Find an image on your computer (any image will do right now) and select it.</li>
+						<li>The image name should appear next to the "Choose File" button when selected.</li>
+						<li>Click the "Upload" submit button.</li>
+						<li>If things worked, you should be returned to this view and a success message should be displayed and two
+							versions of the image should appear beneath the "Existing Images" heading - one "regular" and one
+							"thumbnail" version.</li>
+						<li>Both images should show their file name beneath them in link form accompanied by the "Delete" text
+							preceeding the file name.</li>
+						<li>Open the "images" folder in the "uploads" folder to confirm that the physical files are present.</li>
+						<li>Open the PHPMyAdmin tool and check the " <b>images</b>" table to insure that all of the data for two
+							images (one regular and one thumbnail) is present.</li>
+						<li>Return to the image management view and click one of the "delete" links.</li>
+						<li>The view should refresh and display the deletion success or failure message and if successful, the image
+							should be gone.
+						</li>
+						<li>Open the "images" folder in the "uploads" folder to confirm that the physical file is gone.</li>
+						<li>Open the PHPMyAdmin tool and check the "<b>images</b>" table to insure that the data for the image that
+							was deleted is gone. You may need to refresh to see any changes.</li>
+					</ul>
+				</li>
+				<li>If everything worked - CELEBRATE, CELEBRATE, DANCE TO THE MUSIC...</li>
+				<li>If the process failed, troubleshoot, get help..., but get it working prior to moving on to the enhancement.
+				</li>
+			</ol>
 		</main>
 		<footer>
-			<a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US" target="_blank"> <img alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by-sa/3.0/88x31.png"></a> All materials (except as noted) are by Blaine Robertson and licensed under a <a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US" title="Read the license" target="_blank">Creative Commons Attribution-ShareAlike 3.0 License</a>.</footer>
+			<a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US" target="_blank"> <img
+					alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by-sa/3.0/88x31.png"></a>
+			All materials (except as noted) are by Blaine Robertson and licensed under a <a rel="license"
+				href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US" title="Read the license" target="_blank">Creative
+				Commons Attribution-ShareAlike 3.0 License</a>.</footer>
 	</div>
 	<script src="/340br/js/prism-coy-dev.min.js"></script>
 </body>
