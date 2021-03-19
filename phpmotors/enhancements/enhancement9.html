@@ -18,25 +18,18 @@
 
 			<h2>Overview</h2>
 			<p>In this enhancement you are asked to implement enhanced functionality for the site based on image uploads. This
-				enhancement will consist of three sections:</p>
-			<h3>Add Vehicle Images</h3>
+				enhancement will consist of three general tasks:</p>
 			<ol>
-				<li>Change the target of image uploads in the uploads controller to the "<b>vehicles</b>" folder within the
-					phpmotors "<b>images</b>" folder from the current "uploads > images" folder.</li>
-				<li>Delete all records from the images table so that it is empty.</li>
-				<li>Make a duplicate of the <b>vehicles</b> folder to your desktop. Once done, delete all of the images inside
-					the <b>images/vehicles</b> folder in the PHP Motors site.</li>
-				<li>Upload all existing vehicle images using the upload process so that the images will be sized correctly and
-					stored into the "<b>images</b>" table of the phpmotors database and to the "images > vehicles" folder.
-					<mark>Each of these uploads should be designated as "Primary" images.</mark></li>
-				<li>Add the DMC DeLorean to the inventory table.</li>
-				<li>Upload the delorean image and associate it with the car, making it the primary image.</li>
-				<li>Associate the "no-image" picture to the "Dog Car" in the inventory table. Make it the primary image for that
-					vehicle.</li>
-				<li>Add at least one additional image to <b>three</b> vehicles. These images will NOT be primary images, rather
-					they will be additional images for the vehicle.</li>
+				<li>Run the current vehicle images through the new image upload tool, which will move them to a new location,
+					and add their file path to the database.</li>
+				<li>Revise some of the work that was done last week in order to get the vehicle details from the inventory
+					table, but the path for the large, primary image from the images table.</li>
+				<li>Add new functionality so that we can add vehicle thumbnails to the vehicle detail page and style everything
+					to look professional.</li>
 			</ol>
-			<h3>Revisions</h3>
+
+
+			<!-- <h3>Revisions</h3>
 			<ol start="8">
 				<li>Return to the inventory controller, model and helper functions and make alterations so that all image paths
 					are now obtained from the <b>images</b> table.</li>
@@ -46,15 +39,15 @@
 					continues to work as before.</li>
 				<li>Ensure that the DeLorean image to the home page works from its location in the "images>vehicles" folder.
 				</li>
-			</ol>
-			<h3>New Functionality</h3>
+			</ol> -->
+			<!-- <h3>New Functionality</h3>
 			<ol start="11">
 				<li>Write code that will find and deliver any vehicle thumbnail images from the database to the vehicles
 					"detail" view when a vehicle is selected via the main menu of the PHP Motors site.</li>
 				<li>Add CSS so that the thumbnails for a vehicle appear to the left of the vehicle detail information.</li>
 				<li>Add CSS so that when a thumbnail is hovered over on the large screen only, the image will enlarge to show
 					more detail. When the mouse leaves the image, it will return to normal size.</li>
-			</ol>
+			</ol> -->
 
 			<h2>Video Overview</h2>
 			<p>This short video demonstrates what the finished enhancement will look like and the functionality it should
@@ -65,6 +58,24 @@
 			<h2>Tasks</h2>
 			<h3>Add Vehicle Images</h3>
 			<ol>
+				<li>Change the target of image uploads in the uploads controller to the "<b>phpmotors/images/vehicles</b>"
+					folder from the current "uploads/images" folder.</li>
+				<li>Delete all records from the images table so that it is empty.</li>
+				<li>Make a duplicate of the <b>phpmotors/images/vehicles</b> folder to your desktop. Once done, delete all of
+					the
+					images inside the <b>phpmotors/images/vehicles</b> folder in the PHP Motors site.</li>
+				<li>Upload all existing vehicle images using the upload process so that the images will be sized correctly and
+					stored into the "<b>images</b>" table of the phpmotors database and to the "phpmotors/images/vehicles"
+					folder.
+					<mark>Each of these uploads should be designated as "Primary" images.</mark></li>
+				<li>Add the DMC DeLorean to the inventory table.</li>
+				<li>Upload the DeLorean image and associate it with the car, making it the primary image.</li>
+				<li>If you do not already have an image associated with the "Dog Car", associate the "no-image" picture to it.
+					Make the "no-image" image the primary image for that vehicle.</li>
+				<li>Add at least one additional image to <b>three</b> vehicles. These images will NOT be primary images, rather,
+					they will be additional images for the vehicle.</li>
+			</ol>
+			<!-- <ol>
 				<li>During the activities for this week all image uploads are directed to the "<b>images</b>" folder inside the
 					"<b>uploads</b>" folder. This was great for testing, but not so good for the PHP Motors site. Therefore:
 					<ol>
@@ -85,29 +96,43 @@
 							not need to be uploaded as new thumbnails will be created as part of the upload process.</li>
 					</ol>
 				</li>
-			</ol>
+			</ol> -->
 			<h3>Revisions</h3>
 			<ol>
-				<li>When done uploading the images you will need to make changes to the vehicles controller and model and helper
-					functions for displaying vehicles by classification. All images should now be obtained from the images table,
+				<!-- <li>Return to the inventory controller, model and helper functions and make alterations to your code from Enhancement 8 so that all <b>image paths</b> 
+					are now obtained from the <b>images</b> table and NOT the inventory table.</li> -->
+				<!-- <li>Alter the SQL query in the <code>getVehiclesByClassification()</code> function of the vehicle-model.php file
+					so that only images that are "Primary" and thumbnails are returned. These images will come from the "images"
+					table.</li>
+				<li>Be sure to test using "print_r()" or "var_dump()" with the returned array to ensure that everything
+					continues to work as before.</li> -->
+				<li>Alter the code for the home view so that the large, primary DeLorean image is now displayed in the home view
+					from its location in the
+					"phpmotors/images/vehicles" folder.
+				</li>
+				<li>When done uploading the images you will need to make to the
+					function for displaying vehicles by classification. All images should now be obtained from the images table
 					and not the inventory table. In the model it will require the use of a "JOIN" and a "LIKE" in the query, as
-					well as limiting images to primary images. When done, as you use the main navigation bar to click each
-					classification item and make sure the thumbnail images of each vehicle appear in the view and are from the
-					images table.</li>
-				<li>You may need to write a new function for obtaining vehicle details to display in the detail view.</li>
+					well as limiting images to primary, thumbnail images. When done, click
+					each classification item in the navigation bar and make sure the primary thumbnail image of each vehicle
+					appears in the classification view and is
+					from the images table.</li>
+				<li>You will need to revise the function for obtaining vehicle details to display in the detail view so that the
+					vehicle details, without the images, is still obtained from the inventory table, but the primary, large image
+					comes from the images table.</li>
 				<li>Do NOT alter the function that obtains vehicle information that is used in the vehicle editting process.
 				</li>
-				<li>This functionality should be true for all vehicle images throughout the PHP Motors site.</li>
 			</ol>
 			<h3>New Functionality</h3>
 			<ol>
-				<li>When the classification view is delivered the vehicle image(s) should be delivered from the images table.
-				</li>
-				<li>When the "vehicle detail" view is loaded the "full size" image should display (again, from the images
+				<!-- <li>When the classification view is delivered the vehicle thumbnail image should be delivered from the images table.
+				</li> -->
+				<li>When the "vehicle detail" view is loaded the large, primary image should display (again, from the images
 					table), but what if additional images have been uploaded for that vehicle? It would be beneficial if
 					"thumbnails" of all images pertaining to that item were displayed. Therefore:
-					<ol>
-						<li>In the uploads model, build a new function that will obtain thumbnail image information from the
+					<ol style="list-style-type: upper-alpha;">
+						<li>In the uploads model, build a new function that will obtain all thumbnail image path information from
+							the
 							"<b>images</b>" table that are based on the vehicleId. You will need to use the <a
 								href="//www.w3schools.com/sql/sql_like.asp" title="Opens in a new tab" target="_blank">LIKE</a> operator
 							in your SQL query to find "-tn" in the file name.</li>
@@ -125,7 +150,7 @@
 							devices.</li>
 						<li>Add at least one additional images (it doesn't matter if they actually match the vehicle) to at least
 							three inventory vehicles.</li>
-						<li>To test, access the "vehicle detail" view via the main navigation bar. Make sure the additional
+						<li>To test, access the "vehicle detail" view via the car classification view. Make sure the additional
 							thumbnail images appear and are professional in their appearance. The view should continue to be valid
 							HTML5 and valid CSS3 when done.</li>
 					</ol>
@@ -183,23 +208,28 @@
 			<ul>
 				<li>The video URL is present and the video is narrated by you using your own voice. The video demonstrates:
 					<ul>
-						<li>Navigating to a "vehicle detail" view that contains additional images in the database from the main
-							navigation bar. Show that:
+						<li>Navigating to each "vehicle detail" view that contains additional images. Show that:
 							<ol>
-								<li>The additional images (large and thumbnails) load: 1 point</li>
-								<li>That the view is valid HTML5: 1 point</li>
-								<li>That the view is valid CSS3: 1 point</li>
-								<li>Use the browser's inspect tool to show that the full size image is no larger than 500 pixels wide or
-									tall: 1 point</li>
-								<li>Use the browser's inspect tool to show that the thumbnail images are no larger than 200 pixels wide
-									or tall: 1 point</li>
-								<li>The thumbnails in the detail view are on the left of the details in large screens and enlarge to
-									provide more detail. (1 point)</li>
-								<li>The thumbnails are below the vehicle details on mobile devices. (1 point)</li>
+								<li>All images (large and thumbnails) load.</li>
+								<li>That the view is valid HTML5.</li>
+								<li>That the view is valid CSS3.</li>
+								<li>Use the browser's inspect tool to show that the full size image is no
+									larger than 500
+									pixels wide or
+									tall.</li>
+								<li>Use the browser's inspect tool to show that the thumbnail images are no
+									larger than 200
+									pixels wide
+									or tall.</li>
+								<li>The thumbnails are to the left of the vehicle large image and details on large
+									screens and enlarge
+									to
+									provide more detail during a hover.</li>
+								<li>The thumbnails are below the vehicle details on mobile devices.</li>
 							</ol>
 						</li>
 						<li>Show the "<b>images</b>" table in the PHPMyAdmin tool to demonstrate that two versions of each image in
-							the "images > vehicles>" folder exist in the table: 1 point</li>
+							the "phpmotors/images/vehicles>" folder exist in the table.</li>
 					</ul>
 				</li>
 				<li><b>Total value for Objective 6: 8 points</b></li>
