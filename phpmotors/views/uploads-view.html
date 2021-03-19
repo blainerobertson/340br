@@ -126,19 +126,18 @@
 			<p>Occasionally, Windows users will encounter a <mark>Fatal error: Call to undefined function
 					imagecreatefromjpeg()...</mark>. This is because the function is part of a dynamic graphic library that ships
 				with PHP, but may not be enabled on Windows machines. If you encounter this error when attempting to upload a
-				picture file, do the
-				following:</p>
+				picture file, do the following:</p>
 			<ol>
+				<li>Stop the apache and database servers.</li>
+				<li>Open your windows finder, click the "View" tab.</li>
+				<li>Click the "File Extensions" checkbox to show all file extensions.</li>
 				<li>Open the C:\ drive, find and open the xampp folder.</li>
-				<li>Find and open the php folder.</li>
-				<li>Open the php.ini file in notepad or another editor.</li>
-				<li>Search for "extension=gd".</li>
-				<li>Remove the semicolon at the start of the line.</li>
+				<li>Find and open the "xamppfiles" folder, then the "php" folder.</li>
+				<li>Find and open the "php.ini" file in notepad or another editor.</li>
+				<li>Move to the bottom of the file and add "extension=gd", on its own line.</li>
 				<li>Save and close the file.</li>
-				<li>Restart xampp and try uploading an image again.</li>
+				<li>Restart xampp, start the servers, and try uploading an image again.</li>
 			</ol>
-			<p>If the "extension=gd" is not in the php.ini file, move to the bottom of the file and add it on its own line.
-				Once added, do steps 6 and 7 listed above.</p>
 
 			<h2>Test It</h2>
 			<p>Normally we would have done testing along the way, but because of the process we followed for these activities
