@@ -99,19 +99,13 @@
 			</ol> -->
 			<h3>Revisions</h3>
 			<ol>
-				<!-- <li>Return to the inventory controller, model and helper functions and make alterations to your code from Enhancement 8 so that all <b>image paths</b> 
-					are now obtained from the <b>images</b> table and NOT the inventory table.</li> -->
-				<!-- <li>Alter the SQL query in the <code>getVehiclesByClassification()</code> function of the vehicle-model.php file
-					so that only images that are "Primary" and thumbnails are returned. These images will come from the "images"
-					table.</li>
-				<li>Be sure to test using "print_r()" or "var_dump()" with the returned array to ensure that everything
-					continues to work as before.</li> -->
 				<li>Alter the code for the home view so that the large, primary DeLorean image is now displayed in the home view
 					from its location in the
 					"phpmotors/images/vehicles" folder.
 				</li>
-				<li>When done uploading the images you will need to make to the
-					function for displaying vehicles by classification. All images should now be obtained from the images table
+				<li>When done uploading the images you will need to alter the
+					functionality for displaying vehicles by classification. All images should now be obtained from the images
+					table
 					and not the inventory table. In the model it will require the use of a "JOIN" and a "LIKE" in the query, as
 					well as limiting images to primary, thumbnail images. When done, click
 					each classification item in the navigation bar and make sure the primary thumbnail image of each vehicle
@@ -125,11 +119,9 @@
 			</ol>
 			<h3>New Functionality</h3>
 			<ol>
-				<!-- <li>When the classification view is delivered the vehicle thumbnail image should be delivered from the images table.
-				</li> -->
-				<li>When the "vehicle detail" view is loaded the large, primary image should display (again, from the images
-					table), but what if additional images have been uploaded for that vehicle? It would be beneficial if
-					"thumbnails" of all images pertaining to that item were displayed. Therefore:
+				<li>When the "vehicle detail" view is loaded, the large, primary image should display (again, from the images
+					table). But what if additional images have been uploaded for that vehicle? It would be beneficial if
+					"thumbnails" of all images pertaining to that vehicle were displayed. Therefore:
 					<ol style="list-style-type: upper-alpha;">
 						<li>In the uploads model, build a new function that will obtain all thumbnail image path information from
 							the
@@ -143,12 +135,14 @@
 							thumbnail image itself with an "alt" value added to the image.</li>
 						<li>The HTML containing the images should be included into the "vehicle detail" view by the "vehicle"
 							controller when the view is delivered and styled to be professional in appearance. The thumbnails must
-							appear to the left of the vehicle detail information on large screens, and below the information on mobile
+							appear on the left of the vehicle detail view on large screens, and below the vehicle information on
+							mobile
 							screens. On mobile screens a heading should appear above the thumbnail images.</li>
 						<li>Add CSS that will cause a thumbnail to enlarge in size when hovered over. When the mouse leaves the
 							thumbnail image, it should return to normal size. This should occur only on large screens, not mobile
 							devices.</li>
-						<li>Add at least one additional images (it doesn't matter if they actually match the vehicle) to at least
+						<li>Add at least one additional non-primary image (it doesn't matter if they actually match the vehicle) to
+							at least
 							three inventory vehicles.</li>
 						<li>To test, access the "vehicle detail" view via the car classification view. Make sure the additional
 							thumbnail images appear and are professional in their appearance. The view should continue to be valid
@@ -169,7 +163,8 @@
 				<li>When satisfied that the code is operational, create a video showing each of the items shown in Objective 6
 					of the grading matrix.
 				</li>
-				<li>Post your video to your YouTube channel and copy the link to the video when published.</li>
+				<li>Post your video to your YouTube channel as an "Unlisted" video and copy the link to the video when
+					published.</li>
 				<li>Zip the entire phpmotors folder and name it enhancement 9 (save this zip file outside of your web site).
 				</li>
 				<li>Submit the zip file to the enhancement 9 submission dropbox and add the video URL as a comment.</li>
@@ -190,7 +185,8 @@
 
 			<h3>Objective 2</h3>
 			<ul>
-				<li>A new custom function exists in the <b>functions.php</b> file to wrap the vehicle images in HTML and return
+				<li>A new custom function exists in the <b>functions.php</b> file to wrap the vehicle thumbnail images in HTML
+					and return
 					the result to the vehicles controller (fully operational). (5 points: Yes or No)</li>
 				<li>Exisiting functions have been updated to obtain all vehicle image information from the "images" table, and
 					not from the "inventory" table. (5 points: Yes or No)</li>
