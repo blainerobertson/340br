@@ -2,118 +2,165 @@
 <html lang="en">
 
 <head>
- <meta charset="utf-8">
- <meta http-equiv="x-ua-compatible" content="ie=edge">
- <title>Enhancement 5 | Web Backend Development I</title>
- <meta name="description" content="CSE 340 Enhancement 5 directions">
- <meta name="viewport" content="width=device-width">
- <link rel="stylesheet" href="/340br/css/340course.css" media="screen">
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Enhancement 5 | Web Backend Development I</title>
+  <meta name="description" content="CSE 340 Enhancement 5 directions">
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" href="/340br/css/340course.css" media="screen">
 </head>
 
 <body>
- <div id="wrapper">
-  <header id="header"><img src="/340br/340banner.jpg" alt="CSE 340 Banner Image"></header>
-  <main>
-   <h1>Enhancement 5</h1>
-   <h2>Introduction</h2>
-   <p>This week has been about adding security and features related to security to the forms and controllers of the accounts application. The enhancement will build on the same concepts introduced this week.</p>
+  <div id="wrapper">
+    <header id="header"><img src="/340br/340banner.jpg" alt="CSE 340 Banner Image"></header>
+    <main>
+      <h1>Enhancement 5</h1>
+      <h2>Introduction</h2>
+      <p>This week has been about adding security and features related to security to the forms and controllers of the
+        accounts application. The enhancement will build on the same concepts introduced this week.</p>
 
-   <h2>Video Demo</h2>
-   <p>This short video demonstrates what your video of the vehicles process being run and tested could look like.</p>
-   <iframe src="https://www.youtube.com/embed/slpw58scv-I" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <h2>Video Demo</h2>
+      <p>This short video demonstrates what your video of the vehicles process being run and tested could look like.</p>
+      <iframe src="https://www.youtube.com/embed/slpw58scv-I" frameborder="0"
+        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-   <h2>Overview</h2>
-   <p>In this enhancement you will:</p>
-   <ol>
-    <li>add client-side validation to the <b>new vehicles</b> and <b>new carclassification</b> view forms,</li>
-    <li>add server-side validation to the <b>new vehicles</b> and <b>new carclassification</b> processes in the vehicles controller including making the forms "sticky" so previous entered values are maintained in the forms, and</li>
-    <li>make the creation of the $navList variable for building the site navigation easier, by creating a custom function for it in the "<b>functions.php</b>" page and then calling the function in all three controllers (phpmotors, accounts, vehicles) to store the navigation html data into a variable for use in all views.</li>
-   </ol>
+      <h2>Overview</h2>
+      <p>In this enhancement you will:</p>
+      <ol>
+        <li>add client-side validation to the <b>new vehicles</b> and <b>new carclassification</b> view forms,</li>
+        <li>add server-side validation to the <b>new vehicles</b> and <b>new carclassification</b> processes in the
+          vehicles controller including making the forms "sticky" so previous entered values are maintained in the
+          forms, and</li>
+        <li>make the creation of the $navList variable for building the site navigation easier, by creating a custom
+          function for it in the "<b>functions.php</b>" page and then calling the function in all three controllers
+          (phpmotors, accounts, vehicles) to store the navigation html data into a variable for use in all views.</li>
+      </ol>
 
-   <h2>Tasks</h2>
-   <p>As described above you are being asked to add client-side and server-side validation to forms and controllers (just like you did in this week's activities), while making form inputs "sticky". Also, to create a custom function out of code that you already have, then just call the function to get the html navigation list code.</p>
-   <p><i style="font-size: larger;"><strong>Note:</strong> Remember that you access the <b>vehicles</b> folder by simply typing it into the URL (e.g. http://localhost/phpmotors/vehicles).</i></p>
+      <h2>Tasks</h2>
+      <p>As described above you are being asked to add client-side and server-side validation to forms and controllers
+        (just like you did in this week's activities), while making form inputs "sticky". Also, to create a custom
+        function out of code that you already have, then just call the function to get the html navigation list code.
+      </p>
+      <p><i style="font-size: larger;"><strong>Note:</strong> Remember that you access the <b>vehicles</b> folder by
+          simply typing it into the URL (e.g. http://localhost/phpmotors/vehicles).</i></p>
 
 
-   <h3>Client-side Validation</h3>
-   <ol>
-    <li>Add HTML5 attributes as needed to the various input elements in the "<b>new carclassification</b>" and "<b>new vehicle</b>" forms. Make sure that each input's data type is also appropriate to the data being requested.</li>
-    <li>Add a PHP code block to each input in the "<b>new vehicle</b>" form so that the form inputs become "sticky" if and when errors in submissions are returned.</li>
-    <li><strong>Note:</strong> <mark>To display the value of a variable in a <code>textarea</code> element, it must be echoed between the opening and closing tags with no extra spaces or line breaks between the html opening and closing tags and the PHP code block between them.</mark></li>
-   </ol>
-   <h3>Server-side Validation</h3>
+      <h3>Client-side Validation</h3>
+      <ol>
+        <li>Add HTML5 attributes as needed to the various input elements in the "<b>new carclassification</b>" and
+          "<b>new vehicle</b>" forms. Make sure that each input's data type is also appropriate to the data being
+          requested.</li>
+        <li>Add a PHP code block to each input in the "<b>new vehicle</b>" form so that the form inputs become "sticky"
+          if and when errors in submissions are returned.</li>
+        <li><strong>Note:</strong> <mark>To display the value of a variable in a <code>textarea</code> element, it must
+            be echoed between the opening and closing tags with no extra spaces or line breaks between the html opening
+            and closing tags and the PHP code block between them.</mark></li>
+      </ol>
+      <h3>Server-side Validation</h3>
 
-   <p>In the "<b>vehicles</b>" controller add server-side validation to both the "add new carclassification" and "add new vehicle" processes. Specifically:</p>
-   <ol>
-    <li>Use a require_once to get the functionality of the "<b>functions.php</b>" page and make it available to this controller.</li>
-    <li>Make sure the filter_input functions are using appropriate types for the data being collected (all incoming data must be filtered using an appropriate type). <b>Note:</b> If using sanitize types for float values, you must add a second flag - FILTER_FLAG_ALLOW_FRACTION - to allow the decimal place to be retained. <mark><b>Note:</b> The float sanitize filter removes all characters except numbers and the + or - sign. This means if a person enters 50.5 and it is sanitized, it leaves 505.</mark></li>
-    <li>If any specific patterns were used in the Native HTML5 validation, make sure that those patterns are duplicated using PHP.</li>
-    <li>If you create custom functions for any part of the server-side validation, make sure they are created in the "<b>functions.php</b>" page and labeled.</li>
-    <li>To dynamically select the correct carclassification in the "add new vehicle" view when returning errors from server-side validation you will want to watch and follow along with this video:<br>
-     <iframe src="https://www.youtube.com/embed/kkNWOXF9RbY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></li>
-    <li>Thoroughly test both the client-side and server-side validation to ensure they work.</li>
-   </ol>
+      <p>In the "<b>vehicles</b>" controller add server-side validation to both the "add new carclassification" and "add
+        new vehicle" processes. Specifically:</p>
+      <ol>
+        <li>Use a require_once to get the functionality of the "<b>functions.php</b>" page and make it available to this
+          controller.</li>
+        <li>Make sure the filter_input functions are using appropriate types for the data being collected (all incoming
+          data must be filtered using an appropriate type). <b>Note:</b> If using sanitize types for float values, you
+          must add a second flag - FILTER_FLAG_ALLOW_FRACTION - to allow the decimal place to be retained.
+          <mark><b>Note:</b> The float sanitize filter removes all characters except numbers and the + or - sign. This
+            means if a person enters 50.5 and it is sanitized, it leaves 505.</mark></li>
+        <li>If any specific patterns were used in the Native HTML5 validation, make sure that those patterns are
+          duplicated using PHP (the patterns will be similar, but may not be exact. Use the Internet to find any
+          differences).</li>
+        <li>If you create custom functions for any part of the server-side validation, make sure they are created in the
+          "<b>functions.php</b>" page and labeled.</li>
+        <li>To dynamically select the correct carclassification in the "add new vehicle" view when returning errors from
+          server-side validation you will want to watch and follow along with this video:<br>
+          <iframe src="https://www.youtube.com/embed/kkNWOXF9RbY" frameborder="0"
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </li>
+        <li>Thoroughly test both the client-side and server-side validation to ensure they work.</li>
+      </ol>
 
-   <h3>Create New Function</h3>
-   <p>All three controllers (phpmotors, accounts and vehicles) have code to build the navigation bar and store it to a variable for use in views. This is not very efficient. Please fix it by:</p>
-   <ol>
-    <li>Creating a new function in the "<b>functions.php</b>" page. The new function should 1) receive the $carclassifications array as a parameter and 2) build the navigation list HTML around the values found in the $carclassifications array. When done, it should return a string variable holding the HTML navigation list to wherever called the function. Be sure to add a comment to the function indicating what it does.</li>
-    <li>When done, remove the original code block from all controllers and replace them with a call to your new function.</li>
-    <li>Thoroughly test to make sure that the function works so the navigation bar works in all views.</li>
-   </ol>
+      <h3>Create New Function</h3>
+      <p>All three controllers (phpmotors, accounts and vehicles) have code to build the navigation bar and store it to
+        a variable for use in views. This is not very efficient. Please fix it by:</p>
+      <ol>
+        <li>Creating a new function in the "<b>functions.php</b>" page. The new function should 1) receive the
+          $carclassifications array as a parameter and 2) build the navigation list HTML around the values found in the
+          $carclassifications array. When done, it should return a string variable holding the HTML navigation list to
+          wherever called the function. Be sure to add a comment to the function indicating what it does.</li>
+        <li>When done, remove the original code block from all controllers and replace them with a call to your new
+          function.</li>
+        <li>Thoroughly test to make sure that the function works so the navigation bar works in all views.</li>
+      </ol>
 
-   <h2>Submission</h2>
-   <ul>
-    <li>Work with your learning team to accomplish the task and post to and read the weekly discussion board to help one another.</li>
-    <li>Build, run and test to make sure the client-side and server-side validation works.</li>
-    <li>Build, run and test to make sure the new functions work as they should.</li>
-    <li>When satisfied that the code is operational:
-     <ol>
-      <li>Create a video showing each of the items listed in objective 6 of the grading matrix below.</li>
-      <li>Post your video to your YouTube channel and copy the link to the video when published.</li>
-      <li>Zip the entire phpmotors folder and name it enhancement 5 (save this zip file outside of your web site).</li>
-      <li>Submit the zip file to the enhancement 5 assignment dropbox and add the video URL to the assignment dropbox comment.</li>
-     </ol>
-    </li>
-   </ul>
+      <h2>Submission</h2>
+      <ul>
+        <li>Work with your learning team to accomplish the task and post to and read the weekly discussion board to help
+          one another.</li>
+        <li>Build, run and test to make sure the client-side and server-side validation works.</li>
+        <li>Build, run and test to make sure the new functions work as they should.</li>
+        <li>When satisfied that the code is operational:
+          <ol>
+            <li>Create a video showing each of the items listed in objective 6 of the grading matrix below.</li>
+            <li>Post your video to your YouTube channel as "Unlisted" and copy the link to the video when published.
+            </li>
+            <li>Zip the entire phpmotors folder and name it enhancement 5 (save this zip file outside of your web site).
+            </li>
+            <li>Submit the zip file to the enhancement 5 assignment dropbox and add the video URL to the assignment
+              dropbox comment.</li>
+          </ol>
+        </li>
+      </ul>
 
-   <h2>Grading Matrix</h2>
-   <p>This enhancement has values in multiple objectives as shown below:</p>
-   <h3>Objective 1</h3>
-   <ul>
-    <li>The "add new carclassification" and "add new vehicle" views are valid HTML: 5 points (minus 1 point for each error found)</li>
-    <li>Total value for Objective 1: <b>5 points</b></li>
-   </ul>
+      <h2>Grading Matrix</h2>
+      <p>This enhancement has values in multiple objectives as shown below:</p>
+      <h3>Objective 1</h3>
+      <ul>
+        <li>The "add new carclassification" and "add new vehicle" views meet the standards shown in the <a
+            href="https://blainerobertson.github.io/340br/phpmotors/views/dev-checklist.html"
+            title="Open the web development checklist in a new tab" target="_blank">Frontend Checklist</a></li>
+        <li>Total value for Objective 1: <b>5 points</b></li>
+      </ul>
 
-   <h3>Objective 2</h3>
-   <ul>
-    <li>The "<b>functions.php</b>" page contains the new function for creating the navigation list: 2 points (all or nothing)</li>
-    <li>All controllers have replaced the previous navigation list construction code with a call to the new function for building the same code from the functions.php page: 3 points (1 point for each controller)</li>
-    <li>The navigation builder custom function is fully operational and the navigation continues in all views where needed: 10 points (minus 5 for each view that is not operational).</li>
-    <li>The PHP server-side validation code is fully operational for both the "new  carclassification" and "new vehicle" forms: 5 points (all or nothing)</li>
-    <li>Total value for Objective 2: <b>20 points</b></li>
-   </ul>
+      <h3>Objective 2</h3>
+      <ul>
+        <li>The "<b>functions.php</b>" page contains the new function for creating the navigation list.</li>
+        <li>All controllers have replaced the previous navigation list construction code with a call to the new function
+          for building the same code from the functions.php page.</li>
+        <li>The navigation builder custom function is fully operational and the navigation continues in all views where
+          needed.</li>
+        <li>The PHP server-side validation code is fully operational for both the "new carclassification" and "new
+          vehicle" forms.</li>
+        <li>Total value for Objective 2: <b>20 points</b></li>
+      </ul>
 
-   <h3>Objective 5</h3>
-   <ul>
-    <li>HTML client-side validation is present and operational for all required inputs in both the "add new carclassification" and "add new vehicle" forms: 10 points (minus 1 point for each missing or non-operational input)
-    </li>
-    <li>Data types have been added to all filter_input functions in the vehicles controller: 5 points (minus 1 for each missing or incorrect flag)</li>
-    <li>Missing data from the "new vehicle" view is successfully detected and returned to the view for correction and the form inputs are "sticky": 10 points (minus 1 for each error or input that is not sticky)</li>
-    <li>Total value for Objective 5: <b>25 points</b></li>
-   </ul>
+      <h3>Objective 5</h3>
+      <ul>
+        <li>HTML client-side validation is present and operational for all required inputs in both the "add new
+          carclassification" and "add new vehicle" forms.</li>
+        <li>Data types have been added to all filter_input functions in the vehicles controller (including the structure
+          to collect the value of "action").</li>
+        <li>Missing data from the "new vehicle" view is successfully detected and returned to the view for correction
+          and the form inputs are "sticky".</li>
+        <li>Total value for Objective 5: <b>25 points</b></li>
+      </ul>
 
-   <h3>Objective 6</h3>
-   <p>The video URL is present and the video is narrated by you using your own voice. The video:</p>
-   <ul>
-    <li>Shows that both views worked with are valid HTML5: 2 points (all or nothing) </li>
-    <li>Shows that both the client-side and server-side validations work in the "add carclassification" and "add vehicle" views: 2 points (all or nothing)</li>
-    <li>Shows that the add vehicle form elements are sticky when an incorrect submission is sent to the server and returned for correction: 2 points (all or nothing)</li>
-    <li>Total value for Objective 6: <b>6 points</b></li>
-   </ul>
-  </main>
- </div>
- <script src="/340br/js/course.js"></script>
+      <h3>Objective 6</h3>
+      <p>The video URL is present and the video is narrated by you using your own voice. The video:</p>
+      <ul>
+        <li>Shows that both views meet the standards of the <a
+            href="https://blainerobertson.github.io/340br/phpmotors/views/dev-checklist.html"
+            title="Open the web development checklist in a new tab" target="_blank">Frontend Checklist</a>.</li>
+        <li>Shows that both the client-side and server-side validations work in the "add carclassification" and "add
+          vehicle" views.</li>
+        <li>Shows that the add vehicle form elements are sticky when an incorrect submission is sent to the server and
+          returned for correction.</li>
+        <li>Total value for Objective 6: <b>5 points</b></li>
+      </ul>
+    </main>
+  </div>
+  <script src="/340br/js/course.js"></script>
 </body>
 
 </html>
