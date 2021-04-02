@@ -2,72 +2,86 @@
 <html lang="en">
 
 <head>
- <meta charset="utf-8">
- <meta http-equiv="x-ua-compatible" content="ie=edge">
- <title>PHP Motors DB Leveling | Web Backend Development I</title>
- <meta name="description" content="Leveling the phpmotors database for consistency for CSE 340">
- <meta name="viewport" content="width=device-width">
- <link rel="stylesheet" href="/340br/css/340course.css" media="screen">
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>PHP Motors DB Leveling | Web Backend Development I</title>
+  <meta name="description" content="Leveling the phpmotors database for consistency for CSE 340">
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" href="/340br/css/340course.css" media="screen">
 </head>
 
 <body>
- <div id="wrapper">
-  <header id="header">
-   <img src="/340br/340banner.jpg" alt="CSE 340 Banner Image">
-  </header>
-  <main>
-   <h1>phpmotors Database Leveling</h1>
-   <h2>What?</h2>
-   <p>In week 03 you created the <b>phpmotors</b> database and imported a SQL file to create the inventory and
-    carclassification tables. The clients table you created from scratch. The problem is that many of us are novices and may not have created the clients table completely or correctly.</p>
-   <p>This short activity is meant to fix that by making sure that all of our phpmotors tables are the same ("leveled") before we begin using them in earnest.</p>
+  <div id="wrapper">
+    <header id="header">
+      <img src="/340br/340banner.jpg" alt="CSE 340 Banner Image">
+    </header>
+    <main>
+      <h1>phpmotors Database Leveling</h1>
+      <h2>What?</h2>
+      <p>In week 03 you created the <b>phpmotors</b> database and imported a SQL file to create the inventory and
+        carclassification tables. The clients table you created from scratch. The problem is that many of us are novices
+        and may not have created the clients table completely or correctly.</p>
+      <p>This short activity is meant to fix that by making sure that all of our phpmotors tables are the same
+        ("leveled") before we begin using them in earnest.</p>
 
-   <h2>phpmotors SQL File</h2>
-   <p>What I didn't tell you earlier is that the code to create the <b>clients</b> table is already in the downloadable SQL file that you used to create the other two tables, just commented out. We will uncomment the code and import the file again to make sure all of our <b>phpmotors</b> databases are the same.</p>
+      <h2>phpmotors SQL File</h2>
+      <p>What I didn't tell you earlier is that the code to create the <b>clients</b> table is already in the
+        downloadable SQL file that you used to create the other two tables, just commented out. We will uncomment the
+        code and import the file again to make sure all of our <b>phpmotors</b> databases are the same.</p>
 
-   <h2>Prepare the File</h2>
-   <ol>
-    <li><a href="../downloads/phpmotors-db.sql.zip" title="Download the zip file in a new tab" target="_blank">Download the phpmotors SQL file</a> again.</li>
-    <li>Unzip the file.</li>
-    <li>Store the <b>phpmotors-db.sql</b> file into your <b>sql</b> folder (created in week 03), for possible future use.</li>
-    <li>Launch VS Code.</li>
-    <li>Find and open the <b>phpmotors-db.sql</b> file.</li>
-    <li>Scroll down to line 114 or so.</li>
-    <li>Uncomment the following lines:
-     <ul>
-      <li>Lines 115 through 124</li>
-      <li>Lines 129 and 130</li>
-      <li>Lines 135 and 136</li>
-     </ul>
-     <p>To remove a comment, delete the <b>--</b> on the left of the line or if using VS Code, highlight the lines and hold down Command + forward slash "/" on mac or Control + forward slash "/" on windows to undo a comment or add a comment. This key combination is a comment toggle.</p>
-    </li>
-    <li>When done check that there are no errors (red icons or underlines) shown in the file!</li>
-   </ol>
-   <h2>Update the Database</h2>
-   <ol>
-    <li>Start the Apache and MySQL servers.</li>
-    <li>In a browser window, open the PHPMyAdmin tool.</li>
-    <li>Click the phpmotors database (on the left or in the "Databases" tab).</li>
-    <li>Click the "Import" tab.</li>
-    <li>Click the "Choose File" button.</li>
-    <li>Navigate to the <b>phpmotors-db.sql</b> file and click the "Open" button in the finder window.</li>
-    <li>At the bottom of the Import window, click the "Go" button.</li>
-    <li>If everything is successful you should see a green bar and on the left you should see the three tables listed beneath the phpmotors database.</li>
-    <li>That's it! Everyone who does this will have the exact same tables, table structures and data.</li>
-    <li>Be sure to shut down your servers when you are done working with them.</li>
-   </ol>
+      <h2>Prepare the File</h2>
+      <ol>
+        <li><a href="../downloads/phpmotors-db.sql.zip" title="Download the zip file in a new tab"
+            target="_blank">Download the phpmotors SQL file</a> again.</li>
+        <li>Unzip the file.</li>
+        <li>Store the <b>phpmotors-db.sql</b> file into your <b>sql</b> folder (created in week 03), for possible future
+          use.</li>
+        <li>Launch VS Code.</li>
+        <li>Find and open the <b>phpmotors-db.sql</b> file.</li>
+        <li>Scroll down to line 286 or so.</li>
+        <li>Uncomment the following lines:
+          <ul>
+            <li>Lines 286 through 295</li>
+            <li>Lines 299 and 300</li>
+            <li>Lines 304 and 305</li>
+          </ul>
+          <p>To remove a comment, delete the <b>--</b> on the left of the line or if using VS Code, highlight the lines
+            and hold down Command + forward slash "/" on mac or Control + forward slash "/" on windows to undo a comment
+            or add a comment. This key combination is a comment toggle.</p>
+        </li>
+        <li>When done check that there are no errors (red icons or underlines) shown in the file!</li>
+      </ol>
+      <h2>Update the Database</h2>
+      <ol>
+        <li>Start the Apache and MySQL servers.</li>
+        <li>In a browser window, open the PHPMyAdmin tool.</li>
+        <li>Click the phpmotors database (on the left or in the "Databases" tab).</li>
+        <li>Click the "Import" tab.</li>
+        <li>Click the "Choose File" button.</li>
+        <li>Navigate to the <b>phpmotors-db.sql</b> file and click the "Open" button in the finder window.</li>
+        <li>At the bottom of the Import window, click the "Go" button.</li>
+        <li>If everything is successful you should see a green bar and on the left you should see the three tables
+          listed beneath the phpmotors database.</li>
+        <li>That's it! Everyone who does this will have the exact same tables, table structures and data.</li>
+        <li>Be sure to shut down your servers when you are done working with them.</li>
+      </ol>
 
-   <h2>Unique Email</h2>
-   <p>In the future, we will want each email to be unique. We could specify the <b>clientEmail</b> field as being "unique" and that would work. However, we'll go through the PHP side of ensuring that each email is unique later in Enhancement 6.</p>
+      <h2>Unique Email</h2>
+      <p>In the future, we will want each email to be unique. We could specify the <b>clientEmail</b> field as being
+        "unique" and that would work. However, we'll go through the PHP side of ensuring that each email is unique later
+        in Enhancement 6.</p>
 
-   <h2>Video Demonstration</h2>
-   <iframe src="https://www.youtube.com/embed/W87vm0gvg_s" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-  </main>
-  <footer>
-   <a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US" target="_blank"><img
-     alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by-sa/3.0/88x31.png"></a> All materials (except as noted) are by Blaine Robertson and licensed under a <a rel="license"
-    href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US" title="Read the license" target="_blank">Creative Commons Attribution-ShareAlike 3.0 License</a>.</footer>
- </div>
+      <h2>Video Demonstration</h2>
+      <iframe src="https://www.youtube.com/embed/W87vm0gvg_s" frameborder="0"
+        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </main>
+    <footer>
+      <a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US" target="_blank"><img
+          alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by-sa/3.0/88x31.png"></a>
+      All materials (except as noted) are by Blaine Robertson and licensed under a <a rel="license"
+        href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US" title="Read the license" target="_blank">Creative
+        Commons Attribution-ShareAlike 3.0 License</a>.</footer>
+  </div>
 </body>
 
 </html>
