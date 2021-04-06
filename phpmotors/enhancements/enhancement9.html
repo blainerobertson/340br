@@ -85,16 +85,20 @@
 					"phpmotors/images/vehicles" folder.
 				</li>
 				<li>When done uploading the images you will need to alter the
-					functionality for displaying vehicles by classification. All images should now be obtained from the images
-					table
-					and not the inventory table. In the model it will require the use of a "JOIN" and a "LIKE" in the query, as
-					well as limiting images to primary, thumbnail images. When done, click
-					each classification item in the navigation bar and make sure the primary thumbnail image of each vehicle
+					functionality for displaying vehicles by classification. The primary thumbnail image for each vehicle should
+					now be obtained from the images
+					table and not the inventory table. In the model it will require the use of a "<a
+						href="//www.w3schools.com/sql/sql_join_inner.asp" title="Opens in a new tab" target="_blank">JOIN</a>" and a
+					"<a href="//www.w3schools.com/sql/sql_like.asp" title="Opens in a new tab" target="_blank">LIKE</a>" in the
+					query.
+					When done, click
+					each navigation bar item and make sure the primary thumbnail image of each vehicle
 					appears in the classification view and is
 					from the images table.</li>
-				<li>You will need to revise the function for obtaining vehicle details to display in the detail view so that the
-					vehicle details, without the images, is still obtained from the inventory table, but the primary, large image
-					comes from the images table.</li>
+				<li>Revise the function for obtaining an individual vehicle's details to display in the detail view so that the
+					vehicle details is still obtained from the inventory table, but the primary, large image
+					comes from the images table. <mark>This function should only obtain the large, primary image from the images
+						table, and the non-image details from the inventory table</mark>.</li>
 				<li>Do NOT alter the function that obtains vehicle information that is used in the vehicle editting process.
 				</li>
 			</ol>
@@ -104,9 +108,10 @@
 					table). But what if additional images have been uploaded for that vehicle? It would be beneficial if
 					"thumbnails" of all images pertaining to that vehicle were displayed. Therefore:
 					<ol style="list-style-type: upper-alpha;">
-						<li>In the uploads model, build a new function that will obtain all thumbnail image path information from
-							the
-							"<b>images</b>" table that are based on the vehicleId. You will need to use the <a
+						<li>In the uploads model, <mark>build a new function that will obtain all thumbnail image path information
+								from
+								the
+								"<b>images</b>" table that are based on the vehicleId.</mark> You will need to use the <a
 								href="//www.w3schools.com/sql/sql_like.asp" title="Opens in a new tab" target="_blank">LIKE</a> operator
 							in your SQL query to find "-tn" in the file name.</li>
 						<li>In the <b>vehicles</b> controller, call the function when the vehicle detail page is requested. <b>The
