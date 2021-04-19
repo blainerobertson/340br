@@ -2,117 +2,156 @@
 <html lang="en">
 
 <head>
- <meta charset="utf-8">
- <meta http-equiv="x-ua-compatible" content="ie=edge">
- <title>XAMPP for Windows | Web Backend Development I</title>
- <meta name="description" content="Installing XAMPP for Windows for CSE 340">
- <meta name="viewport" content="width=device-width">
- <link rel="stylesheet" href="/340br/css/340course-min.css" media="screen">
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>XAMPP for Windows | Web Backend Development I</title>
+  <meta name="description" content="Installing XAMPP for Windows for CSE 340">
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" href="/340br/css/340course-min.css" media="screen">
 </head>
 
 <body>
- <div id="wrapper">
-  <header id="header"><img src="/340br/340banner.jpg" alt="CSE 340 Banner Image"></header>
-  <main>
-    <h1>XAMPP for Windows</h1>
-    <h2>Introduction</h2>
-    <p>An ideal situation for web development is to have a local environment for development and testing and a remote production environment for distributing your work to the rest of the world. To create a local environment requires the installation of server software on your own machine. For web development using PHP, this is known as an "<abbr title="Apache, MySQL and PHP">AMP</abbr>" (Apache, MySQL and PHP) stack. This software bundle gives your machine many of the same capabilities as a dedicated server. On Windows, the current bundle discussed in this tutorial is XAMPP (Apache, MariaDB, PHP and PERL) for Windows.</p>
+  <div id="wrapper">
+    <header id="header"><img src="/340br/340banner.jpg" alt="CSE 340 Banner Image"></header>
+    <main>
+      <h1>XAMPP for Windows</h1>
+      <h2>Introduction</h2>
+      <p>An ideal situation for web development is to have a local environment for development and testing and a remote
+        production environment for distributing your work to the rest of the world. To create a local environment
+        requires the installation of server software on your own machine. For web development using PHP, this is known
+        as an "<abbr title="Apache, MySQL and PHP">AMP</abbr>" (Apache, MySQL and PHP) stack. This software bundle gives
+        your machine many of the same capabilities as a dedicated server. On Windows, the current bundle discussed in
+        this tutorial is XAMPP (Apache, MariaDB, PHP and PERL) for Windows.</p>
 
-    <h2>Download</h2>
-    <p>Using your web browser go to <a href="//www.apachefriends.org/" target="_blank" title="Go to apachefriends.org in a new tab">apachefriends.org</a>. Once there, find and download the latest PHP 7 version of XAMPP shown on the home page (7.3.3 as of April 2019) for Windows. Save the installation file to your machine.</p>
+      <h2>Download</h2>
+      <p>Using your web browser go to <a href="//www.apachefriends.org/" target="_blank"
+          title="Go to apachefriends.org in a new tab">apachefriends.org</a>. Once there, find and download the latest
+        PHP 7 or 8 version of XAMPP shown on the home page for Windows. Save the installation file to your machine.</p>
 
-    <h2>Installation</h2>
-    <ol>
-     <li>Locate and launch the downloaded installation file on your computer.</li>
-     <li>If presented with the security warning(s) asking if it is OK for the software to change your PC?, proceed by clicking "Yes".</li>
-     <li>You will also be warned about your User Account Control not allowing for installation to the Program Files. Click "OK".</li>
-     <li>When the install begins you will shown a list of software to install. Leave only the following checkboxes checked:
+      <h2>Installation</h2>
       <ol>
-       <li>Apache</li>
-       <li>MySQL</li>
-       <li>PHP</li>
-       <li>phpMyAdmin</li>
-       <li>Clear all other checkboxes!</li>
+        <li>Locate and launch the downloaded installation file on your computer.</li>
+        <li>If presented with the security warning(s) asking if it is OK for the software to change your PC?, proceed by
+          clicking "Yes".</li>
+        <li>You will also be warned about your User Account Control not allowing for installation to the Program Files.
+          Click "OK".</li>
+        <li>When the install begins you will shown a list of software to install. Leave only the following checkboxes
+          checked:
+          <ol>
+            <li>Apache</li>
+            <li>MySQL</li>
+            <li>PHP</li>
+            <li>phpMyAdmin</li>
+            <li>Clear all other checkboxes!</li>
+          </ol>
+        </li>
+        <li>On the following screen make sure the installation folder is located at "C:\xampp"</li>
+        <li>On the following screen, turn off the checkbox asking if you want to learn more about XAMPP on Bitnami, then
+          click "Next".</li>
+        <li>Finally click "Next" until the installation finishes, then click "Finish".</li>
       </ol>
-     </li>
-     <li>On the following screen make sure the installation folder is located at "C:\xampp"</li>
-     <li>On the following screen, turn off the checkbox asking if you want to learn more about XAMPP on Bitnami, then click "Next".</li>
-     <li>Finally click "Next" until the installation finishes, then click "Finish".</li>
-    </ol>
 
-    <p><img src="/340br/images/xamppwindows/winxamppfinish.jpg" alt="XAMPP Finished Installing Page" title="XAMPP Finished Installing Page"></p>
+      <p><img src="/340br/images/xamppwindows/winxamppfinish.jpg" alt="XAMPP Finished Installing Page"
+          title="XAMPP Finished Installing Page"></p>
 
-    <ol>
-     <li value="7">If the installation finished successfully XAMPP should start automatically and launch the control panel.</li>
-    </ol>
+      <ol>
+        <li value="7">If the installation finished successfully XAMPP should start automatically and launch the control
+          panel.</li>
+      </ol>
 
-    <p><img src="/340br/images/xamppwindows/xamppwincontrol.jpg" alt="XAMPP for Windows control panel" title="XAMPP for Windows control panel"></p>
+      <p><img src="/340br/images/xamppwindows/xamppwincontrol.jpg" alt="XAMPP for Windows control panel"
+          title="XAMPP for Windows control panel"></p>
 
-    <h2>Starting Apache and the Database servers</h2>
-    <ol>
-     <li>The control panel has buttons for both Apache and MySQL (the database server).</li>
-     <li>Apache should start automatically. If it does not, consult the Troubleshooting section.</li>
-     <li>To manually start either of these servers, simply click the "Start" button on the respective row.</li>
-     <li>When the process starts the text background will turn green and the port numbers will appear.</li>
-     <li>When the Apache server is running, click the "Admin" button and a browser window should open showing the localhost (your computer) start page.</li>
-     <li>If you see the start page, the server is installed and running as it should.</li>
-     <li>If you encounter an error, consult the "<a href="#troubleshooting" title="Click to jump to the troubleshooting section">Troubleshooting</a>" section below.</li>
-    </ol>
+      <h2>Starting Apache and the Database servers</h2>
+      <ol>
+        <li>The control panel has buttons for both Apache and MySQL (the database server).</li>
+        <li>Apache should start automatically. If it does not, consult the Troubleshooting section.</li>
+        <li>To manually start either of these servers, simply click the "Start" button on the respective row.</li>
+        <li>When the process starts the text background will turn green and the port numbers will appear.</li>
+        <li>When the Apache server is running, click the "Admin" button and a browser window should open showing the
+          localhost (your computer) start page.</li>
+        <li>If you see the start page, the server is installed and running as it should.</li>
+        <li>If you encounter an error, consult the "<a href="#troubleshooting"
+            title="Click to jump to the troubleshooting section">Troubleshooting</a>" section below.</li>
+      </ol>
 
-    <p><img src="/340br/images/xamppwindows/winsplash.jpg" alt="XAMPP Splash Page" title="XAMPP Splash Page"></p>
+      <p><img src="/340br/images/xamppwindows/winsplash.jpg" alt="XAMPP Splash Page" title="XAMPP Splash Page"></p>
 
-    <h2>The Site Root</h2>
-    <p>Every web server has a "root" or a folder that holds all of the assets of the web site. In XAMPP that folder is found in C: drive &gt; xampp &gt; htdocs. Please locate it now.</p>
+      <h2>The Site Root</h2>
+      <p>Every web server has a "root" or a folder that holds all of the assets of the web site. In XAMPP that folder is
+        found in C: drive &gt; xampp &gt; htdocs. Please locate it now.</p>
 
-    <p>By default, it already has files and folders in it, do not delete anything until you know what they do. You will add your own folders and files to this folder as you do work in this class.</p>
+      <p>By default, it already has files and folders in it, do not delete anything until you know what they do. You
+        will add your own folders and files to this folder as you do work in this class.</p>
 
-    <h2>Running and Stopping XAMPP</h2>
-    <p>Running servers on your local machine is a useful tool, but one that can potentially use much of your computer's resources. Therefore, it is important to start XAMPP only when you are developing and testing using PHP and shut it down when finished.</p>
+      <h2>Running and Stopping XAMPP</h2>
+      <p>Running servers on your local machine is a useful tool, but one that can potentially use much of your
+        computer's resources. Therefore, it is important to start XAMPP only when you are developing and testing using
+        PHP and shut it down when finished.</p>
 
-    <h3>Starting XAMPP</h3>
-    <p>Launch the XAMPP Control Panel from your applications list. Then click the Apache and MySQL server's "Start" button.</p>
-    <p>When you start the Apache server, you may be asked if you want allow communication on private, public or domain networks. You can allow communication on private or domain networks, but should not allow public network access.</p>
+      <h3>Starting XAMPP</h3>
+      <p>Launch the XAMPP Control Panel from your applications list. Then click the Apache and MySQL server's "Start"
+        button.</p>
+      <p>When you start the Apache server, you may be asked if you want allow communication on private, public or domain
+        networks. You can allow communication on private or domain networks, but should not allow public network access.
+      </p>
 
-    <h3>Stopping XAMPP</h3>
-    <p>When shutting down, be sure to stop any servers that are running by clicking the "Stop" button next to each one that is green. Then quit XAMPP. If you quit XAMPP before stopping the servers they will continue to run in the background.</p>
+      <h3>Stopping XAMPP</h3>
+      <p>When shutting down, be sure to stop any servers that are running by clicking the "Stop" button next to each one
+        that is green. Then quit XAMPP. If you quit XAMPP before stopping the servers they will continue to run in the
+        background.</p>
 
-    <h2 id="troubleshooting">Troubleshooting</h2>
-    <p>Use the following troubleshooting items if the Apache or Database servers will not start</p>
+      <h2 id="troubleshooting">Troubleshooting</h2>
+      <p>Use the following troubleshooting items if the Apache or Database servers will not start</p>
 
-    <h3>Turn Off Conflicting Programs</h3>
-    <p>If the Apache server will not start it may be due to others programs running that are using the web port. Check if any of the following are running:</p>
-    <ul>
-     <li>Skype - Quit it.</li>
-     <li>VMWare — Use this <a href="/340br/resources/xampp-error-fixes.pdf" title="Open the PDF in a new tab">Error Correction PDF</a> to turn it off or change settings.</li>
-     <li>Other conflicting servers - Click the "Services" button in the XAMPP Control panel. Use the dialog box to locate and stop any conflicting service.</li>
-     <li>Windows 10 has a service named "World Wide Web Publishing Service" that uses port 80, wit a PID of 4. If it is running the Apache server will not start. Use the Task Manager to stop the service.</li>
-    </ul>
-    <h3>Check the Task Manager</h3>
-    <ol>
-     <li>Normally the Apache server should start without issues.</li>
-     <li>However, if it will not start it is typically because another web server is already running and will have to be stopped.</li>
-     <li>Launch the Windows Task Manager (Control + Alt + Delete keys held down together).</li>
-     <li>Click the Task Manager link.</li>
-     <li>In the Task Manager, click the "Processess" tab and look in the "Background Processes" list.</li>
-     <li>If you see an "Apache HTTP Server" in the list click it, then click the "End Task" button until that process disappears.</li>
-     <li>When it is removed from the list, return to the XAMPP Control Panel and click the "Start" button for Apache.</li>
-     <li>It should start and the background for the Apache text should turn green.</li>
-    </ol>
+      <h3>Turn Off Conflicting Programs</h3>
+      <p>If the Apache server will not start it may be due to others programs running that are using the web port. Check
+        if any of the following are running:</p>
+      <ul>
+        <li>Skype - Quit it.</li>
+        <li>VMWare — Use this <a href="/340br/resources/xampp-error-fixes.pdf" title="Open the PDF in a new tab">Error
+            Correction PDF</a> to turn it off or change settings.</li>
+        <li>Other conflicting servers - Click the "Services" button in the XAMPP Control panel. Use the dialog box to
+          locate and stop any conflicting service.</li>
+        <li>Windows 10 has a service named "World Wide Web Publishing Service" that uses port 80, wit a PID of 4. If it
+          is running the Apache server will not start. Use the Task Manager to stop the service.</li>
+      </ul>
+      <h3>Check the Task Manager</h3>
+      <ol>
+        <li>Normally the Apache server should start without issues.</li>
+        <li>However, if it will not start it is typically because another web server is already running and will have to
+          be stopped.</li>
+        <li>Launch the Windows Task Manager (Control + Alt + Delete keys held down together).</li>
+        <li>Click the Task Manager link.</li>
+        <li>In the Task Manager, click the "Processess" tab and look in the "Background Processes" list.</li>
+        <li>If you see an "Apache HTTP Server" in the list click it, then click the "End Task" button until that process
+          disappears.</li>
+        <li>When it is removed from the list, return to the XAMPP Control Panel and click the "Start" button for Apache.
+        </li>
+        <li>It should start and the background for the Apache text should turn green.</li>
+      </ol>
 
-    <h3>Changing the SSL Port</h3>
-    <ol>
-     <li>If you receive an error that Apache cannot start because Port 443 is in use by another program, click the "Config" button next to Apache. Find and open the Apache (httpd-ssl.conf) option. Then find where Port 443 is specified and change the Port to 444, save and close the file. Then try starting Apache again.</li>
-     <li>Once the Apache text appears with a green background, the server has successfully started.</li>
-    </ol>
+      <h3>Changing the SSL Port</h3>
+      <ol>
+        <li>If you receive an error that Apache cannot start because Port 443 is in use by another program, click the
+          "Config" button next to Apache. Find and open the Apache (httpd-ssl.conf) option. Then find where Port 443 is
+          specified and change the Port to 444, save and close the file. Then try starting Apache again.</li>
+        <li>Once the Apache text appears with a green background, the server has successfully started.</li>
+      </ol>
 
-    <h2>Video Version</h2>
-    <p>The video demonstrated downloading version 5.x. Please download the latest version (PHP 7.4.4 as of April 2020).</p>
-    <iframe src="//www.youtube.com/embed/f3sWx3EixPI" width="425" height="350" allowfullscreen></iframe>
+      <h2>Video Version</h2>
+      <p>The video demonstrated downloading version 5.x. Please download the latest version (PHP 7.4.4 as of April
+        2020).</p>
+      <iframe src="//www.youtube.com/embed/f3sWx3EixPI" width="425" height="350" allowfullscreen></iframe>
 
-  </main>
-  <footer>
-   <a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US"><img alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by-sa/3.0/88x31.png" /></a> All materials (except as noted) are by Blaine Robertson and licensed under a <a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US">Creative Commons Attribution-ShareAlike 3.0 License</a>.</footer>
- </div>
+    </main>
+    <footer>
+      <a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US"><img alt="Creative Commons License"
+          style="border-width:0" src="//i.creativecommons.org/l/by-sa/3.0/88x31.png" /></a> All materials (except as
+      noted) are by Blaine Robertson and licensed under a <a rel="license"
+        href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US">Creative Commons Attribution-ShareAlike 3.0
+        License</a>.</footer>
+  </div>
 </body>
 
 </html>
