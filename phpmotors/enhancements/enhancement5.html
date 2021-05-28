@@ -69,6 +69,7 @@
           must add a second flag - FILTER_FLAG_ALLOW_FRACTION - to allow the decimal place to be retained.
           <mark><b>Note:</b> The float sanitize filter removes all characters except numbers and the + or - sign. This
             means if a person enters 50.5 and it is sanitized, it leaves 505.</mark></li>
+        <li>Remember to use the trim() function with each of the data collection items to remove extra white space.</li>
         <li>If any specific patterns were used in the Native HTML5 validation, make sure that those patterns are
           duplicated using PHP (the patterns will be similar, but may not be exact. Use the Internet to find any
           differences).</li>
