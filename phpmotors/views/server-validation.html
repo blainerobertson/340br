@@ -56,7 +56,7 @@
             <li>Because the email input represents a special type of string you will add a different type to it. Use the
               <b>FILTER_SANITIZE_EMAIL</b> type for it. When done, the email input should look like this:<br>
               <pre><code class="language-php">$clientEmail = filter_input(INPUT_POST, 'clientEmail', FILTER_SANITIZE_EMAIL);</code></pre>
-              .</li>
+            </li>
             <li>Now, take a moment and add a trim() function to each of these four inputs, so that they look similar to
               this:
               <pre><code class="language-php">$clientPassword = trim(filter_input(INPUT_POST, 'clientPassword', FILTER_SANITIZE_STRING));</code></pre>
