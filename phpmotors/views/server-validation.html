@@ -196,7 +196,8 @@ function checkPassword($clientPassword){
           <pre><code class="language-php">&lt;?php if(isset($clientFirstname)){echo "value='$clientFirstname'";}  ?&gt;</code></pre>
           Make sure that it is separated from any of the other attributes by a space.</li>
         <li>When done the entire first name input should look similar to this:
-          <pre><code class="language-php">&lt;input name="clientFirstname" id="clientFirstname" &lt;?php if(isset($clientFirstname)){echo "value='$clientFirstname'";} ?&gt; required&gt;</code></pre>
+          <pre><code class="language-php">&lt;input type="text" name="clientFirstname" id="clientFirstname" &lt;?php if(isset($clientFirstname)){echo "value='$clientFirstname'";} ?&gt; required&gt;</code></pre>
+          <mark>Note: If the "type" attribute is not included in an input, it defaults to a "text" input.</mark>
         </li>
         <li>When you are sure your code is correct and no errors are being reported in your syntax, repeat this process
           for the last name and email inputs.</li>
