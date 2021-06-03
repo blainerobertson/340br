@@ -50,19 +50,19 @@ break;</code></pre>
 				<li>Within this case block we need to capture the value of the second name - value pair (remember that this is
 					coming from a link, therefore it is a <b>GET</b> request:
 					<pre class="line-numbers"><code class="language-php">case 'mod':
-&nbsp;$invId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+&nbsp;$invId = filter_input(INPUT_GET, 'invId', FILTER_VALIDATE_INT);
 break;</code></pre>
 				</li>
 				<li>Next we will send the <code>$invId</code> variable into a function (that we will write in a minute) that
 					will get the information for that single vehicle:
 					<pre class="line-numbers"><code class="language-php">case 'mod':
-&nbsp;$invId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+&nbsp;$invId = filter_input(INPUT_GET, 'invId', FILTER_VALIDATE_INT);
 $invInfo = getInvItemInfo($invId);
 break;</code></pre>
 				</li>
 				<li>Next we will check to see if <code>$invInfo</code> has any data. If not, we will set an error message:
 					<pre class="line-numbers"><code class="language-php">case 'mod':
-&nbsp;$invId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+&nbsp;$invId = filter_input(INPUT_GET, 'invId', FILTER_VALIDATE_INT);
 &nbsp;$invInfo = getInvItemInfo($invId);
 &nbsp;if(count($invInfo)<1){
 &nbsp;&nbsp;$message = 'Sorry, no vehicle information could be found.';
@@ -71,7 +71,7 @@ break;</code></pre>
 				</li>
 				<li>Finally we will call a view where the data can be displayed so that the changes can be made to the data:
 					<pre class="line-numbers"><code class="language-php">case 'mod':
-&nbsp;$invId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+&nbsp;$invId = filter_input(INPUT_GET, 'invId', FILTER_VALIDATE_INT);
 &nbsp;$invInfo = getInvItemInfo($invId);
 &nbsp;if(count($invInfo)<1){
 &nbsp;&nbsp;$message = 'Sorry, no vehicle information could be found.';
