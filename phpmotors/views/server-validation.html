@@ -126,9 +126,9 @@ function checkPassword($clientPassword){
           <mark><strong>Note:</strong> The regular expression above does not allow for spaces in the password. If spaces
             are desired, then use the regular expression shown below:
             <pre><code class="language-php">
-  pattern ='/(?=[A-Za-z0-9@#$%^&+\s!=]+$)^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$%^&+!=])(?=.{8,}).*$/';</mark></code>
-        </li>
-        <li>Save the "<b>functions.php</b>" file.</li>
+  pattern ='/(?=[A-Za-z0-9@#$%^&+\s!=]+$)^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$%^&+!=])(?=.{8,}).*$/';</mark></code></pre>
+            </li>
+            <li>Save the "<b>functions.php</b>" file.</li>
       </ol>
       <h2>Apply the Password function</h2>
       <ol>
@@ -138,33 +138,33 @@ function checkPassword($clientPassword){
         <li>Create a new $checkPassword variable and assign to it what is returned from calling the
           <code>checkPassword($clientPassword)</code> function. It should look like this:
           <pre><code class="language-php">$checkPassword = checkPassword($clientPassword);</code></pre>
-            </li>
-            <li>As previously explained, the code is executed from right to left. The original $clientPassword
-              variable's
-              value is passed to the function and the returned value is sent back and stored in the $checkPassword
-              variable
-              on the left.</li>
-            <li>What is returned from the function is "1" if the password matches the format and a "0" (zero) if it
-              doesn't.
-            </li>
-            <li>Save your work.</li>
-            <li>To add the $checkPassword variable to our data validation process, go to the list of "empty()" functions
-              and
-              replace the "<code>$clientPassword</code>" variable with the "<code>$checkPassword</code>" variable. So,
-              this
-              code:
-              <pre><code class="language-php">// Check for missing data
+        </li>
+        <li>As previously explained, the code is executed from right to left. The original $clientPassword
+          variable's
+          value is passed to the function and the returned value is sent back and stored in the $checkPassword
+          variable
+          on the left.</li>
+        <li>What is returned from the function is "1" if the password matches the format and a "0" (zero) if it
+          doesn't.
+        </li>
+        <li>Save your work.</li>
+        <li>To add the $checkPassword variable to our data validation process, go to the list of "empty()" functions
+          and
+          replace the "<code>$clientPassword</code>" variable with the "<code>$checkPassword</code>" variable. So,
+          this
+          code:
+          <pre><code class="language-php">// Check for missing data
  if (empty($clientFirstname) || empty($clientLastname) || empty($clientEmail) || empty($clientPassword)) {</code></pre>
-              should be changed to this code:
-              <pre><code class="language-php">// Check for missing data
+          should be changed to this code:
+          <pre><code class="language-php">// Check for missing data
  if (empty($clientFirstname) || empty($clientLastname) || empty($clientEmail) || empty($checkPassword)) {</code></pre>
-            </li>
-            <li>Why? By sending the original password variable to our custom function for comparison against our regular
-              expression we are already checking that something is there. If it is empty or doesn't match a zero is
-              returned. However, if it does match then a 1 is returned. By sending the <code>$checkPassword</code>
-              variable
-              into our list of "empty()" checks it will be empty if the password doesn't match our requirements for any
-              reason, but it will NOT be empty if it does.</li>
+        </li>
+        <li>Why? By sending the original password variable to our custom function for comparison against our regular
+          expression we are already checking that something is there. If it is empty or doesn't match a zero is
+          returned. However, if it does match then a 1 is returned. By sending the <code>$checkPassword</code>
+          variable
+          into our list of "empty()" checks it will be empty if the password doesn't match our requirements for any
+          reason, but it will NOT be empty if it does.</li>
       </ol>
 
       <h2>A Recap</h2>
