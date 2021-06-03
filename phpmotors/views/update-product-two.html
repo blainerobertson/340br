@@ -23,14 +23,15 @@
 				completed, the data must then be stored back into the database and the user informed of the success or
 				failure of the change. This document covers step 2: Making changes to the data, submitting it to the
 				controller, checking the data and ultimately updating the data to the database and notifying the site
-				visitor of the outcome. Step 1 in the update process was covered in the <a
-					href="update-product-one.html" title="Opens in a new tab" target="_blank">Step 1 activity</a>.</p>
+				visitor of the outcome. Step 1 in the update process was covered in the <a href="update-product-one.html"
+					title="Opens in a new tab" target="_blank">Step 1 activity</a>.</p>
 
 			<h2>Video Demonstration</h2>
 			<p>This video demonstrates step 2 in the update process: sending data to the controller for checking and
 				processing, storing the changed data to the database and informing the user of the outcome. The
 				Step-by-Step instructions for accomplishing what this video demonstrates are found below.</p>
-				<iframe src="https://www.youtube.com/embed/DMukXphCOjQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+			<iframe src="https://www.youtube.com/embed/DMukXphCOjQ" frameborder="0"
+				allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 			<h2>The Vehicle Update View</h2>
 			<p>The view where the data will be modified is nearly complete. The form inputs should display the data that
@@ -44,7 +45,7 @@
 					<pre><code class="language-markup">&lt;input type="hidden" name="action" value="updateVehicle"&gt;</code></pre>
 					If yours is different, use your value.</li>
 				<li>We will now add a second hidden input to store the primary key value for the item being updated.
-					Below the existing hidden input containing the name - value pair, add another one to look like	this:
+					Below the existing hidden input containing the name - value pair, add another one to look like this:
 					<pre class="line-numbers"><code class="language-markup">&lt;input type="hidden" name="invId" value="</code><code class="language-php">&lt;?php if(isset($invInfo['invId'])){ echo $invInfo['invId'];} 
 elseif(isset($invId)){ echo $invId; } ?&gt;</code><code class="language-*">"&gt;</code></pre>
 					This allows us to submit the primary key for the item without it being obvious to the client looking
@@ -62,7 +63,7 @@ elseif(isset($invId)){ echo $invId; } ?&gt;</code><code class="language-*">"&gt;
 				<li>Open the <b>vehicles controller</b></li>
 				<li>Add a new control structure to match the value of the action checked in #1 above. My structure looks
 					like this:
-<pre class="line-numbers"><code class="language-php">case 'updateVehicle':
+					<pre class="line-numbers"><code class="language-php">case 'updateVehicle':
 
 break;</code></pre>
 				</li>
@@ -72,7 +73,7 @@ break;</code></pre>
 				<li>Return to the new control structure you just added, click inside of it and paste. When done your
 					code <b><i>could</i></b> look something like this (<strong>Your variable and function names may be
 						different than what you see here)</strong>:
-<pre class="line-numbers"><code class="language-php">case 'updateVehicle':
+					<pre class="line-numbers"><code class="language-php">case 'updateVehicle':
 $classificationId = filter_input(INPUT_POST, 'classificationId', FILTER_SANITIZE_NUMBER_INT);
 $invMake = filter_input(INPUT_POST, 'invMake', FILTER_SANITIZE_STRING);
 $invModel = filter_input(INPUT_POST, 'invModel', FILTER_SANITIZE_STRING);
@@ -107,62 +108,78 @@ break;</code></pre>
 							<pre><code class="language-php">$invId = filter_input(INPUT_POST, 'invId', FILTER_SANITIZE_NUMBER_INT);</code></pre>
 							We will not add this to our checks since there is no easy way to have the user correct it.
 							If it is wrong or missing the update will simply fail.</li>
-						<li>Scroll down and find the first error message, after the data checks. If it says anything about a "new" item, change it to reflect an "updated" item.</li>
-						<li>Beneath that change the view to include to be the  <b>vehicle-update.php</b> view, since that is where the data was sent from.</li>
-						<li>Change the name of the function that will be called from the model to "<b>updateVehicle(... variables are here ...)</b>".</li>
-						<li>Add the <code>$invId</code> variable as an additional parameter to the <code>updateVehicle</code> function.</li>
-						<li>Change the name of the variable that the <code>updateVehicle</code> function's return value will be stored into to <b>$updateResult</b>.</li>
+						<li>Scroll down and find the first error message, after the data checks. If it says anything about a "new"
+							item, change it to reflect an "updated" item.</li>
+						<li>Beneath that change the view to include to be the <b>vehicle-update.php</b> view, since that is where
+							the data was sent from.</li>
+						<li>Change the name of the function that will be called from the model to "<b>updateVehicle(... variables
+								are here ...)</b>".</li>
+						<li>Add the <code>$invId</code> variable as an additional parameter to the <code>updateVehicle</code>
+							function.</li>
+						<li>Change the name of the variable that the <code>updateVehicle</code> function's return value will be
+							stored into to <b>$updateResult</b>.</li>
 						<li>Change the <code>if</code> test to check for the results of <b>$updateResult</b>.</li>
 						<li>Change the success message to reflect that the update was successful, not an insertion.
 						</li>
 						<li>Change the failure message to reflect that the update did not work.</li>
 						<li>The last two edits are to where the success and failure messages will display.
 							<ol>
-								<li>If the update fails, display the failure in the <b>vehicle-update.php</b> view. Change the include statement to use this new view.</li>
-								<li>If the update succeeds, we want to be redirected back to the vehicle management view and display the message. To do this, we will use the session to store the message, use a header function to return to the controller, and then have the  controller deliver the view and display the message. To do this alter that success to resemble this:
-<pre class="line-numbers"><code class="language-php">if ($updateResult) {
+								<li>If the update fails, display the failure in the <b>vehicle-update.php</b> view. Change the include
+									statement to use this new view.</li>
+								<li>If the update succeeds, we want to be redirected back to the vehicle management view and display the
+									message. To do this, we will use the session to store the message, use a header function to return to
+									the controller, and then have the controller deliver the view and display the message. To do this
+									alter that success to resemble this:
+									<pre class="line-numbers"><code class="language-php">if ($updateResult) {
  $message = "&lt;p class='notify'&gt;Congratulations, the $invMake $invModel was successfully updated.&lt;/p&gt;";
  $_SESSION['message'] = $message;
  header('location: /phpmotors/vehicles/');
  exit;
-}</code></pre></li>
+}</code></pre>
+								</li>
 							</ol>
 						</li>
 					</ol>
 				</li>
 			</ol>
 			<h2>Vehicle Management View</h2>
-			<p>Because we stored the success message into the session in the controller after the update worked, we need to add a small amount of code to the <b>vehicle management</b> view to get the message from the
+			<p>Because we stored the success message into the session in the controller after the update worked, we need to
+				add a small amount of code to the <b>vehicle management</b> view to get the message from the
 				session and display it. Make the following changes:</p>
 			<ol>
 				<li>Find and open the <b>Vehicle management</b> view.</li>
-				<li>At the top of the view there should already be a PHP code block that contains the code to make sure clients have the correct level, similar to this:
-<pre class="line-numbers"><code class="language-php">if ($_SESSION['clientData']['clientLevel'] &lt; 2) {
+				<li>At the top of the view there should already be a PHP code block that contains the code to make sure clients
+					have the correct level, similar to this:
+					<pre class="line-numbers"><code class="language-php">if ($_SESSION['clientData']['clientLevel'] &lt; 2) {
  header('location: /phpmotors/');
  exit;
-}</code></pre></li>
+}</code></pre>
+				</li>
 				<li>Add several empty lines at the bottom of the code block, but still inside of it.</li>
 				<li>Then add the following code in the empty spaces:
-<pre class="line-numbers"><code class="language-php">if (isset($_SESSION['message'])) {
+					<pre class="line-numbers"><code class="language-php">if (isset($_SESSION['message'])) {
  $message = $_SESSION['message'];
 }</code></pre>
 				</li>
 				<li>When you are done, the entire PHP code block should look like this:
-<pre class="line-numbers"><code class="language-php">if ($_SESSION['clientData']['clientLevel'] &lt; 2) {
+					<pre class="line-numbers"><code class="language-php">if ($_SESSION['clientData']['clientLevel'] &lt; 2) {
  header('location: /phpmotors/');
  exit;
 }
 if (isset($_SESSION['message'])) {
  $message = $_SESSION['message'];
-}</code></pre></li>
-				<li>Because we don't want the message hanging around in the session, we will get rid of it after	using it.</li>
-				<li>Scroll all the way to the bottom of the <b>vehicles management</b> view. After the closing html	tag (e.g. &lt;/html&gt;) add the following line of code:
-<pre><code class="language-php">&lt;?php unset($_SESSION['message']); ?&gt;</code></pre></li>
+}</code></pre>
+				</li>
+				<li>Because we don't want the message hanging around in the session, we will get rid of it after using it.</li>
+				<li>Scroll all the way to the bottom of the <b>vehicles management</b> view. After the closing html tag (e.g.
+					&lt;/html&gt;) add the following line of code:
+					<pre><code class="language-php">&lt;?php unset($_SESSION['message']); ?&gt;</code></pre>
+				</li>
 				<li>Save the file.</li>
 			</ol>
 			<h2>Compare Code</h2>
 			<p>Compare your finished update process block against the example code below.</p>
-<pre class="line-numbers"><code class="language-php">case 'updateVehicle':
+			<pre class="line-numbers"><code class="language-php">case 'updateVehicle':
 	$classificationId = filter_input(INPUT_POST, 'classificationId', FILTER_SANITIZE_NUMBER_INT);
 	$invMake = filter_input(INPUT_POST, 'invMake', FILTER_SANITIZE_STRING);
 	$invModel = filter_input(INPUT_POST, 'invModel', FILTER_SANITIZE_STRING);
@@ -182,7 +199,7 @@ if (isset($_SESSION['message'])) {
  exit;
 }
 
-$updateResult = updateVehicle($classificationId, $invMake, $invModel, $invDescription, $invImage, $invThumbnail, $invPrice, $invStock, $invColor, $invId);
+$updateResult = updateVehicle($invMake, $invModel, $invDescription, $invImage, $invThumbnail, $invPrice, $invStock, $invColor, $classificationId, $invId);
 if ($updateResult) {
  $message = "&lt;p class='notice'&gt;Congratulations, the $invMake $invModel was successfully updated.&lt;/p&gt;";
 	$_SESSION['message'] = $message;
@@ -196,7 +213,9 @@ if ($updateResult) {
 break;</code></pre>
 
 			<h2>Vehicles Model</h2>
-			<p>Finally we will create the updateVehicle() function and then be ready to test. I hope you have already guessed that we will create this function by copying and editing your <b>add vehicle</b> function, since they are so similar.</p>
+			<p>Finally we will create the updateVehicle() function and then be ready to test. I hope you have already guessed
+				that we will create this function by copying and editing your <b>add vehicle</b> function, since they are so
+				similar.</p>
 			<ol>
 				<li>Find and open the <b>vehicles model</b> file in the <b>model</b> folder.</li>
 				<li>Locate your <b>add vehicle</b> function, copy it.</li>
@@ -204,21 +223,28 @@ break;</code></pre>
 				<li>Add a comment indicating that the function will update a vehicle.</li>
 				<li>Paste the <b>add vehicle</b> function below your new comment.</li>
 				<li>Change the name of the function to <b>updateVehicle()</b>.</li>
-				<li>Leave all existing parameters as they exist, but add <code>$invId</code> to the list of parameters and make sure a comma separates it from other parameters in the list. When done the function name and parameter list could look like this:
-<pre class="line-numbers"><code class="language-php">function updateVehicle($invMake, $invModel, $invDescription, $invImage,  $invThumbnail, $invPrice, $invStock, $invColor, $classificationId, $invId)</code></pre>
+				<li>Leave all existing parameters as they exist, but add <code>$invId</code> to the list of parameters and make
+					sure a comma separates it from other parameters in the list. When done the function name and parameter list
+					could look like this:
+					<pre
+						class="line-numbers"><code class="language-php">function updateVehicle($invMake, $invModel, $invDescription, $invImage,  $invThumbnail, $invPrice, $invStock, $invColor, $classificationId, $invId)</code></pre>
 				</li>
-				<li>The biggest change to the function will be the SQL statement. We have to change it to an UPDATE from an INSERT.</li>
-				<li>Alter the SQL to look like this (remember that your named parameters (placeholders) may be different than those shown):
-<pre class="line-numbers"><code class="language-sql">$sql = 'UPDATE inventory SET invMake = :invMake, invModel = :invModel, 
+				<li>The biggest change to the function will be the SQL statement. We have to change it to an UPDATE from an
+					INSERT.</li>
+				<li>Alter the SQL to look like this (remember that your named parameters (placeholders) may be different than
+					those shown):
+					<pre class="line-numbers"><code class="language-sql">$sql = 'UPDATE inventory SET invMake = :invMake, invModel = :invModel, 
 	invDescription = :invDescription, invImage = :invImage, 
 	invThumbnail = :invThumbnail, invPrice = :invPrice, 
 	invStock = :invStock, invColor = :invColor, 
-	classificationId = :classificationId WHERE invId = :invId';</code></pre></li>
+	classificationId = :classificationId WHERE invId = :invId';</code></pre>
+				</li>
 				<li>Add an additional <code>bindValue</code> method for the <code>$invId</code>. It should look like
 					this:
-<pre><code class="language-php">$stmt->bindValue(':invId', $invId, PDO::PARAM_INT);</code></pre></li>
+					<pre><code class="language-php">$stmt->bindValue(':invId', $invId, PDO::PARAM_INT);</code></pre>
+				</li>
 				<li>When done the function should look similar to this (items that were changed are highlighted):
-<pre class="line-numbers"><code class="language-php">// Update a vehicle
+					<pre class="line-numbers"><code class="language-php">// Update a vehicle
 	function updateVehicle($invMake, $invModel, $invDescription, $invImage,  $invThumbnail, $invPrice, $invStock, $invColor, $classificationId, $invId) {
   $db = phpmotorsConnect();
   $sql = 'UPDATE inventory SET invMake = :invMake, invModel = :invModel, invDescription = :invDescription, invImage = :invImage, invThumbnail = :invThumbnail, invPrice = :invPrice, invStock = :invStock, invColor = :invColor, classificationId = :classificationId WHERE invId = :invId';
@@ -237,34 +263,46 @@ break;</code></pre>
   $rowsChanged = $stmt->rowCount();
   $stmt->closeCursor();
   return $rowsChanged;
-}</code></pre></li>
+}</code></pre>
+				</li>
 			</ol>
 
 			<h2>Time to Test</h2>
-			<p>Double check all files worked with for obvious errors (red icons or red underlines) in the code: vehicles controller, vehicles model, vehicle-update.php or the vehicles management view. If no obvious errors exist, you're ready to test your code.</p>
+			<p>Double check all files worked with for obvious errors (red icons or red underlines) in the code: vehicles
+				controller, vehicles model, vehicle-update.php or the vehicles management view. If no obvious errors exist,
+				you're ready to test your code.</p>
 			<ol>
 				<li>Make sure the development servers are running.</li>
 				<li>Launch your phpmotors controller. The home view should be delivered.</li>
-				<li>Navigate to the login view and login as an administrator (username: admin@cit340.net, password: Sup3rU$er).</li>
+				<li>Navigate to the login view and login as an administrator (username: admin@cit340.net, password: Sup3rU$er).
+				</li>
 				<li>Click the vehicle management link.</li>
 				<li>Click the "Modify" link for one of the vehicles.</li>
 				<li>The vehicle information should load into the form in the <b>vehicle-update.php</b> view.</li>
 				<li>Right click on the page and do a "View Page Source".</li>
-				<li>Scroll down and look at the code. Find the "hidden" input where the primary key value of the vehicle should be stored. Make sure it is there.</li>
+				<li>Scroll down and look at the code. Find the "hidden" input where the primary key value of the vehicle should
+					be stored. Make sure it is there.</li>
 				<li>Return to the form and change something, just one thing for right now.</li>
 				<li>Submit the form.</li>
-				<li>If things worked you should be returned to the <b>vehicles management</b> view and you should see the success message and the list of vehicles.</li>
-				<li>To double check, click the "Modify" link for the same item. Did the change that you made earlier appear in the form? If so, you are good to go.</li>
+				<li>If things worked you should be returned to the <b>vehicles management</b> view and you should see the
+					success message and the list of vehicles.</li>
+				<li>To double check, click the "Modify" link for the same item. Did the change that you made earlier appear in
+					the form? If so, you are good to go.</li>
 				<li>If everything looks good, submit the form again, but without making a change.</li>
-				<li><mark>When attempting an <b>UPDATE</b> if no information is changed the number of rows affected will be zero, thus triggering your update failure message.</mark></li>
-				<li>You should have been returned to the update view and the data should still be present, but the failure message should be visible.</li>
+				<li><mark>When attempting an <b>UPDATE</b> if no information is changed the number of rows affected will be
+						zero, thus triggering your update failure message.</mark></li>
+				<li>You should have been returned to the update view and the data should still be present, but the failure
+					message should be visible.</li>
 				<li>If everything worked - Congratulations (<i>Crowd cheering in the background</i>)!</li>
 				<li>If not, troubleshoot and get help until it is operational.</li>
 			</ol>
 		</main>
 		<footer>
-			<a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US" target="_blank"><img alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by-sa/3.0/88x31.png"></a> All materials (except as noted) are by
-			Blaine Robertson and licensed under a <a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US" title="Read the license" target="_blank">Creative Commons Attribution-ShareAlike 3.0 License</a>.</footer>
+			<a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US" target="_blank"><img
+					alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by-sa/3.0/88x31.png"></a>
+			All materials (except as noted) are by
+			Blaine Robertson and licensed under a <a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US"
+				title="Read the license" target="_blank">Creative Commons Attribution-ShareAlike 3.0 License</a>.</footer>
 	</div>
 	<script src="/340br/js/prism-coy-dev.min.js"></script>
 </body>
