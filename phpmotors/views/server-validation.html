@@ -120,14 +120,13 @@
  // at least one 1 capital letter, at least 1 number and
  // at least 1 special character
 function checkPassword($clientPassword){
- $pattern = '/^(?=.*[[:digit:]])(?=.*[[:punct:]])(?=.*[A-Z])(?=.*[a-z])([^\s]){8,}$/';
+ $pattern = '/^(?=.*[[:digit:]])(?=.*[[:punct:]\s])(?=.*[A-Z])(?=.*[a-z])(?:.{8,})$/';
  return preg_match($pattern, $clientPassword);
 }</code></pre>
-          <mark><strong>Note:</strong> The regular expression above does not allow for spaces in the password. If spaces
-            are desired, then use the regular expression shown below:
-            <pre><code class="language-php">pattern ='/(?=[A-Za-z0-9@#$%^&+\s!=]+$)^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$%^&+!=])(?=.{8,}).*$/';</mark></code></pre>
-            </li>
-            <li>Save the "<b>functions.php</b>" file.</li>
+          <mark><strong>Note:</strong> The regular expression above has been modified from previous versions to allow
+            spaces to be treated as a "special character".</mark>
+          </li>
+          <li>Save the "<b>functions.php</b>" file.</li>
       </ol>
       <h2>Apply the Password function</h2>
       <ol>
