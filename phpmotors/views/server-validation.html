@@ -123,7 +123,7 @@ function checkPassword($clientPassword){
  $pattern = '/^(?=.*[[:digit:]])(?=.*[[:punct:]\s])(?=.*[A-Z])(?=.*[a-z])(?:.{8,})$/';
  return preg_match($pattern, $clientPassword);
 }</code></pre>
-          <mark><strong>Note:</strong> The regular expression above has been modified from previous versions to allow
+          <mark><strong>Note:</strong> The regular expression above allows
             spaces to be treated as a "special character".</mark>
           </li>
           <li>Save the "<b>functions.php</b>" file.</li>
