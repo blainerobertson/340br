@@ -30,8 +30,9 @@
       <ol>
         <li>add client-side validation to the <b>new vehicles</b> and <b>new carclassification</b> view forms,</li>
         <li>add server-side validation to the <b>new vehicles</b> and <b>new carclassification</b> processes in the
-          vehicles controller including making the forms "sticky" so previous entered values are maintained in the
-          forms, and</li>
+          vehicles controller including making the new vehicle form "sticky" so previous entered values are maintained
+          in the
+          forms (don't worry about the new classification form since it only has a single input), and</li>
         <li>make the creation of the $navList variable for building the site navigation easier, by creating a custom
           function for it in the "<b>functions.php</b>" page and then calling the function in all three controllers
           (phpmotors, accounts, vehicles) to store the navigation html data into a variable for use in all views.</li>
@@ -51,6 +52,9 @@
         <li>Add HTML5 attributes as needed to the various input elements in the "<b>new carclassification</b>" and
           "<b>new vehicle</b>" forms. Make sure that each input's data type is also appropriate to the data being
           requested.</li>
+        <li>The classificationName field in the database is limited to 30 characters. Add client-side code to limit the
+          input to no more than 30 characters. In addition, be sure to inform the client of this limitation prior to
+          their entering text.</li>
         <li>Add a PHP code block to each input in the "<b>new vehicle</b>" form so that the form inputs become "sticky"
           if and when errors in submissions are returned.</li>
         <li><strong>Note:</strong> <mark>To display the value of a variable in a <code>textarea</code> element, it must
@@ -70,9 +74,11 @@
           <mark><b>Note:</b> The float sanitize filter removes all characters except numbers and the + or - sign. This
             means if a person enters 50.5 and it is sanitized, it leaves 505.</mark></li>
         <li>Remember to use the trim() function with each of the data collection items to remove extra white space.</li>
-        <li>If any specific patterns were used in the Native HTML5 validation, make sure that those patterns are
-          duplicated using PHP (the patterns will be similar, but may not be exact. Use the Internet to find any
-          differences).</li>
+        <li>If any specific patterns or requirements were used in the Native HTML5 validation, make sure that those
+          patterns and requirements are
+          duplicated using PHP. JavaScript and PHP patterns will be similar, but may not be exact. Use the Internet to
+          find any
+          differences.</li>
         <li>If you create custom functions for any part of the server-side validation, make sure they are created in the
           "<b>functions.php</b>" page and labeled.</li>
         <li>To dynamically select the correct carclassification in the "add new vehicle" view when returning errors from
@@ -143,7 +149,8 @@
         <li>HTML client-side validation is present and operational for all required inputs in both the "add new
           carclassification" and "add new vehicle" forms.</li>
         <li>Data types have been added to all filter_input functions in the vehicles controller (including the structure
-          to collect the value of "action").</li>
+          to collect the value of "action"). Adding filters to the "action" inputs should be replicated across all
+          controllers.</li>
         <li>Missing data from the "new vehicle" view is successfully detected and returned to the view for correction
           and the form inputs are "sticky".</li>
         <li>Total value for Objective 5: <b>25 points</b></li>
