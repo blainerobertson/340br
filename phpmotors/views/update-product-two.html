@@ -79,7 +79,7 @@ $invMake = filter_input(INPUT_POST, 'invMake', FILTER_SANITIZE_STRING);
 $invModel = filter_input(INPUT_POST, 'invModel', FILTER_SANITIZE_STRING);
 $invDescription = filter_input(INPUT_POST, 'invDescription', FILTER_SANITIZE_STRING);
 $invImage = filter_input(INPUT_POST, 'invImage', FILTER_SANITIZE_STRING);
-$invThumb = filter_input(INPUT_POST, 'invThumbnail', FILTER_SANITIZE_STRING);
+$invThumbnail = filter_input(INPUT_POST, 'invThumbnail', FILTER_SANITIZE_STRING);
 $invPrice = filter_input(INPUT_POST, 'invPrice', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 $invStock = filter_input(INPUT_POST, 'invStock', FILTER_SANITIZE_NUMBER_INT);
 $invColor = filter_input(INPUT_POST, 'invColor', FILTER_SANITIZE_STRING);
@@ -226,8 +226,8 @@ break;</code></pre>
 				<li>Leave all existing parameters as they exist, but add <code>$invId</code> to the list of parameters and make
 					sure a comma separates it from other parameters in the list. When done the function name and parameter list
 					could look like this:
-					<pre
-						class="line-numbers"><code class="language-php">function updateVehicle($invMake, $invModel, $invDescription, $invImage,  $invThumbnail, $invPrice, $invStock, $invColor, $classificationId, $invId)</code></pre>
+					<pre class="line-numbers"><code class="language-php">function updateVehicle($invMake, $invModel, $invDescription,
+							$invImage, $invThumbnail, $invPrice, $invStock, $invColor, $classificationId, $invId)</code></pre>
 				</li>
 				<li>The biggest change to the function will be the SQL statement. We have to change it to an UPDATE from an
 					INSERT.</li>
@@ -245,7 +245,8 @@ break;</code></pre>
 				</li>
 				<li>When done the function should look similar to this (items that were changed are highlighted):
 					<pre class="line-numbers"><code class="language-php">// Update a vehicle
-	function updateVehicle($invMake, $invModel, $invDescription, $invImage,  $invThumbnail, $invPrice, $invStock, $invColor, $classificationId, $invId) {
+	function updateVehicle($invMake, $invModel, $invDescription, $invImage, $invThumbnail, $invPrice, $invStock, $invColor,
+	$classificationId, $invId) {
   $db = phpmotorsConnect();
   $sql = 'UPDATE inventory SET invMake = :invMake, invModel = :invModel, invDescription = :invDescription, invImage = :invImage, invThumbnail = :invThumbnail, invPrice = :invPrice, invStock = :invStock, invColor = :invColor, classificationId = :classificationId WHERE invId = :invId';
   $stmt = $db->prepare($sql);
