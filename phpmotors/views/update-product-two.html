@@ -226,8 +226,8 @@ break;</code></pre>
 				<li>Leave all existing parameters as they exist, but add <code>$invId</code> to the list of parameters and make
 					sure a comma separates it from other parameters in the list. When done the function name and parameter list
 					could look like this:
-					<pre class="line-numbers"><code class="language-php">function updateVehicle($invMake, $invModel, $invDescription,
-							$invImage, $invThumbnail, $invPrice, $invStock, $invColor, $classificationId, $invId)</code></pre>
+					<pre
+						class="line-numbers"><code class="language-php">function updateVehicle($invMake, $invModel, $invDescription, $invImage, $invThumbnail, $invPrice, $invStock, $invColor, $classificationId, $invId)</code></pre>
 				</li>
 				<li>The biggest change to the function will be the SQL statement. We have to change it to an UPDATE from an
 					INSERT.</li>
