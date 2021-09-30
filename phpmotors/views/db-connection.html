@@ -2,40 +2,53 @@
 <html lang="en">
 
 <head>
- <meta charset="utf-8">
- <meta http-equiv="x-ua-compatible" content="ie=edge">
- <title>PDO DB Connection | Web Backend Development I</title>
- <meta name="description" content="Creating a PDO database connection with a MySQL database for CSE 340">
- <meta name="viewport" content="width=device-width">
- <link rel="stylesheet" href="/340br/css/340course.css" media="screen">
- <link rel="stylesheet" href="/340br/css/prism-coy-dev.min.css" media="screen">
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>PDO DB Connection | Web Backend Development I</title>
+  <meta name="description" content="Creating a PDO database connection with a MySQL database for CSE 340">
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" href="/340br/css/340course.css" media="screen">
+  <link rel="stylesheet" href="/340br/css/prism-coy-dev.min.css" media="screen">
 </head>
 
 <body>
- <div id="wrapper">
-  <header id="header">
-   <img src="/340br/340banner.jpg" alt="CSE 340 Banner Image">
-  </header>
-  <main>
-   
-    <h1>PDO DB Connection</h1>
-    <h2>Description</h2>
-    <p>PHP and MySQL databases are commonly used together. In order for PHP to interact with a database server a library of extensions or add-ons is needed. There were three such libraries of functions available: Mysql, Mysqli and PDO. <strong>The MySQL library is deprecated (dead) and should NOT be used.</strong> Of the two remaining, PDO is the newest and is widely supported. Because of this, all exercises and connections in web sites should use a PHP Data Object (PDO) to connect to the database server and interact with those databases stored on the server.</p>
-    <p>The PDO connection object calls for four required parameters:</p>
-    <ol>
-     <li>the server name,</li>
-     <li>the database name,</li>
-     <li>the username, and</li>
-     <li>the password.</li>
-    </ol>
-    <p>However, the server name and database name are combined into a
-     <q>Data Source Name</q> <abbr title='Data Source Name'>DSN</abbr>. In PDO the DSN indicates the type of database being connected to - in
-     this case a <i>MySQL</i> database as indicated in the code examples below. Beyond the required parameters an additional parameter may also be included. In the code example below a connection to a specific database running on a specific server using the required information and includes an optional parameter to tell the server how errors should be handled.
-     You will note that the connectivity is assigned to a connection object described using a variable named <strong>$link</strong> (<i>the variable name can be anything</i>). Once the connection is working, this file is called into other files which need to access the database (most commonly the model within the M-V-C design pattern). This call is typically
-     performed using either the <i>require</i> or <i>require_once</i> functions. </p>
-    <h2>Generic PDO Connection Function</h2>
-    <p>This example shows the PDO connection within a function, it can be created outside of a function if desired.</p>
-    <pre class="line-numbers"><code class="language-php">function createConnection(){<br>
+  <div id="wrapper">
+    <header id="header">
+      <img src="/340br/340banner.jpg" alt="CSE 340 Banner Image">
+    </header>
+    <main>
+
+      <h1>PDO DB Connection</h1>
+      <h2>Description</h2>
+      <p>PHP and MySQL databases are commonly used together. In order for PHP to interact with a database server a
+        library of extensions or add-ons is needed. There were three such libraries of functions available: Mysql,
+        Mysqli and PDO. <strong>The MySQL library is deprecated (dead) and should NOT be used.</strong> Of the two
+        remaining, PDO is the newest and is widely supported. Because of this, all exercises and connections in web
+        sites should use a PHP Data Object (PDO) to connect to the database server and interact with those databases
+        stored on the server.</p>
+      <p>The PDO connection object calls for four required parameters:</p>
+      <ol>
+        <li>the server name,</li>
+        <li>the database name,</li>
+        <li>the username, and</li>
+        <li>the password.</li>
+      </ol>
+      <p>However, the server name and database name are combined into a
+        <q>Data Source Name</q> <abbr title='Data Source Name'>DSN</abbr>. In PDO the DSN indicates the type of database
+        being connected to - in
+        this case a <i>MySQL</i> database as indicated in the code examples below. Beyond the required parameters an
+        additional parameter may also be included. In the code example below a connection to a specific database running
+        on a specific server using the required information and includes an optional parameter to tell the server how
+        errors should be handled.
+        You will note that the connectivity is assigned to a connection object described using a variable named
+        <strong>$link</strong> (<i>the variable name can be anything</i>). Once the connection is working, this file is
+        called into other files which need to access the database (most commonly the model within the M-V-C design
+        pattern). This call is typically
+        performed using either the <i>require</i> or <i>require_once</i> functions. </p>
+      <h2>Generic PDO Connection Function</h2>
+      <p>This example shows the PDO connection within a function, it can be created outside of a function if desired.
+      </p>
+      <pre class="line-numbers"><code class="language-php">function createConnection(){<br>
  $server = 'dbServerName';
  $dbname= 'databaseName';
  $username = 'username';
@@ -51,13 +64,18 @@
   exit;
  }
 }</code></pre>
-    <h2>Checking for Errors</h2>
-    <p>Whenever an interaction is taking place between the PHP and Database servers there is always the possibility of an error occurring. To do something with these possible errors and make them more user friendly (and hacker unfriendly) we "intercept" them. That is the reason for the <b>Try - Catch</b> syntax shown above. The connection piece in the try structure attempts to create the connection to the database server. If that fails, then the Catch structure captures the error and handles it.</p>
-    <p>If a connection error occurs we can then do something about it: show an error message (when we are testing and debugging such as in the example above), or do a redirect to a more generic notice (in an actual production
-     situation). The example below shows an actual function set up to do everything described above.</p>
+      <h2>Checking for Errors</h2>
+      <p>Whenever an interaction is taking place between the PHP and Database servers there is always the possibility of
+        an error occurring. To do something with these possible errors and make them more user friendly (and hacker
+        unfriendly) we "intercept" them. That is the reason for the <b>Try - Catch</b> syntax shown above. The
+        connection piece in the try structure attempts to create the connection to the database server. If that fails,
+        then the Catch structure captures the error and handles it.</p>
+      <p>If a connection error occurs we can then do something about it: show an error message (when we are testing and
+        debugging such as in the example above), or do a redirect to a more generic notice (in an actual production
+        situation). The example below shows an actual function set up to do everything described above.</p>
 
-    <h2>Example PDO Connection Function</h2>
-    <pre class="line-numbers"><code class="language-php">function phpmotorsConnect(){
+      <h2>Example PDO Connection Function</h2>
+      <pre class="line-numbers"><code class="language-php">function phpmotorsConnect(){
  $server = 'localhost';
  $dbname= 'phpmotors';
  $username = 'iClient';
@@ -74,67 +92,88 @@
   exit;
  }
 }</code></pre>
-    <p>In this example, if a successful connection can be made to the database, the connectivity is stored in the <b>$link</b> variable and returned to where the function was called. If an error occurs, the 500.php error page is
-     called which informs the client that a server error occurred. But, not a specific error, rather a generic error. This is user informative and hacker uninformative - just the way it should be.</p>
+      <p>In this example, if a successful connection can be made to the database, the connectivity is stored in the
+        <b>$link</b> variable and returned to where the function was called. If an error occurs, the 500.php error page
+        is
+        called which informs the client that a server error occurred. But, not a specific error, rather a generic error.
+        This is user informative and hacker uninformative - just the way it should be.</p>
 
-    <h2>New Symbol Meanings</h2>
-    <p>In the code above you will see an arrow symbol (e.g. =&gt;) and a double colon (e.g. PDO::ATTR_ERRMODE). You may ask, "What do those mean?"</p>
-    <h3>The arrow symbol - =&gt;</h3>
-    <p>The arrow is a means of assigning a "key" to a "value" within an array. If you look at the entire line, <code class="callout">
-      $options = array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION);
-     </code> you will see that the code on the left of the arrow specified an "errmode" while the code on the right of the arrow indicates that the "errmode" will be an "EXCEPTION". But, both are inside of an array (e.g. array()). This is equivelent to saying, "In a list of people the key "firstname" will be followed by the person's actual first name."</p>
-    <h3>Double Colon - ::</h3>
-    <p>The double colon in this code is a way in Object Oriented Programming to directly access a method within the class. In this line of code
-     <code class="language-php">$options = array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION);</code> the <code>PDO::ATTR_ERRMODE</code> is a way of saying, "This is how you will handle errors." and the value of
-     <code>PDO::ERRMODE_EXCEPTION</code> says, "You will throw an exception, if an error occurs." All of this will be part of creating the new PDO database connection object.
-    </p>
+      <h2>New Symbol Meanings</h2>
+      <p>In the code above you will see an arrow symbol (e.g. =&gt;) and a double colon (e.g. PDO::ATTR_ERRMODE). You
+        may ask, "What do those mean?"</p>
+      <h3>The arrow symbol - =&gt;</h3>
+      <p>The arrow is a means of assigning a "key" to a "value" within an array. If you look at the entire line, <code
+          class="callout">
+          $options = array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION);
+        </code> you will see that the code on the left of the arrow specified an "errmode" while the code on the right
+        of the arrow indicates that the "errmode" will be an "EXCEPTION". But, both are inside of an array (e.g.
+        array()). This is equivelent to saying, "In a list of people the key "firstname" will be followed by the
+        person's actual first name."</p>
+      <h3>Double Colon - ::</h3>
+      <p>The double colon in this code is a way in Object Oriented Programming to directly access a method within the
+        class. In this line of code
+        <code class="language-php">$options = array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION);</code> the
+        <code>PDO::ATTR_ERRMODE</code> is a way of saying, "This is how you will handle errors." and the value of
+        <code>PDO::ERRMODE_EXCEPTION</code> says, "You will throw an exception, if an error occurs." All of this will be
+        part of creating the new PDO database connection object.
+      </p>
 
-    <h2>Including the Connection Object</h2>
-    <p>In order for any PHP file to use the database connection function, the connection file must be in "scope". To do this, the connection file is "required" into the PHP page, usually in the first 5 lines. This insures that any functionality that needs access to the data stored in the database has it available. Two examples of the code needed to make such a call are shown below:</p>
-    <h3>Require Function</h3>
-    <p>The connections.php shown below would be the page where the connection code shown above would reside.</p>
-    <code class='language-php'>require 'path/connections.php';</code>
-    <h3>Require_once Function</h3>
-    <p>The connections.php shown below would be the page where the connection code shown above would reside.</p>
-    <code class='language-php'>require_once 'path/connections.php';</code>
-    <h3>Why Two?</h3>
-    <p>Both <code>require</code> and <code>require_once</code> do the same thing - they bring the functionality of code that is stored somewhere else
-     into the scope of the file where the require or require_once is at.</p>
-    <p><strong>But!</strong> <code>require</code> can be called any time and the resource will be retrieved every time. Using <code>require_once</code> will do it <strong>only once</strong>. This means that if I use
-     <code>require_once</code> at the top of a PHP page and then attempt to either "require" or "require_once" the same resource again, later on the page, the request will be ignored, because it was already "required" and it only allows it to happen "once".
-    </p>
-    <h2>Video</h2>
-    <iframe src="https://www.youtube.com/embed/Era-38XgM8Q" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <h2>Including the Connection Object</h2>
+      <p>In order for any PHP file to use the database connection function, the connection file must be in "scope". To
+        do this, the connection file is "required" into the PHP page, usually in the first 5 lines. This insures that
+        any functionality that needs access to the data stored in the database has it available. Two examples of the
+        code needed to make such a call are shown below:</p>
+      <h3>Require Function</h3>
+      <p>The connections.php shown below would be the page where the connection code shown above would reside.</p>
+      <code class='language-php'>require 'path/connections.php';</code>
+      <h3>Require_once Function</h3>
+      <p><mark>The connections.php shown (in the video) below would be the page where the connection code shown above
+          would reside. The connections.php page itself, will be placed in a "library" folder, at the root of the
+          phpmotors folder.</mark></p>
+      <code class='language-php'>require_once 'path/connections.php';</code>
+      <h3>Why Two?</h3>
+      <p>Both <code>require</code> and <code>require_once</code> do the same thing - they bring the functionality of
+        code that is stored somewhere else
+        into the scope of the file where the require or require_once is at.</p>
+      <p><strong>But!</strong> <code>require</code> can be called any time and the resource will be retrieved every
+        time. Using <code>require_once</code> will do it <strong>only once</strong>. This means that if I use
+        <code>require_once</code> at the top of a PHP page and then attempt to either "require" or "require_once" the
+        same resource again, later on the page, the request will be ignored, because it was already "required" and it
+        only allows it to happen "once".
+      </p>
+      <h2>Video</h2>
+      <iframe src="https://www.youtube.com/embed/Era-38XgM8Q" frameborder="0"
+        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-    <h2>Connection Object Functions Used</h2>
-    <ul>
-     <li>
-      <a href="//us1.php.net/manual/en/pdo.connections.php"
-       title="View the PHP online manual for the PDO connect function" target="_blank">PDO Connections</a>
-     </li>
-     <li>
-      <a href="//php.net/manual/en/language.exceptions.php"
-       title="View the PHP online manual for exception handling" target="_blank">Exception Handling</a>
-     </li>
-     <li>
-      <a href="//www.php.net/manual/en/function.require-once.php"
-       title="View the PHP online manual for the require_once function" target="_blank">require_once()</a>
-     </li>
-     <li>
-      <a href="//php.net/manual/en/function.require.php"
-       title="View the PHP online manual for the require function" target="_blank">require()</a>
-     </li>
-    </ul>
-   
-  </main>
-  <footer>
-   <a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US" target="_blank">
-    <img alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by-sa/3.0/88x31.png">
-   </a> All materials (except as noted) are by Blaine Robertson and licensed under a
-   <a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US" title="Read the license"
-    target="_blank">Creative Commons Attribution-ShareAlike 3.0 License</a>.</footer>
- </div>
- <script src="/340br/js/prism-coy-dev.min.js"></script>
+      <h2>Connection Object Functions Used</h2>
+      <ul>
+        <li>
+          <a href="//us1.php.net/manual/en/pdo.connections.php"
+            title="View the PHP online manual for the PDO connect function" target="_blank">PDO Connections</a>
+        </li>
+        <li>
+          <a href="//php.net/manual/en/language.exceptions.php"
+            title="View the PHP online manual for exception handling" target="_blank">Exception Handling</a>
+        </li>
+        <li>
+          <a href="//www.php.net/manual/en/function.require-once.php"
+            title="View the PHP online manual for the require_once function" target="_blank">require_once()</a>
+        </li>
+        <li>
+          <a href="//php.net/manual/en/function.require.php" title="View the PHP online manual for the require function"
+            target="_blank">require()</a>
+        </li>
+      </ul>
+
+    </main>
+    <footer>
+      <a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US" target="_blank">
+        <img alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by-sa/3.0/88x31.png">
+      </a> All materials (except as noted) are by Blaine Robertson and licensed under a
+      <a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US" title="Read the license"
+        target="_blank">Creative Commons Attribution-ShareAlike 3.0 License</a>.</footer>
+  </div>
+  <script src="/340br/js/prism-coy-dev.min.js"></script>
 </body>
 
 </html>
