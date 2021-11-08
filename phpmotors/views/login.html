@@ -17,77 +17,109 @@
 			<img src="/340br/340banner.jpg" alt="CSE 340 Banner Image">
 		</header>
 		<main>
-				<h1>Login Using Session</h1>
-				<h2>Introduction</h2>
-				<p>If you have an account with any web site, at some point you have "Logged In" to your account. What you may not know is that to login you are probably using a "session". Let's start this activity with a brief explanation.</p>
+			<h1>Login Using Session</h1>
+			<h2>Introduction</h2>
+			<p>If you have an account with any web site, at some point you have "Logged In" to your account. What you may not
+				know is that to login you are probably using a "session". Let's start this activity with a brief explanation.
+			</p>
 
-				<h2>What is a Session?</h2>
-				<p>Without being too technical, a session is a block of the web server's memory that is set aside for temporarily storing and retrieving data as the web server or web application and the browser interact. Each session is assigned a unique ID by the server so that the browser and server know which session they are working with and the session ID is placed in a "session cookie". The cookie is sent to the browser by the server, and the cookie is returned to the server with every request.</p>
-				<p> <strong>Remember!</strong> The session cookie only contains the session id. It is NOT the session itself!</p>
+			<h2>What is a Session?</h2>
+			<p>Without being too technical, a session is a block of the web server's memory that is set aside for temporarily
+				storing and retrieving data as the web server or web application and the browser interact. Each session is
+				assigned a unique ID by the server so that the browser and server know which session they are working with and
+				the session ID is placed in a "session cookie". The cookie is sent to the browser by the server, and the cookie
+				is returned to the server with every request.</p>
+			<p> <strong>Remember!</strong> The session cookie only contains the session id. It is NOT the session itself!</p>
 
-				<h3>Stateless</h3>
-				<p>Without a session id being passed back and forth, the server is unaware that a particular browser request could be a follow-up to a previous request. To the server each request is "new" and the browser making the request is "unknown". This is referred to as the "Stateless" web because the "conversation" between the browser and server is not tracked. This is illustrated below:
+			<h3>Stateless</h3>
+			<p>Without a session id being passed back and forth, the server is unaware that a particular browser request could
+				be a follow-up to a previous request. To the server each request is "new" and the browser making the request is
+				"unknown". This is referred to as the "Stateless" web because the "conversation" between the browser and server
+				is not tracked. This is illustrated below:
+				<br>
+				<img src="/340br/images/stateless.png" alt="The stateless web illustration">
+			</p>
+
+			<h3>Stateful</h3>
+			<p>When a session is created and a session id is stored into a session cookie and sent to the browser, then the
+				ability of the server to "know" that the browser is interacting with the server is established. This is known as
+				being "stateful" or "maintaining state", meaning that the browser requests are associated with a particular
+				session id and the server can track the interactions. This is illustrated below: <br>
+				<img src="/340br/images/stateful.png" alt="The stateful web illustration"> </p>
+			<h3>Why is this important?</h3>
+			<p>When a visitor "logs in" to a web site, they expect to only do so once, until they end that
+				particular interaction with the site. In order for the server to remember the user, a session must be created so
+				the interactions between the visitor's browser and the server can be "maintained". If this didn't happen, then
+				the visitor would have to login every time a new view needed to be viewed if that view required a login.</p>
+
+			<h2>Video Demonstration</h2>
+			<iframe src="https://www.youtube.com/embed/KarRhHrqQ7Q" frameborder="0"
+				allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+			<p style="font: 1.5em \ 2; font-style: italic;">
+				<strong>Note: The names shown below may not match your variable, file, folder or function names. Use your
+					names.</strong> </p>
+
+			<h2>The Login Process</h2>
+			<p>Hopefully you now have a better understanding of the critical role that the session plays and the need to
+				maintain state, particularly when a visitor "logs in". Yes!? Okay, let's get started using a session and
+				building a login process:</p>
+
+			<h3>Session Creation</h3>
+			<ol>
+				<li>Open the phpmotors controller (index.php at the phpmotors root).</li>
+				<li>Near the top of the page (below the default comment and above the block of <code>require_once()</code>
+					statements) add a few new lines.</li>
+				<li>Add this comment and code in the new lines:
+					<pre><code class="language-php">// Create or access a Session
+ session_start();</code></pre> As indicated by the comment, if there is no session, one is created. Otherwise, the
+					existing session is used. </li>
+				<li>Save the file and start the Apache and MySQL servers.</li>
+				<li>Run the phpmotors controller.</li>
+				<li>The phpmotors home view should appear. If you have the "Web Developer" tool available in your browser (<a
+						href="//chrome.google.com/webstore/detail/web-developer/bfbameneiokkgbdmiekhjnmfkcnldhhm?hl=en-US"
+						title="Go to the web store and install the extension" target="_blank">Chrome</a> or <a
+						href="//addons.mozilla.org/en-US/firefox/addon/web-developer/"
+						title="Go to add-ons and install the extension" target="_blank">FireFox</a>), select "Web Developer >
+					Cookies > View Cookie Information". You should see a list of
+					cookies and in the list should be a "PHPSESSID" cookie with a value that is a mixture of letters and numbers
+					that is about 20 characters in length:
 					<br>
-					<img src="/340br/images/stateless.png" alt="The stateless web illustration">
-				</p>
+					<img src="/340br/images/session-cookie.png" alt="Session Cookie illustration"> </li>
+				<li>Add the same session creation code to all of the controllers within the PHP Motors site.</li>
+				<li>
+					<strong>VERY IMPORTANT: You must use the MVC strictly for this to work. All views send requests to
+						controllers, which process the requests and deliver views. Only by remembering this will the sessions be
+						maintained.</strong></li>
+			</ol>
 
-				<h3>Stateful</h3>
-				<p>When a session is created and a session id is stored into a session cookie and sent to the browser, then the ability of the server to "know" that the browser is interacting with the server is established. This is known as being "stateful" or "maintaining state", meaning that the browser requests are associated with a particular session id and the server can track the interactions. This is illustrated below: <br>
-					<img src="/340br/images/stateful.png" alt="The stateful web illustration"> </p>
-				<h3>Why is this important?</h3>
-				<p>When a visitor "logs in" to a web site, they expect to only do so once, until they end that
-					particular interaction with the site. In order for the server to remember the user, a  session must be created so the interactions between the visitor's browser and the server can be "maintained". If this didn't happen, then the visitor would have to login every time a new view needed to be viewed if that view required a login.</p>
+			<h3>Login View</h3>
+			<p>We will now make sure the login view is sending the login information to the "<b>accounts</b>" controller.</p>
+			<ol>
+				<li>Locate and open the <b>login.php</b> view.</li>
+				<li>Find the opening <code>&lt;form&gt;</code> tag.</li>
+				<li>The form tag must have a <code>method</code> and <code>action</code> attribute.</li>
+				<li>The value of the <code>method</code> must be "post".</li>
+				<li>The value of the <code>action</code> must point to the accounts folder (e.g. "/phpmotors/accounts/"). For
+					example:
+					<pre><code class="language-markup">&lt;form method="post" action="/phpmotors/accounts/"&gt;</code></pre>
+					Remember that "index.php" is a default name on the server. If we don't specify a file name, the server will
+					look for a default name and direct inputs to it.</li>
+				<li>Scroll down and make sure that the form contains a hidden input with a name of "action" and a value of
+					"Login" (or something similar). For example:
 
-					<h2>Video Demonstration</h2>
-					<iframe src="https://www.youtube.com/embed/KarRhHrqQ7Q" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-					
-				<p style="font: 1.5em \ 2; font-style: italic;">
-					<strong>Note: The names shown below may not match your variable, file, folder or function names. Use your names.</strong> </p>
+					<pre><code class="language-markup">&lt;input type="hidden" name="action" value="Login"&gt;</code></pre>
+				</li>
+				<li>Save the view, but leave it open.</li>
+			</ol>
 
-				<h2>The Login Process</h2>
-				<p>Hopefully you now have a better understanding of the critical role that the session plays and the need to maintain state, particularly when a visitor "logs in". Yes!? Okay, let's get started using a session and building a login process:</p>
-
-				<h3>Session Creation</h3>
-				<ol>
-					<li>Open the phpmotors controller (index.php at the phpmotors root).</li>
-					<li>Near the top of the page (below the default comment and above the block of <code>require_once()</code> statements) add a few new lines.</li>
-					<li>Add this comment and code in the new lines:
-						<pre><code class="language-php">// Create or access a Session
- session_start();</code></pre> As indicated by the comment, if there is no session, one is created. Otherwise, the existing session is used. </li>
-					<li>Save the file and start the Apache and MySQL servers.</li>
-					<li>Run the phpmotors controller.</li>
-					<li>The phpmotors home view should appear. If you have the "Web Developer" tool available in your browser (<a href="//chrome.google.com/webstore/detail/web-developer/bfbameneiokkgbdmiekhjnmfkcnldhhm?hl=en-US" title="Go to the web store and install the extension" target="_blank">Chrome</a> or <a href="//addons.mozilla.org/en-US/firefox/addon/web-developer/" title="Go to add-ons and install the extension" target="_blank">FireFox</a>), select "Web	Developer > Cookies > View Cookie Information". You should see a list of
-						cookies and in the list should be a "PHPSESSID" cookie with a value that is a mixture of letters and numbers that is about 20 characters in length:
-						<br>
-						<img src="/340br/images/session-cookie.png" alt="Session Cookie illustration"> </li>
-					<li>Add the same session creation code to all of the controllers within the PHP Motors site.</li>
-					<li>
-						<strong>VERY IMPORTANT: You must use the MVC strictly for this to work. All views send requests to controllers, which process the requests and deliver views. Only by remembering this will the sessions be maintained.</strong></li>
-				</ol>
-
-				<h3>Login View</h3>
-				<p>We will now make sure the login view is sending the login information to the "<b>accounts</b>" controller.</p>
-				<ol>
-					<li>Locate and open the <b>login.php</b> view.</li>
-					<li>Find the opening <code>&lt;form&gt;</code> tag.</li>
-					<li>The form tag must have a <code>method</code> and <code>action</code> attribute.</li>
-					<li>The value of the <code>method</code> must be "post".</li>
-					<li>The value of the <code>action</code> must point to the accounts folder (e.g. "/phpmotors/accounts/"). For example:
-						<pre><code class="language-markup">&lt;form method="post" action="/phpmotors/accounts/"&gt;</code></pre>
-						Remember that "index.php" is a default name on the server. If we don't specify a file name, the server will look for a default name and direct inputs to it.</li>
-					<li>Scroll down and make sure that the form contains a hidden input with a name of "action" and a value of "Login" (or something similar). For example:
-
-						<pre><code class="language-markup">&lt;input type="hidden" name="action" value="Login"&gt;</code></pre>
-					</li>
-					<li>Save the view, but leave it open.</li>
-				</ol>
-
-				<h3>The Accounts Model</h3>
-				<p>The model is responsible for handling the database interactions. To login we will need a new function that will do multiple tasks for us.</p>
-				<ol>
-					<li>Find and open the accounts model - "<b>accounts-model.php</b>".</li>
-					<li>Scroll to the bottom of the existing functions and add the following new function:
-						<pre class="line-numbers"><code class="language-php">// Get client data based on an email address
+			<h3>The Accounts Model</h3>
+			<p>The model is responsible for handling the database interactions. To login we will need a new function that will
+				do multiple tasks for us.</p>
+			<ol>
+				<li>Find and open the accounts model - "<b>accounts-model.php</b>".</li>
+				<li>Scroll to the bottom of the existing functions and add the following new function:
+					<pre class="line-numbers"><code class="language-php">// Get client data based on an email address
 function getClient($clientEmail){
  $db = phpmotorsConnect();
  $sql = 'SELECT clientId, clientFirstname, clientLastname, clientEmail, clientLevel, clientPassword FROM clients WHERE clientEmail = :clientEmail';
@@ -98,49 +130,53 @@ function getClient($clientEmail){
  $stmt->closeCursor();
  return $clientData;
 }</code></pre>
-						<h4>An Explanation</h4>
-						<p>Most of this code should look familiar, but I will touch on things that may not:</p>
-						<ul>
-							<li>We will extract all of the client data, but not use all of it at once. But, by getting
-								it all, we don't have to make a second query if our initial check of the password in the
-								controller is successful.</li>
-							<li>We expect a single record to be returned, thus the use of the <code>fetch()</code> method.</li>
-							<li>To return a simple array using the database field names as the "name" in the "name -
-								value" pair of the client data we pass in the <code>PDO::FETCH_ASSOC</code> parameter.</li>
-							<li>Assuming that you send an email address to the function and a database record with that
-								email is found, the array sent back could look like this:
-								<pre><code class="language-php">Array ( [clientId] => 14 [clientFirstname] => Bill [clientLastname] => Hickock [clientEmail] => wildbill@ok.com [clientLevel] => 1 [clientPassword] => $2y$10$BhuiPAAubX... )</code></pre>
-								Because the password hash is so long, I have cut it off and placed ... at the end. Your
-								returned password hash should be full size.</li>
-						</ul>
-					</li>
-					<li>Save the model file.</li>
-				</ol>
+					<h4>An Explanation</h4>
+					<p>Most of this code should look familiar, but I will touch on things that may not:</p>
+					<ul>
+						<li>We will extract all of the client data, but not use all of it at once. But, by getting
+							it all, we don't have to make a second query if our initial check of the password in the
+							controller is successful.</li>
+						<li>We expect a single record to be returned, thus the use of the <code>fetch()</code> method.</li>
+						<li>To return a simple array using the database field names as the "name" in the "name -
+							value" pair of the client data we pass in the <code>PDO::FETCH_ASSOC</code> parameter.</li>
+						<li>Assuming that you send an email address to the function and a database record with that
+							email is found, the array sent back could look like this:
+							<pre><code class="language-php">Array ( [clientId] => 14 [clientFirstname] => Bill [clientLastname] => Hickock [clientEmail] => wildbill@ok.com [clientLevel] => 1 [clientPassword] => $2y$10$BhuiPAAubX... )</code></pre>
+							Because the password hash is so long, I have cut it off and placed ... at the end. Your
+							returned password hash should be full size.</li>
+					</ul>
+				</li>
+				<li>Save the model file.</li>
+			</ol>
 
-				<h3>The Accounts Controller</h3>
-				<p>The bulk of the login work happens in the controller, so let's get started.</p>
+			<h3>The Accounts Controller</h3>
+			<p>The bulk of the login work happens in the controller, so let's get started.</p>
 
-				<ol>
-					<li>Find and open the <b>accounts</b> controller (accounts > index.php).</li>
-					<li>Look at your switch control structure (or if - elseif if that is what you're using).</li>
-					<li>See if you have a case statement to match the hidden input value that you just added or verified in the login view. For example:
-						<pre><code class="language-markup">case 'Login':
+			<ol>
+				<li>Find and open the <b>accounts</b> controller (accounts > index.php).</li>
+				<li>Look at your switch control structure (or if - elseif if that is what you're using).</li>
+				<li>See if you have a case statement to match the hidden input value that you just added or verified in the
+					login view. For example:
+					<pre><code class="language-markup">case 'Login':
  
-break;</code></pre> If you don't, add it. <mark>But, be sure you add it prior to the the "default:" which must ALWAYS be the last item in a switch control structure.</mark> <b>AND</b> <mark>make sure this case statement is unique and is not the same as the case statement used to deliver the login view.</mark></li>
-					<li>Within this case statement we will add the login process code. To review, the typical process will follow these steps:
-						<ul>
-							<li>Collect and filter the incoming data.</li>
-							<li>Check that none of the values are missing (after filtering).</li>
-							<li>If data is missing, send it back to the view for error correction.</li>
-							<li>If the data is complete, process it.</li>
-							<li>Check the result of the processing and send a view to the browser to inform the site
-								visitor.</li>
-						</ul>
-					</li>
-				</ol>
-				<h3>Login Processing</h3>
-				<p>Add all of the code below inside the case statement mentioned above:</p>
-				<pre class="line-numbers"><code class="language-php">$clientEmail = filter_input(INPUT_POST, 'clientEmail', FILTER_SANITIZE_EMAIL);
+break;</code></pre> If you don't, add it. <mark>But, be sure you add it prior to the the "default:" which must ALWAYS
+						be the last item in a switch control structure.</mark> <b>AND</b> <mark>make sure this case statement is
+						unique and is not the same as the case statement used to deliver the login view.</mark></li>
+				<li>Within this case statement we will add the login process code. To review, the typical process will follow
+					these steps:
+					<ul>
+						<li>Collect and filter the incoming data.</li>
+						<li>Check that none of the values are missing (after filtering).</li>
+						<li>If data is missing, send it back to the view for error correction.</li>
+						<li>If the data is complete, process it.</li>
+						<li>Check the result of the processing and send a view to the browser to inform the site
+							visitor.</li>
+					</ul>
+				</li>
+			</ol>
+			<h3>Login Processing</h3>
+			<p>Add all of the code below inside the case statement mentioned above:</p>
+			<pre class="line-numbers"><code class="language-php">$clientEmail = filter_input(INPUT_POST, 'clientEmail', FILTER_SANITIZE_EMAIL);
 $clientEmail = checkEmail($clientEmail);
 $clientPassword = filter_input(INPUT_POST, 'clientPassword', FILTER_SANITIZE_STRING);
 $passwordCheck = checkPassword($clientPassword);
@@ -176,116 +212,147 @@ $_SESSION['clientData'] = $clientData;
 // Send them to the admin view
 include '../view/admin.php';
 exit;</code></pre>
-				<h4>An Explanation</h4>
-				<ol>
-					<li>The <code>checkEmail()</code> function sanitizes the email string and then validates that it is a valid email. If it is, the valid email is returned, but if not "NULL" is returned.</li>
-					<li>The <code>checkPassword()</code> function checks that the password meets the requirements for our password and returns a "1" if it does or a "0" if it doesn't.</li>
-					<li>We then run basic checks on the variables and if errors are found, the <b>login.php</b> view is included so the errors can be fixed.</li>
-					<li>If no errors are found, the potential matching client data is queried from the database using the submitted email address.</li>
-					<li>When the password was stored in the database it was hashed using the
-						<code>password_hash()</code> function. Since the hash cannot be "un hashed" we have to use a
-						different PHP function to hash the new password and compare the two hashes to see if they match. </li>
-					<li>The <code>password_verify</code> function has the ability to hash the new password using the same information as when the original password was hashed, but using the new password. If the passwords were the same, the hashes should match and we know that we have a valid login. The results of this check are stored into <code>$hashCheck</code>.</li>
+			<h4>An Explanation</h4>
+			<ol>
+				<li>The <code>checkEmail()</code> function sanitizes the email string and then validates that it is a valid
+					email. If it is, the valid email is returned, but if not "NULL" is returned.</li>
+				<li>The <code>checkPassword()</code> function checks that the password meets the requirements for our password
+					and returns a "1" if it does or a "0" if it doesn't.</li>
+				<li>We then run basic checks on the variables and if errors are found, the <b>login.php</b> view is included so
+					the errors can be fixed.</li>
+				<li>If no errors are found, the potential matching client data is queried from the database using the submitted
+					email address.</li>
+				<li>When the password was stored in the database it was hashed using the
+					<code>password_hash()</code> function. Since the hash cannot be "un hashed" we have to use a
+					different PHP function to hash the new password and compare the two hashes to see if they match. </li>
+				<li>The <code>password_verify</code> function has the ability to hash the new password using the same
+					information as when the original password was hashed, but using the new password. If the passwords were the
+					same, the hashes should match and we know that we have a valid login. The results of this check are stored
+					into <code>$hashCheck</code>.</li>
 
-					<li>In the event that the hashed passwords do not match (<code>$hashCheck</code> is FALSE) we report back to the client using an error message in the <b>login.php</b> view.</li>
-					<li>If the <code>$hashCheck</code> is not FALSE, the we have a valid email and password and the clientData is good to go. We now login the site visitor by:
-						<ol>
-							<li>Creating a "flag" in the session named "loggedin" with a value of TRUE.</li>
-							<li>We remove the password from the <code>$clientData</code> array using the PHP
-								<code>array_pop()</code> function.</li>
-							<li>We then store the <code>$clientData</code> array into the session using the same name "clientData" so we can use it when needed.</li>
-							<li>Finally, we send the logged in site visitor to the <b>admin.php</b> view (<b>this view will be created as part of the enhancement</b>).</li>
-						</ol>
-					</li>
-				</ol>
+				<li>In the event that the hashed passwords do not match (<code>$hashCheck</code> is FALSE) we report back to the
+					client using an error message in the <b>login.php</b> view.</li>
+				<li>If the <code>$hashCheck</code> is not FALSE, the we have a valid email and password and the clientData is
+					good to go. We now login the site visitor by:
+					<ol>
+						<li>Creating a "flag" in the session named "loggedin" with a value of TRUE.</li>
+						<li>We remove the password from the <code>$clientData</code> array using the PHP
+							<code>array_pop()</code> function.</li>
+						<li>We then store the <code>$clientData</code> array into the session using the same name "clientData" so we
+							can use it when needed.</li>
+						<li>Finally, we send the logged in site visitor to the <b>admin.php</b> view (<b>this view will be created
+								as part of the enhancement</b>).</li>
+					</ol>
+				</li>
+			</ol>
 
-				<h2>The $_SESSION</h2>
-				<p>The PHP <code>$_SESSION</code> is a "super global" variable. This means that it is universally available throughout all PHP code. It also behaves like an <i>associative array</i>. That means that when you write code like this:</p>
-				<pre><code class="language-php">$_SESSION['loggedin'] = TRUE;</code></pre> You could also get it out using code like this:
-				<pre><code class="language-php">echo $_SESSION['loggedin'];
- // result would be "1"</code></pre> Or, test it using code like this:
-				<pre><code class="language-php">if($_SESSION['loggedin']){
+			<h2>The $_SESSION</h2>
+			<p>The PHP <code>$_SESSION</code> is a "super global" variable. This means that it is universally available
+				throughout all PHP code. It also behaves like an <i>associative array</i>. That means that when you write code
+				like this:</p>
+			<pre><code class="language-php">$_SESSION['loggedin'] = TRUE;</code></pre> You could also get it out using code
+			like this:
+			<pre><code class="language-php">echo $_SESSION['loggedin'];
+ // result would be "1"</code></pre>
+			<mark>If $_SESSION['loggedin'] were null or had not been created, then PHP would throw an "undefined variable"
+				error. To avoid this, wrap it in an if block, along with the isset() function.</mark>
+			Or, test it using code like this:
+			<pre><code class="language-php">if(isset($_SESSION['loggedin'])){
   // do something here if the value is TRUE
  }</code></pre> Or, test if it is not TRUE using code like this:
-				<pre><code class="language-php">if(<b>!</b>$_SESSION['loggedin']){
+			<pre><code class="language-php">if(<b>!</b>isset($_SESSION['loggedin'])){
   // do something here if the value is FALSE
   // The exclamation mark is a "negation" operator
   // By adding it the resulting test is reversed
   // This test is now "If Session loggedin value is NOT true"
  }</code></pre>
 
-				<p>It also means that if you write code like this to store an array into the session:</p>
-				<pre><code class="language-php">$_SESSION['clientData'] = $clientData;</code></pre> You would have to write code like this to see the value of the client's firstname that is in the session:
-				<pre><code class="language-php">echo $_SESSION['clientData']['clientFirstname'];</code></pre> Or, code like this to store the value of the client's lastname that is in the session into a variable:
-				<pre><code class="language-php">$clientLastname = $_SESSION['clientData']['clientLastname'];</code></pre>
+			<p>It also means that if you write code like this to store an array into the session:</p>
+			<pre><code class="language-php">$_SESSION['clientData'] = $clientData;</code></pre> You would have to write code
+			like this to see the value of the client's firstname that is in the session:
+			<pre><code class="language-php">echo $_SESSION['clientData']['clientFirstname'];</code></pre> Or, code like this
+			to store the value of the client's lastname that is in the session into a variable:
+			<pre><code class="language-php">$clientLastname = $_SESSION['clientData']['clientLastname'];</code></pre>
 
-				<p>If needed, go back and review <b>Associative</b> and <b>Multi-dimensional</b> arrays as referenced in week 06.</p>
+			<p>If needed, go back and review <b>Associative</b> and <b>Multi-dimensional</b> arrays as referenced in week 06.
+			</p>
 
-				<h2> Update the Registration Case</h2>
+			<h2> Update the Registration Case</h2>
 
-				<p>Until now, we haven't addressed the possibility of resubmitting forms and causing duplicate entries by mistake. We're going to solve that now for the registration process.</p>
-				<ol>
-					<li>Open the Accounts Controller.</li>
-					<li>Go to the Registration case (the case that actually processes the registration).</li>
-					<li>We will make two changes here:
-						<ol style="list-style: upper-roman;">
-							<li>Change the line where we create the success message. Instead of storing the message to a variable, store it to the session, like so:
-								<pre><code class="language-php">$_SESSION['message'] = "<p class='notice'>Thanks for registering $clientFirstname. Please use your email and password to login.</p>";</code></pre>
-							</li>
-							<li>Change the line where we include the login form after a successful registration to:
-								<pre><code class="language-php">header('Location: /phpmotors/accounts/?action=login');</code></pre>
-							</li>
-						</ol>
-					</li>
-				</ol>
+			<p>Until now, we haven't addressed the possibility of resubmitting forms and causing duplicate entries by mistake.
+				We're going to solve that now for the registration process.</p>
+			<ol>
+				<li>Open the Accounts Controller.</li>
+				<li>Go to the Registration case (the case that actually processes the registration).</li>
+				<li>We will make two changes here:
+					<ol style="list-style: upper-roman;">
+						<li>Change the line where we create the success message. Instead of storing the message to a variable, store
+							it to the session, like so:
+							<pre><code class="language-php">$_SESSION['message'] = "<p class='notice'>Thanks for registering $clientFirstname. Please use your email and password to login.</p>";</code></pre>
+						</li>
+						<li>Change the line where we include the login form after a successful registration to:
+							<pre><code class="language-php">header('Location: /phpmotors/accounts/?action=login');</code></pre>
+						</li>
+					</ol>
+				</li>
+			</ol>
 
-				<h2>Set the $message to the $_SESSION</h2>
+			<h2>Set the $message to the $_SESSION</h2>
 
-				<p>Messages can be stored in a variable as we have been doing or they can be stored in the $_SESSION, as we did just now in the registration process. It's common for messages to be stored in the $_SESSION. But once stored in the session, we must alter how we get the value out of the session to display it. To do this, open the login.php view and find the message detection and display code block. It should be similar to the code below:</p>
+			<p>Messages can be stored in a variable as we have been doing or they can be stored in the $_SESSION, as we did
+				just now in the registration process. It's common for messages to be stored in the $_SESSION. But once stored in
+				the session, we must alter how we get the value out of the session to display it. To do this, open the login.php
+				view and find the message detection and display code block. It should be similar to the code below:</p>
 
-				<pre><code class="language-php">if (isset($message)) {
+			<pre><code class="language-php">if (isset($message)) {
  echo $message;
 }</code></pre>
 
-				<p>Now we will get the message from the session in order to display it:</p>
-				<pre><code class="language-php">if (isset($_SESSION['message'])) {
+			<p>Now we will get the message from the session in order to display it:</p>
+			<pre><code class="language-php">if (isset($_SESSION['message'])) {
  echo $_SESSION['message'];
 }</code></pre>
 
-				<p>Your login view will now capture and show the successful registration message from the controller.</p>
+			<p>Your login view will now capture and show the successful registration message from the controller.</p>
 
-				<h2>Difference between header() and include()</h2>
+			<h2>Difference between header() and include()</h2>
 
-				<p>Throughout the course we have used both header() and include() and you may have wondered, "What is the difference, when do I use one versus the other and why does it matter?".</p>
+			<p>Throughout the course we have used both header() and include() and you may have wondered, "What is the
+				difference, when do I use one versus the other and why does it matter?".</p>
 
-				<h3>header()</h3>
-				<p>header() acts as a redirect, requiring the server to reload and removing all POST data from the form.</p>
-				<h3>include()</h3>
-				<p>include() acts as a forward, simply including the view and retaining all the POST data from the form.</p>
+			<h3>header()</h3>
+			<p>header() acts as a redirect, requiring the server to reload and removing all POST data from the form.</p>
+			<h3>include()</h3>
+			<p>include() acts as a forward, simply including the view and retaining all the POST data from the form.</p>
 
-				<p>When retaining POST data, you can inadvertently cause duplication in your database, which can result in data integrity issues. This may not be a problem for product data, but is a problem for client accounts when an email address must be unique.</p>
+			<p>When retaining POST data, you can inadvertently cause duplication in your database, which can result in data
+				integrity issues. This may not be a problem for product data, but is a problem for client accounts when an email
+				address must be unique.</p>
 
-				<h2>References</h2>
-				<p>The following PHP functions were used or referred to in this activity:</p>
-				<ul>
-					<li><a href="//php.net/manual/en/reserved.variables.session.php" title="Opens in a new tab"
-							target="_blank">$_SESSION</a></li>
-					<li><a href="//php.net/manual/en/function.session-start.php" title="Opens in a new tab"
-							target="_blank">session_start()</a></li>
-					<li><a href="//php.net/manual/en/pdostatement.fetch.php" title="Opens in a new tab"
-							target="_blank">PDO::FETCH_ASSOC</a></li>
-					<li><a href="//php.net/manual/en/function.array-pop.php" title="Opens in a new tab"
-							target="_blank">array_pop()</a></li>
-					<li><a href="//php.net/manual/en/function.password-hash.php" title="Opens in a new tab"
-							target="_blank">password_hash()</a></li>
-					<li><a href="//php.net/manual/en/function.password-verify.php" title="Opens in a new tab"
-							target="_blank">password_verify()</a></li>
-				</ul>
+			<h2>References</h2>
+			<p>The following PHP functions were used or referred to in this activity:</p>
+			<ul>
+				<li><a href="//php.net/manual/en/reserved.variables.session.php" title="Opens in a new tab"
+						target="_blank">$_SESSION</a></li>
+				<li><a href="//php.net/manual/en/function.session-start.php" title="Opens in a new tab"
+						target="_blank">session_start()</a></li>
+				<li><a href="//php.net/manual/en/pdostatement.fetch.php" title="Opens in a new tab"
+						target="_blank">PDO::FETCH_ASSOC</a></li>
+				<li><a href="//php.net/manual/en/function.array-pop.php" title="Opens in a new tab"
+						target="_blank">array_pop()</a></li>
+				<li><a href="//php.net/manual/en/function.password-hash.php" title="Opens in a new tab"
+						target="_blank">password_hash()</a></li>
+				<li><a href="//php.net/manual/en/function.password-verify.php" title="Opens in a new tab"
+						target="_blank">password_verify()</a></li>
+			</ul>
 
 		</main>
 		<footer>
 			<a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US" target="_blank">
-				<img alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by-sa/3.0/88x31.png"></a> All materials (except as noted) are by Blaine Robertson and licensed under a<a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US" title="Read the license" target="_blank">Creative Commons Attribution-ShareAlike 3.0 License</a>.</footer>
+				<img alt="Creative Commons License" style="border-width:0"
+					src="//i.creativecommons.org/l/by-sa/3.0/88x31.png"></a> All materials (except as noted) are by Blaine
+			Robertson and licensed under a<a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US"
+				title="Read the license" target="_blank">Creative Commons Attribution-ShareAlike 3.0 License</a>.</footer>
 	</div>
 	<script src="/340br/js/prism-coy-dev.min.js"></script>
 </body>
