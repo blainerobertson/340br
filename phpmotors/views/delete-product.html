@@ -152,7 +152,7 @@ break;</code></pre>
 				<li>Alter the include statement to point to the new <b>vehicle-delete.php</b> view.</li>
 				<li>When done the finished "del" case should look similar to this:
 					<pre class="line-numbers"><code class="language-php">case 'del':
-$invId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+$invId = filter_input(INPUT_GET, 'invId', FILTER_VALIDATE_INT);
 $invInfo = getInvItemInfo($invId);
 if (count($invInfo) < 1) {
 		$message = 'Sorry, no vehicle information could be found.';
