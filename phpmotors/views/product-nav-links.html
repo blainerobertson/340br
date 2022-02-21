@@ -65,18 +65,18 @@ break;</code></pre>
 					</li>
 					<li>Within the case statement, write code to filter, sanitize and store the second value being sent through the URL (remember URL's are automatically sent using "GET"):
 						<pre class="line-numbers"><code class="language-php">case 'classification':
-  $classificationName = filter_input(INPUT_GET, 'classificationName', FILTER_SANITIZE_STRING);
+  $classificationName = filter_input(INPUT_GET, 'classificationName', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 break;</code></pre>
 					</li>
 					<li>Now, create a variable to store the array of vehicles we hope will be returned from the vehicles model:
 						<pre class="line-numbers"><code class="language-php">case 'classification':<br>
- $classificationName = filter_input(INPUT_GET, 'classificationName', FILTER_SANITIZE_STRING);<br>
+ $classificationName = filter_input(INPUT_GET, 'classificationName', FILTER_SANITIZE_FULL_SPECIAL_CHARS);<br>
  $vehicles = getVehiclesByClassification($classificationName);<br>
 break;</code></pre>
 					</li>
 					<li>Next, an <code>if - else</code> control structure will be built to see if any vehicles were actually returned or not. If "No" then an error message will be built. If "Yes" then the array of vehicles will be sent to custom function to build the HTML around the vehicles information and return it to us for display:
 						<pre class="line-numbers"><code class="language-php">case 'classification':
-  $classificationName = filter_input(INPUT_GET, 'classificationName', FILTER_SANITIZE_STRING);
+  $classificationName = filter_input(INPUT_GET, 'classificationName', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
   $vehicles = getVehiclesByClassification($classificationName);
   if(!count($vehicles)){
     $message = "&lt;p class='notice'&gt;Sorry, no $classificationName vehicles could be found.&lt;/p&gt;";
@@ -87,7 +87,7 @@ break;</code></pre>
 					</li>
 					<li>Finally, a view will be called to display either the message or the vehicles belonging to the car classification clicked on in the navigation bar:
 						<pre class="line-numbers"><code class="language-php">case 'classification':
- $classificationName = filter_input(INPUT_GET, 'classificationName', FILTER_SANITIZE_STRING);
+ $classificationName = filter_input(INPUT_GET, 'classificationName', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
  $vehicles = getVehiclesByClassification($classificationName);
  if(!count($vehicles)){
   $message = "&lt;p class='notice'&gt;Sorry, no $classificationName could be found.&lt;/p&gt;";

@@ -195,8 +195,8 @@ break;</code></pre>
 				<li>Alter the message to reflect that the delete failed.</li>
 				<li>When complete the entire <b>deleteVehicle</b> case should look similar to this:
 					<pre class="line-numbers"><code class="language-php">case 'deleteVehicle':
-$invMake = filter_input(INPUT_POST, 'invMake', FILTER_SANITIZE_STRING);
-$invModel = filter_input(INPUT_POST, 'invModel', FILTER_SANITIZE_STRING);
+$invMake = filter_input(INPUT_POST, 'invMake', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+$invModel = filter_input(INPUT_POST, 'invModel', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 $invId = filter_input(INPUT_POST, 'invId', FILTER_SANITIZE_NUMBER_INT);
 
 $deleteResult = deleteVehicle($invId);

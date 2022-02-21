@@ -178,7 +178,7 @@ break;</code></pre> If you don't, add it. <mark>But, be sure you add it prior to
 			<p>Add all of the code below inside the case statement mentioned above:</p>
 			<pre class="line-numbers"><code class="language-php">$clientEmail = filter_input(INPUT_POST, 'clientEmail', FILTER_SANITIZE_EMAIL);
 $clientEmail = checkEmail($clientEmail);
-$clientPassword = filter_input(INPUT_POST, 'clientPassword', FILTER_SANITIZE_STRING);
+$clientPassword = filter_input(INPUT_POST, 'clientPassword', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 $passwordCheck = checkPassword($clientPassword);
 
 // Run basic checks, return if errors

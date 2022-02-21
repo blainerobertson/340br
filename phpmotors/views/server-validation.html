@@ -45,13 +45,13 @@
           <ul>
             <li>Click after the closing quote for clientFirstname.</li>
             <li>Add a comma and a space</li>
-            <li>Add <code class="language-php">FILTER_SANITIZE_STRING</code> &mdash; This type removes any html elements
-              and leaves only text.
+            <li>Add <code class="language-php">FILTER_SANITIZE_FULL_SPECIAL_CHARS</code> &mdash; This type replaces any
+              illegal characters with an equivalent html entity. For example, if the string "&lt;script&gt;" were found, it would alter it to be "&amp;lt;script&amp;gt;". The code would remain but not be executable.
             </li>
             <li>Repeat the same process for the clientLastname input.</li>
             <li>Repeat the same process for the clientPassword input. When done the three inputs should look similar to
               this:
-              <pre><code class="language-php">$clientPassword = filter_input(INPUT_POST, 'clientPassword', FILTER_SANITIZE_STRING)</code></pre>
+              <pre><code class="language-php">$clientPassword = filter_input(INPUT_POST, 'clientPassword', FILTER_SANITIZE_FULL_SPECIAL_CHARS)</code></pre>
             </li>
             <li>Because the email input represents a special type of string you will add a different type to it. Use the
               <b>FILTER_SANITIZE_EMAIL</b> type for it. When done, the email input should look like this:<br>
@@ -59,7 +59,7 @@
             </li>
             <li>Now, take a moment and add a trim() function to each of these four inputs, so that they look similar to
               this:
-              <pre><code class="language-php">$clientPassword = trim(filter_input(INPUT_POST, 'clientPassword', FILTER_SANITIZE_STRING));</code></pre>
+              <pre><code class="language-php">$clientPassword = trim(filter_input(INPUT_POST, 'clientPassword', FILTER_SANITIZE_FULL_SPECIAL_CHARS));</code></pre>
             </li>
             <li>With that done, we will add an additional check to the email.</li>
           </ul>
@@ -168,7 +168,7 @@ function checkPassword($clientPassword){
       <h2>A Recap</h2>
       <ul>
         <li>To this point we have told three of the filter_input functions that the data being filtered is to be treated
-          as text and any HTML tags are to be removed - <code>FILTER_SANITIZE_STRING</code>.</li>
+          as text and any illegal characters are to be converted to HTML entities - <code>FILTER_SANITIZE_FULL_SPECIAL_CHARS</code>.</li>
         <li>We then added a different filter type to the email input to sanitize anything out that shouldn't be there
           using <code>FILTER_SANITIZE_EMAIL</code>.</li>
         <li>We then surrounded each of the filter_input functions with a trim() function to remove any extra spaces
@@ -290,7 +290,7 @@ function checkPassword($clientPassword){
         <li><a href="//php.net/manual/en/function.filter-input.php" title="Opens in a new tab"
             target="_blank">filter_input()</a></li>
         <li><a href="//php.net/manual/en/filter.filters.sanitize.php" title="Opens in a new tab"
-            target="_blank">FILTER_SANITIZE_STRING</a></li>
+            target="_blank">FILTER_SANITIZE_FULL_SPECIAL_CHARS</a></li>
         <li><a href="//php.net/manual/en/function.filter-var.php" title="Opens in a new tab"
             target="_blank">filter_var()</a></li>
         <li><a href="//php.net/manual/en/filter.filters.sanitize.php" title="Opens in a new tab"

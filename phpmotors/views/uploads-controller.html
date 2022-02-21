@@ -94,9 +94,9 @@ $classifications = getClassifications();
 // Build a navigation bar using the $classifications array
 $navList = buildNavigation($classifications);</code></pre></li>
 					<li>Now, let's collect the "action" value from the "post" or "get" options of the "request" from the browser:
-						<pre class="line-numbers"><code class="language-php">$action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_STRING);
+						<pre class="line-numbers"><code class="language-php">$action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 if ($action == NULL) {
- $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
+ $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 }</code></pre>
 					</li>
 					
@@ -190,7 +190,7 @@ $image_dir_path = $_SERVER['DOCUMENT_ROOT'] . $image_dir;</code></pre>
 				<ol>
 					<li>Add the following code within the "delete" case statement:
 						<pre class="line-numbers"><code class="language-php">// Get the image name and id
-$filename = filter_input(INPUT_GET, 'filename', FILTER_SANITIZE_STRING);
+$filename = filter_input(INPUT_GET, 'filename', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 $imgId = filter_input(INPUT_GET, 'imgId', FILTER_VALIDATE_INT);
       
 // Build the full path to the image to be deleted

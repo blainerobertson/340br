@@ -103,7 +103,7 @@ if ($regOutcome === 1) {
 					<li>The resulting code could look like this:
 						<pre><code class="language-php">// Check if the firstname cookie exists, get its value
 if(isset($_COOKIE['firstname'])){
- $cookieFirstname = filter_input(INPUT_COOKIE, 'firstname', FILTER_SANITIZE_STRING);
+ $cookieFirstname = filter_input(INPUT_COOKIE, 'firstname', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 }</code></pre>
 					</li>
 					<li>Save the controller.</li>
